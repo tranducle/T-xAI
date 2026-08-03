@@ -52,6 +52,13 @@ Numbering matches the gate matrix. Each states which contribution it serves and 
 three legitimate senses* (non-vacuity / tightness / instantiability) — a theory paper's
 experiments cannot "confirm" a proof.
 
+> **On the identifiers.** `E1`–`E9` here, and the finding identifiers `F1`–`F8` in
+> `RESULTS.md`, are labels for this repository only. **They do not appear in the manuscript**,
+> which numbers its own material as contributions `C1`–`C5`, gaps `G1`–`G5`, and threat classes
+> $M_1$–$M_4$. A reader holding both documents maps between them through the *contribution* each
+> experiment names below — `E`-codes are the route back from a published number to the driver
+> and the JSON that produced it, not a cross-reference into the paper.
+
 ### Tier 1 — must run before any manuscript claim
 
 **E1 · Detector substrate and separability characterisation.**

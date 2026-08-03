@@ -10,6 +10,11 @@ Machine: 8-core arm64 laptop, 16 GB RAM, **no GPU**. Python 3.14.5, numpy 2.4.6,
 Wall-clock: main programme **26.2 min**, self-stability 24 min, kernel analysis 2 s, E8 release
 game 6.1 min.
 
+> **On the identifiers.** The finding codes `F1`–`F8` below, and the experiment codes `E1`–`E9`
+> they cite, belong to this repository and **do not appear in the manuscript**. The contribution
+> codes `C1`–`C5` do: they are the manuscript's own numbering, and they are the join between the
+> two documents. Read an `F`-code as "this repository's finding", never as a paper section.
+
 > **What these experiments can do.** C1 and C4 are definitions and an existence proof; C5's
 > statements are proved. No experiment confirms any of them; E8 solves one finite instance of C4's
 > game, which is a tractability demonstration and not a confirmation of the proposition.
