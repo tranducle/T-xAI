@@ -1,7 +1,5 @@
 # T-XAI — A Threat-Model-Aware Contract for XAI Explanation Release in Cybersecurity
 
-Research artifact for the manuscript of the same name, currently under peer review.
-
 > **Anonymity.** This repository is deliberately author-free: no names, affiliations,
 > acknowledgements, funding statements, institutional paths, or contact addresses appear
 > anywhere in the code, documentation, or recorded results. Please keep it that way in any
@@ -30,21 +28,6 @@ layer — provenance, the claim–evidence graph, a release lattice with real co
 actionability — because the public corpora used here carry no telemetry provenance, no analyst
 roles, and no response playbook. That boundary is stated in `src/txai/__init__.py` and is not
 negotiable downstream: no write-up should describe this code as instantiating more than it does.
-
----
-
-## What is here, and what is not
-
-| Included | Excluded, and why |
-|---|---|
-| All measurement and experiment code (`src/`, `experiments/`) | **Datasets** — obtained from their publishers; see [Data](#data) |
-| Every recorded result the paper's numbers come from (`results/*.json`) | **The manuscript** — under review |
-| The experiment protocol, the evidence gate, and the full results write-up (`docs/`) | **Run logs** — reproducible from the code, and not evidence |
-| The unit-test suite (`tests/`) | **A superseded first run** — two faults; the corrected run is what is published |
-
-Nothing here requires a GPU. The full programme runs in about an hour on an 8-core laptop with
-16 GB of RAM, excluding the optional EMBER-2018 replication; see `docs/PROTOCOL.md` for the
-measured cost of every stage and the argument for why a GPU has nothing to do here.
 
 ---
 
@@ -145,8 +128,10 @@ wrong numbers.
 
 ## Reproducing the results
 
-Each driver is independent, writes its output to `results/`, and resumes rather than redoing
-finished work. Wall-clock figures are the recorded ones from the published run.
+No GPU is required. The full programme runs in about an hour on an 8-core laptop with 16 GB of
+RAM, excluding the optional EMBER-2018 replication; `docs/PROTOCOL.md` records the measured cost
+of every stage. Each driver is independent, writes its output to `results/`, and resumes rather
+than redoing finished work. Wall-clock figures below are the recorded ones.
 
 ```bash
 python3 experiments/run_scoring_layer.py --stage all            # ~26 min  -> E1,E2,E5,E6,E7
@@ -187,8 +172,8 @@ out a matrix with holes in it.
 
 ## Findings
 
-Full statements, evidence pointers, and the claim-to-evidence matrix are in `docs/RESULTS.md`.
-Condensed, with the wording the evidence supports and no more:
+Condensed below. Full statements, evidence pointers, the claim-to-evidence matrix, and the
+scope these numbers are admissible for are in `docs/RESULTS.md` and `docs/EVIDENCE_GATE.md`.
 
 | | Finding | Evidence |
 |---|---|---|
@@ -200,19 +185,6 @@ Condensed, with the wording the evidence supports and no more:
 | **F6** | Equation (10)'s optional $[0,1]$ normalization destroys the role ordering it exists to make comparable — non-monotone on 382 / 600 role pairs, and flat — while raw $D$ is monotone in privilege with zero violations. | E6 |
 | **F7** | BODMAS separability is a collection artefact specific to that corpus. Eight of nine EMBER feature groups reach AUC ≥ 0.986 alone on BODMAS; on EMBER-2018, same detector, same training size (104,578), **none of the nine does** — best is `sections` at 0.931, against a full-feature AUC of 0.988. | E1, E9 |
 | **F8** | The release game is solvable once its payoffs carry measured quantities. Release width is nondecreasing in the evidence weight $\eta$, nonincreasing in the disclosure weight $\rho$, and sits at the lattice minimum for every $\rho$ when $\eta = 0$. The equilibrium is pure at all 18 settings. | E8 |
-
-### What these experiments can and cannot establish
-
-Stated here because it is easy to lose in a summary, and `docs/EVIDENCE_GATE.md` binds it. The
-contract and the game are definitions and proofs; **no experiment confirms them.** The only
-admissible purposes for the numbers in this repository are **non-vacuity** (the conditions are
-satisfiable and non-trivial), **tightness** (how much slack the bound carries), and
-**instantiability** (the slots take real values). Nothing here is a claim to beat a baseline, and
-no result should be written up as one. The gate's verdict on the programme was **pass with claim
-narrowing**, and the narrowing is recorded rather than quietly applied.
-
-Scope, in one line: one detector family, two public corpora, two of four threat classes, three of
-four admissibility conditions, and no detection, usability, or deployment claim whatsoever.
 
 ---
 
