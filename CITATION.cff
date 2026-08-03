@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+title: >-
+  T-XAI: A Threat-Model-Aware Contract for XAI Explanation Release
+  in Cybersecurity — research artifact
+message: >-
+  The accompanying manuscript is under peer review and its authorship is withheld
+  for that reason. Please cite this artifact anonymously; this file will be
+  updated with author and publication metadata once review concludes.
+type: software
+version: 1.0.0
+date-released: '2026-08-03'
+license: MIT
+authors:
+  - name: Anonymous Author(s)
+abstract: >-
+  Measurement code and recorded results for a threat-model-aware explanation
+  contract for XAI in cybersecurity. Computes the faithfulness, robustness and
+  disclosure scores, the calibration condition, both sides of the theorem bridge
+  between explanation robustness and action distributions, and the equilibrium of
+  a Stackelberg release game, instantiated on public static-malware corpora. The
+  governance layer of the contract — provenance, claim-evidence graph, and
+  actionability — is specified in the manuscript but not exercised here, because
+  the public corpora carry no telemetry provenance, analyst roles, or response
+  playbook.
+keywords:
+  - explainable artificial intelligence
+  - cybersecurity
+  - malware detection
+  - adversarial machine learning
+  - Stackelberg games
+  - information disclosure
+references:
+  - type: data
+    title: 'BODMAS: an open dataset for learning based temporal analysis of PE malware'
+    url: 'https://whyisyoung.github.io/BODMAS/'
+    notes: Primary corpus. Not redistributed with this artifact.
+  - type: data
+    title: 'EMBER: an open dataset for training static PE malware machine learning models'
+    url: 'https://github.com/elastic/ember'
+    notes: >-
+      Second-corpus replication, and the source of the vendored feature
+      extractor. Not redistributed with this artifact.

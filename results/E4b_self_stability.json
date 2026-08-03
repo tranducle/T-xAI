@@ -1,0 +1,138 @@
+{
+  "environment": {
+    "python": "3.14.5",
+    "platform": "macOS-26.6-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "numpy": "2.4.6",
+    "sklearn": "1.8.0",
+    "shap": "0.51.0",
+    "lime": "0.2.0.1",
+    "xgboost": "3.2.0"
+  },
+  "detector": "histgb",
+  "seed": 42,
+  "purpose": "Eq. (6) is stated for views deterministic conditional on x. This measures whether that holds, per explainer.",
+  "by_explainer": {
+    "treeshap": {
+      "explainer": "treeshap",
+      "n_alerts": 100,
+      "n_repeat": 5,
+      "bitwise_identical_repeats": 5,
+      "deterministic": true,
+      "B_self": {
+        "B_mean": 1.0,
+        "B_std": 0.0,
+        "B_min": 1.0,
+        "B_p25": 1.0,
+        "B_median": 1.0,
+        "B_p75": 1.0,
+        "B_max": 1.0
+      },
+      "seconds": 5.1
+    },
+    "constant": {
+      "explainer": "constant",
+      "n_alerts": 100,
+      "n_repeat": 5,
+      "bitwise_identical_repeats": 5,
+      "deterministic": true,
+      "B_self": {
+        "B_mean": 1.0,
+        "B_std": 0.0,
+        "B_min": 1.0,
+        "B_p25": 1.0,
+        "B_median": 1.0,
+        "B_p75": 1.0,
+        "B_max": 1.0
+      },
+      "seconds": 0.0
+    },
+    "random": {
+      "explainer": "random",
+      "n_alerts": 100,
+      "n_repeat": 5,
+      "bitwise_identical_repeats": 0,
+      "deterministic": false,
+      "B_self": {
+        "B_mean": 0.5797140863583689,
+        "B_std": 0.004266599990771794,
+        "B_min": 0.5684298439747486,
+        "B_p25": 0.5768642813921168,
+        "B_median": 0.5797626251958448,
+        "B_p75": 0.5824931868943848,
+        "B_max": 0.5913638252967427
+      },
+      "seconds": 0.0
+    },
+    "lime": {
+      "explainer": "lime",
+      "n_alerts": 100,
+      "n_repeat": 5,
+      "bitwise_identical_repeats": 0,
+      "deterministic": false,
+      "B_self": {
+        "B_mean": 0.5902647124411898,
+        "B_std": 0.05878244306899181,
+        "B_min": 0.5646520418274856,
+        "B_p25": 0.5790682275566922,
+        "B_median": 0.58235703342584,
+        "B_p75": 0.5858882952118272,
+        "B_max": 1.0
+      },
+      "seconds": 328.7
+    }
+  },
+  "lime_sample_sweep": {
+    "500": {
+      "explainer": "lime",
+      "n_alerts": 100,
+      "n_repeat": 3,
+      "bitwise_identical_repeats": 0,
+      "deterministic": false,
+      "B_self": {
+        "B_mean": 0.6032279152031442,
+        "B_std": 0.0573786395056491,
+        "B_min": 0.5729606722194829,
+        "B_p25": 0.5891550305680777,
+        "B_median": 0.595031925113932,
+        "B_p75": 0.6015920336534055,
+        "B_max": 1.0
+      },
+      "seconds": 41.4
+    },
+    "2000": {
+      "explainer": "lime",
+      "n_alerts": 100,
+      "n_repeat": 3,
+      "bitwise_identical_repeats": 0,
+      "deterministic": false,
+      "B_self": {
+        "B_mean": 0.5921434450074843,
+        "B_std": 0.05847777788663025,
+        "B_min": 0.5716781471699159,
+        "B_p25": 0.5803452020459818,
+        "B_median": 0.5837866669586499,
+        "B_p75": 0.587519270949196,
+        "B_max": 1.0
+      },
+      "seconds": 206.8
+    },
+    "8000": {
+      "explainer": "lime",
+      "n_alerts": 100,
+      "n_repeat": 3,
+      "bitwise_identical_repeats": 0,
+      "deterministic": false,
+      "B_self": {
+        "B_mean": 0.6160763199478566,
+        "B_std": 0.055067462477407965,
+        "B_min": 0.5969769983470291,
+        "B_p25": 0.6052714111388864,
+        "B_median": 0.608215559700215,
+        "B_p75": 0.6120469307967609,
+        "B_max": 1.0
+      },
+      "seconds": 718.9
+    }
+  }
+}

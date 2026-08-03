@@ -1,0 +1,52 @@
+[
+ {
+  "seed": 42,
+  "dataset": "BODMAS",
+  "split": "temporal",
+  "auc": 0.9999438820222843,
+  "B_mean": 0.9497914716712406,
+  "tightness_ratio": 0.2261914283622771,
+  "lhs_adv_tv": 0.011356738738649938,
+  "rhs_bound": 0.05020852832875938
+ },
+ {
+  "seed": 43,
+  "dataset": "BODMAS",
+  "split": "temporal",
+  "auc": 0.9999500932860395,
+  "B_mean": 0.9492358134318135,
+  "tightness_ratio": 0.21382081292575883,
+  "lhs_adv_tv": 0.010854439639524524,
+  "rhs_bound": 0.050764186568186494
+ },
+ {
+  "seed": 44,
+  "dataset": "BODMAS",
+  "split": "temporal",
+  "auc": 0.9999521773669979,
+  "B_mean": 0.9542444301444362,
+  "tightness_ratio": 0.16884788997778594,
+  "lhs_adv_tv": 0.0077257314248431515,
+  "rhs_bound": 0.04575556985556389
+ },
+ {
+  "seed": 45,
+  "dataset": "BODMAS",
+  "split": "temporal",
+  "auc": 0.9999479916426011,
+  "B_mean": 0.9484343451239907,
+  "tightness_ratio": 0.22029277923019575,
+  "lhs_adv_tv": 0.011359541425461181,
+  "rhs_bound": 0.05156565487600929
+ },
+ {
+  "seed": 46,
+  "dataset": "BODMAS",
+  "split": "temporal",
+  "auc": 0.9999528564495574,
+  "B_mean": 0.9539277958653076,
+  "tightness_ratio": 0.11348254963152231,
+  "lhs_adv_tv": 0.005228391192348858,
+  "rhs_bound": 0.0460722041346924
+ }
+]

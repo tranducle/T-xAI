@@ -1,0 +1,4 @@
+state       : DONE
+train_size  : 104578
+attempts    : 1
+finished    : 2026-08-03 11:29:24

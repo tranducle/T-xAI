@@ -1,0 +1,22 @@
+{
+  "detector": "histgb",
+  "seed": 42,
+  "train_size": 104578,
+  "test_size": 26145,
+  "auc": 0.9999438820222843,
+  "alert_rate": 0.5074775291642761,
+  "fit_seconds": 106.37801916600438,
+  "n_alerts_explained": 1000,
+  "alert_malware_fraction": 1.0,
+  "auc_by_feature_group_alone": {
+    "byte_histogram": 0.990602144261723,
+    "byte_entropy": 0.9869887430357449,
+    "strings": 0.9922848991357505,
+    "general_info": 0.9921959920079008,
+    "header": 0.99549243144925,
+    "sections": 0.9950566038729952,
+    "imports": 0.9941780730095711,
+    "exports": 0.6598891895325277,
+    "data_directories": 0.9975602056449324
+  }
+}

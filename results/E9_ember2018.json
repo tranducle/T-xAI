@@ -1,0 +1,36 @@
+{
+ "corpus": "EMBER-2018 feature version 2",
+ "detector": "histgb",
+ "seed": 42,
+ "train_size": 104578,
+ "test_size": 200000,
+ "train_subsampled": true,
+ "train_malware_fraction": 0.5,
+ "test_malware_fraction": 0.5,
+ "auc": 0.98831484635,
+ "fit_seconds": 207.1436013339844,
+ "alert_rate": 0.50871,
+ "alert_malware_fraction": 0.9378329500108117,
+ "peak_rss_gb_stage1": 2.82,
+ "auc_by_feature_group_alone": {
+  "byte_histogram": 0.92918011665,
+  "byte_entropy": 0.9176878316,
+  "strings": 0.9256273792999998,
+  "general_info": 0.90976497955,
+  "header": 0.8856172883000001,
+  "sections": 0.9305264693499999,
+  "imports": 0.9019629887,
+  "exports": 0.5577594694500001,
+  "data_directories": 0.91745873605
+ },
+ "learning_curve": {
+  "25000": 0.9838602544499999,
+  "50000": 0.9864918919000001,
+  "100000": 0.98765895195,
+  "104578": 0.98831484635
+ },
+ "peak_rss_gb": 3.51,
+ "separability_tau": 0.986,
+ "groups_at_or_above_tau": 0,
+ "bodmas_groups_at_or_above_tau": 8
+}

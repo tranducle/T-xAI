@@ -1,0 +1,201 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[txaiaxis,
+  xmode=log, log basis x=10,
+  xmin=0.85, xmax=2400, ymin=-0.03, ymax=1.06,
+  ytick={0,0.25,0.5,0.75,1},
+  xlabel={Features deleted in attribution order, $k$},
+  ylabel={Mean detector confidence},
+  legend style={at={(0.02,0.02)},anchor=south west}]
+\addplot[black!45,dashed,forget plot,line width=0.5pt,mark=none,domain=0.85:2400]
+  {0.994894};
+\addplot[black!45,dotted,forget plot,line width=0.5pt,mark=none,domain=0.85:2400]
+  {0.5};
+\node[anchor=east,font=\tiny,text=black!60,inner sep=1.5pt]
+  at (axis cs:2300,0.93) {undeleted mean};
+\node[anchor=west,font=\tiny,text=black!60,inner sep=1.5pt]
+  at (axis cs:1.05,0.55) {decision boundary};
+\addplot[color=oiblue,mark=*] coordinates {(1,0.972881) (2,0.877338) (5,0.572955) (10,0.413362) (20,0.220953) (50,0.0340235) (100,0.00649059) (200,0.00182138) (500,0.000478727) (1000,0.00024928) (2000,0.00024928)};
+\addlegendentry{TreeSHAP}
+\addplot[color=oiorange,mark=square*] coordinates {(1,0.980855) (2,0.932603) (5,0.807352) (10,0.741458) (20,0.679874) (50,0.621245) (100,0.562849) (200,0.485951) (500,0.355795) (1000,0.155096) (2000,0.00413824)};
+\addlegendentry{LIME}
+\addplot[color=black,mark=diamond*] coordinates {(1,0.994894) (2,0.994894) (5,0.994761) (10,0.994782) (20,0.994685) (50,0.978326) (100,0.969866) (200,0.968095) (500,0.487827) (1000,0.338584) (2000,0.00361998)};
+\addlegendentry{constant}
+\addplot[color=oipurple,mark=triangle*] coordinates {(1,0.994866) (2,0.994862) (5,0.994761) (10,0.994498) (20,0.994198) (50,0.992154) (100,0.987783) (200,0.971832) (500,0.864079) (1000,0.528456) (2000,0.0351706)};
+\addlegendentry{random}
+\end{axis}
+\end{tikzpicture}
+\caption{Deletion behaviour of the four explanation maps on the $200$ alerts of
+the single-corpus instantiation of Section~\ref{sec:numsetup}: mean confidence
+of the \textsf{histgb} detector after deleting the $k$ highest-attributed
+features. The two grey guides mark the undeleted mean confidence
+($0.9949$) and the decision boundary. Read the
+curves for their \emph{ordering and shape}, not for a per-alert guarantee: only
+TreeSHAP drives the detector below the boundary within the first ten features,
+while the constant control tracks the undeleted level through $k=200$ because its
+fixed ordering is uninformative rather than adversarial. LIME's curve is
+measured on the reduced grid its cost forced (Section~\ref{sec:numlimits}) and
+is not directly comparable to the others. Single corpus, single detector, single
+seed; the ordering is not asserted beyond this instantiation.}
+\label{fig:deletion}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[txaiaxis,
+  group style={group size=1 by 2, vertical sep=5pt,
+                x descriptions at=edge bottom},
+  % ``scale only axis'' so that the two heights below size the plotting boxes
+  % themselves: without it pgfplots subtracts the shared x labels from the short
+  % lower panel and aborts with a negative plot height. The width then excludes
+  % the y label and tick labels, hence 0.82 rather than 0.97:
+  % at 0.84 the picture runs 2.4pt past the column.
+  scale only axis, width=0.82\columnwidth,
+  xmode=log, log basis x=10,
+  xtick={0.001,0.005,0.01,0.05},
+  xticklabels={$0.1\%$,$0.5\%$,$1\%$,$5\%$},
+  x tick label style={/pgf/number format/assume math mode=true},
+  xmin=0.0008, xmax=0.065]
+\nextgroupplot[height=0.42\columnwidth, ymin=0.835, ymax=1.025,
+  ytick={0.85,0.9,0.95,1},
+  ylabel={Robustness score $B_{\Gamma,r}$},
+  legend style={at={(0.03,0.05)},anchor=south west}]
+\addplot[color=oiblue,mark=*] coordinates {(0.001,0.979518) (0.005,0.959232) (0.01,0.946481) (0.05,0.900699)};
+\addlegendentry{\textsf{append\_bytes}}
+\addplot[color=oigreen,mark=square*] coordinates {(0.001,0.990068) (0.005,0.971245) (0.01,0.955829) (0.05,0.906005)};
+\addlegendentry{\textsf{add\_imports}}
+\addplot[color=oisky,mark=triangle*] coordinates {(0.001,0.984141) (0.005,0.957147) (0.01,0.936349) (0.05,0.854312)};
+\addlegendentry{\textsf{generic}}
+\addplot[color=black,mark=diamond*,dashed] coordinates {(0.001,1) (0.005,1) (0.01,1) (0.05,1)};
+\addlegendentry{constant control}
+\nextgroupplot[height=0.09\columnwidth, ymin=0.572, ymax=0.5894,
+  ytick={0.575}, yticklabels={$0.575$},
+  xlabel={Perturbation budget $r$ (fraction of the input)}]
+\addplot[color=oipurple,mark=triangle*,dashed] coordinates {(0.001,0.574958) (0.005,0.575177) (0.01,0.575433) (0.05,0.575207)};
+\node[anchor=north west,font=\scriptsize,inner sep=1.5pt]
+  at (rel axis cs:0.02,0.98) {random control};
+\end{groupplot}
+\draw[black,line width=0.4pt] ([shift={(-2.2pt,-1.6pt)}]group c1r1.south west) -- ([shift={(2.2pt,1.6pt)}]group c1r1.south west);
+\draw[black,line width=0.4pt] ([shift={(-2.2pt,-1.6pt)}]group c1r1.south east) -- ([shift={(2.2pt,1.6pt)}]group c1r1.south east);
+\draw[black,line width=0.4pt] ([shift={(-2.2pt,-1.6pt)}]group c1r2.north west) -- ([shift={(2.2pt,1.6pt)}]group c1r2.north west);
+\draw[black,line width=0.4pt] ([shift={(-2.2pt,-1.6pt)}]group c1r2.north east) -- ([shift={(2.2pt,1.6pt)}]group c1r2.north east);
+\end{tikzpicture}
+\caption{Robustness score \eqref{eq:robustness} against the adversary's budget,
+each point a mean over $500$ alerts $\times$ $20$ sampled transformations. The
+three solid curves are TreeSHAP under the three admitted transformation
+families; the two dashed lines are the controls, both measured under
+\textsf{append\_bytes}. The vertical axis is broken at the marked corners
+because the random control lies far below everything else, and on one continuous
+scale it flattens the three curves that actually move into the top seventh of
+the panel. Section~\ref{sec:numrobust} reads the three movements and says what
+the flat lines do and do not license. LIME is absent: its cost admitted only the
+single $1\%$ point, reported in the text. Single corpus, single detector, single
+seed.}
+\label{fig:robustness}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[txaiaxis,
+  xmin=-0.03, xmax=1.03, ymin=-0.05, ymax=1.16,
+  ytick={0,0.25,0.5,0.75,1},
+  xlabel={Disclosure threshold $\tau_d$ (at $\tau_f=0.5$, $\tau_b=0.8$)},
+  ylabel={Fraction of alerts admissible},
+  legend style={at={(0.03,0.70)},anchor=west}]
+\addplot[color=black,mark=diamond*] coordinates {(0,0) (0.1,0) (0.2,0) (0.3,0) (0.4,0) (0.5,0) (0.6,0) (0.7,1) (0.8,1) (0.9,1) (1,1)};
+\addlegendentry{constant}
+\addplot[color=oiblue,mark=*] coordinates {(0,0) (0.1,0) (0.2,0) (0.3,0) (0.4,0) (0.5,0) (0.6,0.136) (0.7,0.3) (0.8,0.944) (0.9,1) (1,1)};
+\addlegendentry{TreeSHAP}
+\addplot[color=oiorange,mark=square*] coordinates {(0,0) (0.1,0) (0.2,0) (0.3,0.01) (0.4,0.03) (0.5,0.03) (0.6,0.03) (0.7,0.03) (0.8,0.03) (0.9,0.03) (1,0.03)};
+\addlegendentry{LIME}
+\addplot[color=oipurple,mark=triangle*] coordinates {(0,0) (0.1,0) (0.2,0) (0.3,0) (0.4,0) (0.5,0) (0.6,0) (0.7,0) (0.8,0) (0.9,0) (1,0)};
+\addlegendentry{random}
+\draw[<->,black!55,line width=0.5pt]
+  (axis cs:0.7,0.34) --
+  (axis cs:0.7,0.96);
+\node[anchor=south,font=\scriptsize,text=black!70,inner sep=2pt]
+  at (axis cs:0.7,1.02)
+  {$\tau_d=0.7$: $1.00$ vs $0.30$};
+\end{axis}
+\end{tikzpicture}
+\caption{The four numeric conditions of Definition~\ref{def:admissible}, applied
+to $200$ alerts as the disclosure threshold is relaxed with the other two
+thresholds held at the values used throughout Section~\ref{sec:numerical} (the
+analyst role; the other three roles coincide with it on this slice). This is the
+measurement behind the calibration argument, and the marked span is the whole of
+it: the constant control becomes admissible on \emph{every} alert at a
+disclosure threshold where TreeSHAP is still admissible on under a
+third, so on this slice the inequalities alone accept a vector that
+explains nothing over a strictly wider region than they accept a Shapley
+attribution. The gap is a property of this instantiation, not a theorem; what
+generalises is that the numeric conditions cannot by themselves exclude the
+degenerate map, which is what \eqref{eq:calibration} is for. Single corpus,
+single detector, single seed.}
+\label{fig:admissible}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[txaiaxis,
+  xmode=log, ymode=log, log basis x=10, log basis y=10,
+  xmin=1.2e-3, xmax=0.9, ymin=2.5e-5, ymax=0.9,
+  xlabel={Right-hand side of \eqref{eq:bridge}},
+  ylabel={Measured $\mathrm{Adv}^{\mathrm{TV}}_{E,\Gamma}$},
+  legend style={at={(0.03,0.88)},anchor=west}]
+\addplot[black,densely dashed,mark=none,domain=1.2e-3:0.9,samples=2,
+  forget plot] {x};
+\addplot[only marks,color=oipurple,mark=o,mark size=1.3pt] coordinates
+  {(0.0204822,0.00318977) (0.0204822,0.00147003) (0.0204822,0.000428206) (0.0407676,0.00808549) (0.0407676,0.0037701) (0.0407676,0.00108854) (0.0535191,0.0117031) (0.0535191,0.00545006) (0.0535191,0.00157379) (0.0993008,0.0240962) (0.0993008,0.0117472) (0.0993008,0.00334018) (0.00993218,0.000697665) (0.00993218,0.000310124) (0.00993218,8.93398e-05) (0.0287551,0.00227224) (0.0287551,0.000846422) (0.0287551,0.000242376) (0.0441712,0.00433315) (0.0441712,0.00152684) (0.0441712,0.000411268) (0.0939951,0.01637) (0.0939951,0.00577858) (0.0939951,0.0015979) (0.0158594,0.000283066) (0.0158594,0.000146253) (0.0158594,4.77275e-05) (0.0428526,0.000680479) (0.0428526,0.000447587) (0.0428526,0.000150986) (0.0636506,0.00105588) (0.0636506,0.000628775) (0.0636506,0.000220746) (0.145688,0.00637432) (0.145688,0.00352902) (0.145688,0.00115206) (0.404867,0.00264179) (0.404867,0.00113381) (0.404867,0.00030947) (0.425042,0.00105139) (0.425042,0.000347172) (0.425042,8.86905e-05) (0.424823,0.0011673) (0.424823,0.000482225) (0.424823,0.0001249) (0.424567,0.00100996) (0.424567,0.000391302) (0.424567,0.000106794) (0.424793,0.00115771) (0.424793,0.000342361) (0.424793,9.15705e-05) (0.424545,0.00097378) (0.424545,0.000327403) (0.424545,8.7806e-05) (0.42483,0.00110201) (0.42483,0.000450366) (0.42483,0.000120711) (0.424868,0.00127503) (0.424868,0.000371161) (0.424868,0.000114166) (0.424822,0.00108001) (0.424822,0.000411565) (0.424822,0.000111149) (0.424613,0.000943207) (0.424613,0.000294661) (0.424613,8.67865e-05) (0.424929,0.000902239) (0.424929,0.000385552) (0.424929,0.000105812) (0.424849,0.000839363) (0.424849,0.000312927) (0.424849,7.85972e-05) (0.424834,0.00142645) (0.424834,0.000497975) (0.424834,0.000132481)};
+\addlegendentry{generic constant $L_\pi=1$}
+\addplot[only marks,color=oiblue,mark=x,mark size=1.9pt] coordinates
+  {(0.0201191,0.00318977) (0.012402,0.00147003) (0.00394827,0.000428206) (0.0400448,0.00808549) (0.0246848,0.0037701) (0.00785859,0.00108854) (0.0525702,0.0117031) (0.0324059,0.00545006) (0.0103166,0.00157379) (0.0975402,0.0240962) (0.0601267,0.0117472) (0.0191418,0.00334018) (0.00975608,0.000697665) (0.00601394,0.000310124) (0.00191458,8.93398e-05) (0.0282453,0.00227224) (0.0174112,0.000846422) (0.005543,0.000242376) (0.043388,0.00433315) (0.0267457,0.00152684) (0.00851469,0.000411268) (0.0923285,0.01637) (0.0569141,0.00577858) (0.018119,0.0015979) (0.0155782,0.000283066) (0.00960289,0.000146253) (0.00305715,4.77275e-05) (0.0420928,0.000680479) (0.0259473,0.000447587) (0.00826051,0.000150986) (0.062522,0.00105588) (0.0385405,0.000628775) (0.0122696,0.000220746) (0.143105,0.00637432) (0.0882142,0.00352902) (0.0280836,0.00115206) (0.397689,0.00264179) (0.245148,0.00113381) (0.0780445,0.00030947) (0.417505,0.00105139) (0.257363,0.000347172) (0.0819334,8.86905e-05) (0.417291,0.0011673) (0.257231,0.000482225) (0.0818913,0.0001249) (0.417039,0.00100996) (0.257076,0.000391302) (0.0818419,0.000106794) (0.417262,0.00115771) (0.257213,0.000342361) (0.0818856,9.15705e-05) (0.417018,0.00097378) (0.257062,0.000327403) (0.0818377,8.7806e-05) (0.417298,0.00110201) (0.257235,0.000450366) (0.0818927,0.000120711) (0.417335,0.00127503) (0.257258,0.000371161) (0.0819,0.000114166) (0.41729,0.00108001) (0.25723,0.000411565) (0.0818912,0.000111149) (0.417084,0.000943207) (0.257103,0.000294661) (0.0818508,8.67865e-05) (0.417395,0.000902239) (0.257295,0.000385552) (0.0819116,0.000105812) (0.417316,0.000839363) (0.257246,0.000312927) (0.0818962,7.85972e-05) (0.417301,0.00142645) (0.257237,0.000497975) (0.0818933,0.000132481)};
+\addlegendentry{Dobrushin coefficient $\delta$}
+\end{axis}
+\end{tikzpicture}
+\caption{Theorem~\ref{thm:bridge} on the instantiated kernel. Each of the
+$75$ plotted configurations lies below the diagonal $y=x$ (dashed), so the
+inequality is not violated, and each lies far below it, so the bound is
+loose. Replacing the generic constant $L_\pi=1$ by the ergodic
+coefficient \eqref{eq:dobrushin} moves each point left without moving it above
+the diagonal, which is the sharpening claimed in the text. The remaining $36$ of the $111$ recomputed
+configurations are the constant control's, omitted because both sides are
+exactly zero and so have no position on logarithmic axes; they are also the only
+configurations in which the bound is attained. Points are configurations, not alerts, and
+holding on the configurations of one instantiation is not a claim that the
+bound is tight or loose in general.}
+\label{fig:bridge}
+\end{figure}
+
+\begin{table}[t]
+\caption{Strong Stackelberg equilibrium of the $15\times13$ release game
+of Section~\ref{sec:numgame}, over the two weights the utilities of
+Definition~\ref{def:game} leave free: $\eta$ on evidence failure and $\rho$ on
+disclosure. $k^\star$ is the equilibrium release width on the lattice
+$\{5,10,20,50,100\}$ and $U_D$ the defender's equilibrium value. The width is
+nondecreasing in $\eta$ and nonincreasing in $\rho$: an evidence obligation is
+the only term that pays for release, and at $\eta=0$ the equilibrium releases
+the least the lattice allows at every $\rho$. The equilibrium is pure at all
+$18$ settings---the gain from randomizing does not
+exceed $4\times10^{-16}$---and the attacker plays pure observation
+($M_4$) at every one of them.}
+\label{tab:numgame}
+\centering
+\footnotesize
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+& \multicolumn{2}{c}{$\eta=0$} & \multicolumn{2}{c}{$\eta=1$} & \multicolumn{2}{c}{$\eta=4$}\\
+$\rho$ & $k^\star$ & $U_D$ & $k^\star$ & $U_D$ & $k^\star$ & $U_D$\\
+\midrule
+$0$ & $5$ & $-0.284$ & $100$ & $-0.434$ & $100$ & $-0.557$\\
+$0.25$ & $5$ & $-0.313$ & $100$ & $-0.617$ & $100$ & $-0.740$\\
+$0.5$ & $5$ & $-0.342$ & $100$ & $-0.799$ & $100$ & $-0.922$\\
+$1$ & $5$ & $-0.400$ & $50$ & $-1.138$ & $100$ & $-1.287$\\
+$2$ & $5$ & $-0.516$ & $5$ & $-1.377$ & $100$ & $-2.017$\\
+$4$ & $5$ & $-0.748$ & $5$ & $-1.609$ & $50$ & $-3.415$\\
+\bottomrule
+\end{tabular}
+\end{table}

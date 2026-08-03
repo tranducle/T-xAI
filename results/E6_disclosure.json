@@ -1,0 +1,346 @@
+{
+  "detector": "histgb",
+  "seed": 42,
+  "by_explainer": {
+    "treeshap": {
+      "role_profile": {
+        "n_alerts": 200,
+        "raw_monotone": true,
+        "raw_violations": 0,
+        "raw_pairs": [
+          {
+            "pair": "public>=analyst",
+            "violations": 0
+          },
+          {
+            "pair": "analyst>=auditor",
+            "violations": 0
+          },
+          {
+            "pair": "auditor>=designer",
+            "violations": 0
+          }
+        ],
+        "mean_raw_D_by_role": {
+          "public": 3.8470000000000004,
+          "analyst": 2.0907499999999994,
+          "auditor": 1.26465,
+          "designer": 0.441
+        },
+        "normalised_monotone": false,
+        "normalised_violations": 382,
+        "normalised_pairs": [
+          {
+            "pair": "public>=analyst",
+            "violations": 131
+          },
+          {
+            "pair": "analyst>=auditor",
+            "violations": 195
+          },
+          {
+            "pair": "auditor>=designer",
+            "violations": 56
+          }
+        ],
+        "mean_normalised_D_by_role": {
+          "public": 0.7124074074074072,
+          "analyst": 0.7087288135593219,
+          "auditor": 0.7104775280898876,
+          "designer": 0.7000000000000002
+        }
+      },
+      "view_monotonicity": {
+        "monotone": true,
+        "total_violations": 0,
+        "mean_D_by_top_k": {
+          "5": 0.31745762711864406,
+          "10": 0.5738983050847457,
+          "20": 0.7087288135593219,
+          "50": 0.8227118644067793
+        }
+      },
+      "mean_D_by_role_and_top_k": {
+        "public": {
+          "5": 0.3264814814814814,
+          "10": 0.5779629629629628,
+          "20": 0.7124074074074072,
+          "50": 0.8248148148148148
+        },
+        "analyst": {
+          "5": 0.31745762711864406,
+          "10": 0.5738983050847457,
+          "20": 0.7087288135593219,
+          "50": 0.8227118644067793
+        },
+        "auditor": {
+          "5": 0.31558988764044943,
+          "10": 0.5771067415730338,
+          "20": 0.7104775280898876,
+          "50": 0.8207865168539326
+        },
+        "designer": {
+          "5": 0.30111111111111105,
+          "10": 0.5634920634920634,
+          "20": 0.7000000000000002,
+          "50": 0.8161111111111111
+        }
+      }
+    },
+    "random": {
+      "role_profile": {
+        "n_alerts": 200,
+        "raw_monotone": true,
+        "raw_violations": 0,
+        "raw_pairs": [
+          {
+            "pair": "public>=analyst",
+            "violations": 0
+          },
+          {
+            "pair": "analyst>=auditor",
+            "violations": 0
+          },
+          {
+            "pair": "auditor>=designer",
+            "violations": 0
+          }
+        ],
+        "mean_raw_D_by_role": {
+          "public": 3.745,
+          "analyst": 2.08275,
+          "auditor": 1.2637,
+          "designer": 0.44995000000000007
+        },
+        "normalised_monotone": false,
+        "normalised_violations": 512,
+        "normalised_pairs": [
+          {
+            "pair": "public>=analyst",
+            "violations": 189
+          },
+          {
+            "pair": "analyst>=auditor",
+            "violations": 179
+          },
+          {
+            "pair": "auditor>=designer",
+            "violations": 144
+          }
+        ],
+        "mean_normalised_D_by_role": {
+          "public": 0.6935185185185184,
+          "analyst": 0.7060169491525423,
+          "auditor": 0.7099438202247191,
+          "designer": 0.7142063492063493
+        }
+      },
+      "view_monotonicity": {
+        "monotone": true,
+        "total_violations": 0,
+        "mean_D_by_top_k": {
+          "5": 0.3932203389830508,
+          "10": 0.5237288135593219,
+          "20": 0.7060169491525423,
+          "50": 0.8846610169491526
+        }
+      },
+      "mean_D_by_role_and_top_k": {
+        "public": {
+          "5": 0.3779629629629629,
+          "10": 0.5096296296296295,
+          "20": 0.6935185185185184,
+          "50": 0.8763888888888889
+        },
+        "analyst": {
+          "5": 0.3932203389830508,
+          "10": 0.5237288135593219,
+          "20": 0.7060169491525423,
+          "50": 0.8846610169491526
+        },
+        "auditor": {
+          "5": 0.39143258426966293,
+          "10": 0.5246629213483146,
+          "20": 0.7099438202247191,
+          "50": 0.8896067415730334
+        },
+        "designer": {
+          "5": 0.3935714285714286,
+          "10": 0.5296825396825396,
+          "20": 0.7142063492063493,
+          "50": 0.8911111111111113
+        }
+      }
+    },
+    "constant": {
+      "role_profile": {
+        "n_alerts": 200,
+        "raw_monotone": true,
+        "raw_violations": 0,
+        "raw_pairs": [
+          {
+            "pair": "public>=analyst",
+            "violations": 0
+          },
+          {
+            "pair": "analyst>=auditor",
+            "violations": 0
+          },
+          {
+            "pair": "auditor>=designer",
+            "violations": 0
+          }
+        ],
+        "mean_raw_D_by_role": {
+          "public": 3.2,
+          "analyst": 1.8000000000000005,
+          "auditor": 1.0999999999999996,
+          "designer": 0.4
+        },
+        "normalised_monotone": false,
+        "normalised_violations": 600,
+        "normalised_pairs": [
+          {
+            "pair": "public>=analyst",
+            "violations": 200
+          },
+          {
+            "pair": "analyst>=auditor",
+            "violations": 200
+          },
+          {
+            "pair": "auditor>=designer",
+            "violations": 200
+          }
+        ],
+        "mean_normalised_D_by_role": {
+          "public": 0.5925925925925926,
+          "analyst": 0.6101694915254238,
+          "auditor": 0.6179775280898877,
+          "designer": 0.6349206349206351
+        }
+      },
+      "view_monotonicity": {
+        "monotone": true,
+        "total_violations": 0,
+        "mean_D_by_top_k": {
+          "5": 0.5593220338983054,
+          "10": 0.6101694915254238,
+          "20": 0.6101694915254238,
+          "50": 0.9661016949152542
+        }
+      },
+      "mean_D_by_role_and_top_k": {
+        "public": {
+          "5": 0.5370370370370371,
+          "10": 0.5925925925925926,
+          "20": 0.5925925925925926,
+          "50": 0.962962962962963
+        },
+        "analyst": {
+          "5": 0.5593220338983054,
+          "10": 0.6101694915254238,
+          "20": 0.6101694915254238,
+          "50": 0.9661016949152542
+        },
+        "auditor": {
+          "5": 0.5617977528089888,
+          "10": 0.6179775280898877,
+          "20": 0.6179775280898877,
+          "50": 0.9719101123595505
+        },
+        "designer": {
+          "5": 0.5555555555555555,
+          "10": 0.6349206349206351,
+          "20": 0.6349206349206351,
+          "50": 0.9682539682539684
+        }
+      }
+    },
+    "lime": {
+      "role_profile": {
+        "n_alerts": 200,
+        "raw_monotone": true,
+        "raw_violations": 0,
+        "raw_pairs": [
+          {
+            "pair": "public>=analyst",
+            "violations": 0
+          },
+          {
+            "pair": "analyst>=auditor",
+            "violations": 0
+          },
+          {
+            "pair": "auditor>=designer",
+            "violations": 0
+          }
+        ],
+        "mean_raw_D_by_role": {
+          "public": 4.0565,
+          "analyst": 2.2235,
+          "auditor": 1.3451,
+          "designer": 0.4751000000000001
+        },
+        "normalised_monotone": false,
+        "normalised_violations": 376,
+        "normalised_pairs": [
+          {
+            "pair": "public>=analyst",
+            "violations": 116
+          },
+          {
+            "pair": "analyst>=auditor",
+            "violations": 155
+          },
+          {
+            "pair": "auditor>=designer",
+            "violations": 105
+          }
+        ],
+        "mean_normalised_D_by_role": {
+          "public": 0.7512037037037037,
+          "analyst": 0.753728813559322,
+          "auditor": 0.7556741573033707,
+          "designer": 0.7541269841269841
+        }
+      },
+      "view_monotonicity": {
+        "monotone": true,
+        "total_violations": 0,
+        "mean_D_by_top_k": {
+          "5": 0.3639830508474576,
+          "10": 0.5596610169491525,
+          "20": 0.753728813559322,
+          "50": 0.9239830508474576
+        }
+      },
+      "mean_D_by_role_and_top_k": {
+        "public": {
+          "5": 0.36342592592592593,
+          "10": 0.5564814814814814,
+          "20": 0.7512037037037037,
+          "50": 0.9212962962962963
+        },
+        "analyst": {
+          "5": 0.3639830508474576,
+          "10": 0.5596610169491525,
+          "20": 0.753728813559322,
+          "50": 0.9239830508474576
+        },
+        "auditor": {
+          "5": 0.36106741573033707,
+          "10": 0.558567415730337,
+          "20": 0.7556741573033707,
+          "50": 0.9278089887640449
+        },
+        "designer": {
+          "5": 0.35444444444444445,
+          "10": 0.5539682539682539,
+          "20": 0.7541269841269841,
+          "50": 0.9265079365079367
+        }
+      }
+    }
+  }
+}

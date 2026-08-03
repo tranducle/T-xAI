@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "txai"
+version = "1.0.0"
+description = "Measurement code for a threat-model-aware contract for XAI explanation release in cybersecurity"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "Anonymous Author(s)" }]
+keywords = ["explainable-ai", "cybersecurity", "malware-detection", "game-theory"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Security",
+]
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.13",
+    "scikit-learn>=1.5",
+    "pandas>=2.0",
+    "shap>=0.45",
+    "lime>=0.2",
+]
+
+[project.optional-dependencies]
+# Detector-family ablation.
+ablation = ["xgboost>=2.0"]
+# The EMBER-2018 replication; lief is a module-scope import of the vendored
+# upstream extractor, never called (src/txai/third_party/PROVENANCE.md).
+ember = ["lief>=0.14"]
+test = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "experiments"]

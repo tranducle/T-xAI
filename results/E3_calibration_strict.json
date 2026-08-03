@@ -1,0 +1,220 @@
+{
+  "detector": "histgb",
+  "seed": 42,
+  "tau_f": 0.5,
+  "by_explainer_and_top_k": {
+    "treeshap": {
+      "5": {
+        "sufficiency_rate": 0.18600000000000003,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.0,
+        "violations_strict": 200,
+        "F_passes_but_insufficient": 59,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 0.295,
+        "phi_median": 0.2,
+        "n": 200
+      },
+      "10": {
+        "sufficiency_rate": 0.19399999999999998,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.0,
+        "violations_strict": 200,
+        "F_passes_but_insufficient": 80,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 0.4,
+        "phi_median": 0.2,
+        "n": 200
+      },
+      "20": {
+        "sufficiency_rate": 0.49200000000000005,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.195,
+        "violations_strict": 161,
+        "F_passes_but_insufficient": 12,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.195,
+        "phi_eq_0_rate": 0.06,
+        "phi_median": 0.4,
+        "n": 200
+      },
+      "50": {
+        "sufficiency_rate": 0.9130000000000001,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.69,
+        "violations_strict": 62,
+        "F_passes_but_insufficient": 1,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.69,
+        "phi_eq_0_rate": 0.005,
+        "phi_median": 1.0,
+        "n": 200
+      }
+    },
+    "lime": {
+      "5": {
+        "sufficiency_rate": 0.085,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.0,
+        "violations_strict": 200,
+        "F_passes_but_insufficient": 123,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 0.615,
+        "phi_median": 0.0,
+        "n": 200
+      },
+      "10": {
+        "sufficiency_rate": 0.12299999999999998,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.0,
+        "violations_strict": 200,
+        "F_passes_but_insufficient": 101,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 0.505,
+        "phi_median": 0.0,
+        "n": 200
+      },
+      "20": {
+        "sufficiency_rate": 0.15899999999999997,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.0,
+        "violations_strict": 200,
+        "F_passes_but_insufficient": 84,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 0.42,
+        "phi_median": 0.2,
+        "n": 200
+      },
+      "50": {
+        "sufficiency_rate": 0.188,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.0,
+        "violations_strict": 200,
+        "F_passes_but_insufficient": 66,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 0.33,
+        "phi_median": 0.2,
+        "n": 200
+      }
+    },
+    "random": {
+      "5": {
+        "sufficiency_rate": 0.0,
+        "F_pass_rate": 0.78,
+        "agreement_rate": 0.22,
+        "violations_strict": 156,
+        "F_passes_but_insufficient": 156,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 1.0,
+        "phi_median": 0.0,
+        "n": 200
+      },
+      "10": {
+        "sufficiency_rate": 0.0,
+        "F_pass_rate": 0.78,
+        "agreement_rate": 0.22,
+        "violations_strict": 156,
+        "F_passes_but_insufficient": 156,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 1.0,
+        "phi_median": 0.0,
+        "n": 200
+      },
+      "20": {
+        "sufficiency_rate": 0.0,
+        "F_pass_rate": 0.78,
+        "agreement_rate": 0.22,
+        "violations_strict": 156,
+        "F_passes_but_insufficient": 156,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 1.0,
+        "phi_median": 0.0,
+        "n": 200
+      },
+      "50": {
+        "sufficiency_rate": 0.001,
+        "F_pass_rate": 0.78,
+        "agreement_rate": 0.22,
+        "violations_strict": 156,
+        "F_passes_but_insufficient": 155,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 0.995,
+        "phi_median": 0.0,
+        "n": 200
+      }
+    },
+    "constant": {
+      "5": {
+        "sufficiency_rate": 0.0,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.0,
+        "violations_strict": 200,
+        "F_passes_but_insufficient": 200,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 1.0,
+        "phi_median": 0.0,
+        "n": 200
+      },
+      "10": {
+        "sufficiency_rate": 0.0,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.0,
+        "violations_strict": 200,
+        "F_passes_but_insufficient": 200,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 1.0,
+        "phi_median": 0.0,
+        "n": 200
+      },
+      "20": {
+        "sufficiency_rate": 0.0,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.0,
+        "violations_strict": 200,
+        "F_passes_but_insufficient": 200,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 1.0,
+        "phi_median": 0.0,
+        "n": 200
+      },
+      "50": {
+        "sufficiency_rate": 0.0,
+        "F_pass_rate": 1.0,
+        "agreement_rate": 0.0,
+        "violations_strict": 200,
+        "F_passes_but_insufficient": 200,
+        "sufficient_but_F_fails": 0,
+        "phi_eq_1_rate": 0.0,
+        "phi_eq_0_rate": 1.0,
+        "phi_median": 0.0,
+        "n": 200
+      }
+    }
+  },
+  "environment": {
+    "python": "3.14.5",
+    "platform": "macOS-26.6-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "numpy": "2.4.6",
+    "sklearn": "1.8.0",
+    "shap": "0.51.0",
+    "lime": "0.2.0.1",
+    "xgboost": "3.2.0"
+  },
+  "n_alerts": 200,
+  "note": "Supersedes the E3 block of run 2 for violation counting: adds violations_strict (Phi < 1) alongside the total-failure count (Phi == 0) that run 2 recorded alone. Same substrate, same seed, same alerts.",
+  "seconds": 276.1
+}

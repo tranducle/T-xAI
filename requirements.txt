@@ -1,0 +1,26 @@
+# Exact versions the recorded results were produced under (see docs/RESULTS.md,
+# and the `environment` block written into every results/*.json). Python 3.14.5.
+#
+# Pinned rather than bounded on purpose: these numbers are the paper's evidence,
+# and a reader reproducing them should start from the environment that produced
+# them. Looser bounds are fine for using the code on new data.
+
+numpy==2.4.6
+scipy==1.17.1
+scikit-learn==1.8.0
+pandas==2.3.3
+
+# Explanation methods under test.
+shap==0.51.0
+lime==0.2.0.1
+
+# Detector-family ablation only (results/ablation_detector_xgboost.json).
+xgboost==3.2.0
+
+# Required only for the EMBER-2018 path: the vendored upstream extractor imports
+# lief at module scope. No code path in this repository calls into it -- see
+# src/txai/third_party/PROVENANCE.md.
+lief==0.17.6
+
+# Test suite.
+pytest==9.0.2
