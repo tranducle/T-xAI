@@ -1,10 +1,12 @@
 # T-XAI experiment results — run 2, 2026-08-02
 
 > [!IMPORTANT]
-> **Superseded in part by `ROUND3_EMBER.md` (run 3, 2026-08-04).** The manuscript's
-> numerical section was re-measured on EMBER-2018 after a round-3 review. Findings **F3**
-> and **F4** below do not survive that re-measurement; the rest stand. This file is kept
-> as the dated record of run 2 and has not been rewritten.
+> **Restated in part by `ROUND3_EMBER.md` (run 3, 2026-08-04).** The manuscript's numerical
+> section was re-measured on EMBER-2018 after a round-3 review. **F3** below is narrowed to
+> the $(F, D)$ pair it was measured under — across three instantiations of each, the control
+> is ahead in 2 of the 9 — and **F4** comes out stronger than it is stated here: strict
+> calibration rejects all four maps, TreeSHAP included. The rest stand. This file is kept as
+> the dated record of run 2 and has not been rewritten.
 
 
 Programme: `PROTOCOL.md`. Gate and claim matrix: `EVIDENCE_GATE.md` (verdict **PASS WITH CLAIM

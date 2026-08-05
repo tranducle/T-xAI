@@ -204,21 +204,28 @@ claim-to-evidence matrix, and the scope these numbers are admissible for are in
 `docs/RESULTS.md` and `docs/EVIDENCE_GATE.md`.
 
 > [!IMPORTANT]
-> **F3 and F4 do not survive run 3.** Re-measured on EMBER-2018 under nine instantiations of
-> the definitions, F3's margin is 2 grid points of 5,324 and its sign reverses in 7 of the 9;
-> and strict calibration rejects **every** map, TreeSHAP included, rather than only the
-> control. `docs/ROUND3_EMBER.md` gives both in full. The other six findings stand.
+> **Run 3 restates F3 and F4** on EMBER-2018; `docs/ROUND3_EMBER.md` gives both in full.
+> **F3** holds for the $(F, D)$ pair it was measured under and not in general: re-measured
+> across three instantiations of each, the constant control is ahead in 2 of the 9, so what
+> the numbers show is a property of those two functionals rather than of the definition.
+> **F4 comes out stronger** than it is stated below — strict calibration rejects **all four**
+> maps, TreeSHAP included, so the contract certifies nothing at that threshold, and the unit
+> that carries information is the pair $(\theta, \text{coverage})$ rather than $\theta$ alone.
+> The other six findings stand as measured.
 
 | | Finding | Evidence |
 |---|---|---|
 | **F1** | The Theorem 1 bound holds in **138 / 138** measured configurations and is never tight — median LHS/RHS 0.029 for TreeSHAP, max 0.243. Verified and quantifiably loose; not sharp. | E5 |
 | **F2** | About half the slack is the constant, not the kernel: the kernel's Dobrushin coefficient in place of $L_\pi = 1$ tightens the median ratio to 0.064 (factor 2.19) with zero violations. | E5b |
-| **F3** ⚠️ | The numeric triple $\{F, B, D\}$ **does not separate an explanation from a constant vector**. At $(\tau_f, \tau_b, \tau_d) = (0.5, 0.8, 0.8)$ the constant control is admissible on 100 % of alerts against TreeSHAP's 94.4 %, and over a larger share of the threshold surface (28.1 % vs 22.5 %). | E7 |
-| **F4** ⚠️ | Equation (7)'s calibration condition **is** the filter the thresholds are not: the constant control violates it on 200 / 200 alerts at every $k$. It also bites on TreeSHAP — 62 / 200 strict violations at $k = 50$. | E3 |
+| **F3** † | The numeric triple $\{F, B, D\}$ **does not separate an explanation from a constant vector**. At $(\tau_f, \tau_b, \tau_d) = (0.5, 0.8, 0.8)$ the constant control is admissible on 100 % of alerts against TreeSHAP's 94.4 %, and over a larger share of the threshold surface (28.1 % vs 22.5 %). | E7 |
+| **F4** † | Equation (7)'s calibration condition **is** the filter the thresholds are not: the constant control violates it on 200 / 200 alerts at every $k$. It also bites on TreeSHAP — 62 / 200 strict violations at $k = 50$. | E3 |
 | **F5** | LIME violates Equation (6)'s stated precondition (views deterministic conditional on $x$): self-stability 0.590 with zero identical repeats, against 0.595 under a 1 % input perturbation. Sixteen times the neighbourhood samples does not fix it. | E4b |
 | **F6** | Equation (10)'s optional $[0,1]$ normalization destroys the role ordering it exists to make comparable — non-monotone on 382 / 600 role pairs, and flat — while raw $D$ is monotone in privilege with zero violations. | E6 |
 | **F7** | BODMAS separability is a collection artefact specific to that corpus. Eight of nine EMBER feature groups reach AUC ≥ 0.986 alone on BODMAS; on EMBER-2018, same detector, same training size (104,578), **none of the nine does** — best is `sections` at 0.931, against a full-feature AUC of 0.988. | E1, E9 |
 | **F8** | The release game is solvable once its payoffs carry measured quantities. Release width is nondecreasing in the evidence weight $\eta$, nonincreasing in the disclosure weight $\rho$, and sits at the lattice minimum for every $\rho$ when $\eta = 0$. The equilibrium is pure at all 18 settings. | E8 |
+
+† Restated by run 3 on EMBER-2018 — F3 narrowed to its $(F, D)$ pair, F4 strengthened
+to all four maps. See the note above and `docs/ROUND3_EMBER.md`.
 
 ---
 
