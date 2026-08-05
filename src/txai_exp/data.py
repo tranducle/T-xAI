@@ -23,7 +23,7 @@ __all__ = ["Dataset", "load_bodmas", "temporal_split", "verify_feature_layout"]
 
 logger = logging.getLogger(__name__)
 
-#: Repository root, three levels up from ``src/txai/data.py``.
+#: Repository root, three levels up from ``src/txai_exp/data.py``.
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 #: Where the corpora live. Override with the ``TXAI_DATA_DIR`` environment

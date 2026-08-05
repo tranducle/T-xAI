@@ -30,7 +30,8 @@ from .perturbations import apply_perturbation
 from .release import (bridge_check, check_view_monotonicity,
                       role_disclosure_profile, sharp_kernel)
 
-__all__ = ["Substrate", "build_substrate", "build_reference_bank", "e1_detector", "e2_faithfulness",
+__all__ = ["Substrate", "build_substrate", "build_substrate_from_split",
+           "build_reference_bank", "e1_detector", "e2_faithfulness",
            "e3_calibration", "e4_robustness", "e5_bridge", "e6_disclosure",
            "e7_admissibility"]
 
@@ -95,13 +96,30 @@ def build_substrate(data: Dataset, cfg: ExperimentConfig, detector_name: str,
     samples. Coordinate-wise summaries were tried first and rejected on
     measurement: see `metrics.faithfulness_F` for the numbers.
     """
+    train_idx, test_idx = temporal_split(data, cfg.test_fraction)
+    return build_substrate_from_split(
+        data.X[train_idx].astype(np.float32), data.y[train_idx],
+        data.X[test_idx].astype(np.float32), data.y[test_idx],
+        cfg, detector_name, seed, n_alerts)
+
+
+def build_substrate_from_split(X_train: np.ndarray, y_train: np.ndarray,
+                               X_test: np.ndarray, y_test: np.ndarray,
+                               cfg: ExperimentConfig, detector_name: str,
+                               seed: int, n_alerts: int) -> Substrate:
+    """The substrate proper, from a split the caller has already made.
+
+    Split by hand only when the corpus cannot go through `temporal_split` --
+    EMBER-2018 ships its own temporal split and its feature matrix is a memmap
+    that must not be fancy-indexed whole. Everything after the split is shared,
+    which is the point: a second corpus that measured its alerts by a different
+    procedure would not be comparable to the first, and the comparison is the
+    whole reason for running it.
+    """
     from sklearn.metrics import roc_auc_score
 
-    train_idx, test_idx = temporal_split(data, cfg.test_fraction)
-    X_train = data.X[train_idx].astype(np.float32)
-    y_train = data.y[train_idx]
-    X_test = data.X[test_idx].astype(np.float32)
-    y_test = data.y[test_idx]
+    X_train = np.asarray(X_train, dtype=np.float32)
+    X_test = np.asarray(X_test, dtype=np.float32)
 
     model = build_detector(detector_name, seed)
     t0 = time.perf_counter()
@@ -131,7 +149,7 @@ def build_substrate(data: Dataset, cfg: ExperimentConfig, detector_name: str,
         X_alerts=X_test[alert_idx].astype(np.float64),
         y_alerts=y_test[alert_idx],
         reference=reference, background=X_train[bg_idx].astype(np.float64),
-        train_size=len(train_idx), test_size=len(test_idx), auc=auc,
+        train_size=len(X_train), test_size=len(X_test), auc=auc,
         alert_rate=float(alert_mask.mean()), fit_seconds=fit_seconds)
 
 

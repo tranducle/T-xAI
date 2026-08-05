@@ -26,7 +26,7 @@ response policies are committed to before the adversary acts.
 Theorem 1 bridge, and the release game's equilibrium. It does **not** implement the governance
 layer — provenance, the claim–evidence graph, a release lattice with real consequences, or
 actionability — because the public corpora used here carry no telemetry provenance, no analyst
-roles, and no response playbook. That boundary is stated in `src/txai/__init__.py` and is not
+roles, and no response playbook. That boundary is stated in `src/txai_exp/__init__.py` and is not
 negotiable downstream: no write-up should describe this code as instantiating more than it does.
 
 ---
@@ -34,7 +34,7 @@ negotiable downstream: no write-up should describe this code as instantiating mo
 ## Layout
 
 ```text
-src/txai/                  measurement package
+src/txai_exp/              measurement package
   config.py                experiment configuration; EMBER-v2 feature-group offsets
   data.py                  BODMAS loading, layout verification, temporal splitting
   detectors.py             detector families and the score function
@@ -44,7 +44,12 @@ src/txai/                  measurement package
   release.py               response kernels, Adv^TV, the Theorem 1 bridge check
   game.py                  the Stackelberg release game
   pipeline.py              stage orchestration
-  ember/                   EMBER-2018 support (extractor compatibility + loader)
+  supplementary.py         the four run-3 measurements over a built substrate
+  controls.py              positive controls: inject a known defect, show it is caught
+  alt_metrics.py           alternative instantiations of D and F, for the sweep
+  actionability.py         a minimal computable A_Gamma (proxy; see docs/ROUND3_EMBER.md)
+  calibration_sweep.py     relaxing Phi = 1 to Phi >= theta; the calibration frontier
+  ember/                   EMBER-2018 support (compatibility, loader, substrate)
   third_party/             vendored upstream code, byte-identical, with SHA-256
 
 experiments/               drivers; each writes results/<name>.json and nothing else
@@ -55,6 +60,9 @@ experiments/               drivers; each writes results/<name>.json and nothing 
   run_release_game.py             E8, the Stackelberg equilibrium sweep
   build_ember_matrix.py           vectorise the EMBER-2018 JSONL release
   run_ember_transfer.py           E9, the second-corpus replication
+  run_numerical_instantiation.py  the whole numerical section, on either corpus
+  run_ember_ablations.py          seed and detector ablations on EMBER-2018
+  run_release_game_ember.py       E8 on EMBER-2018, with the marginal counterfactual
   supervise_ember_transfer.sh     retry/resume supervisor for E9
   watch_ember_transfer.sh         read-only progress monitor for E9
 
@@ -62,8 +70,10 @@ results/                   recorded outputs — the paper's evidence
 docs/
   PROTOCOL.md              the experiment programme, costed before it was run
   EVIDENCE_GATE.md         the pre-registration gate and its claim-narrowing verdict
-  RESULTS.md               findings F1-F8, the claim-to-evidence matrix, limitations
-  figures_numerical.tex    LaTeX emitted from results/, no number typed by hand
+  RESULTS.md               run 2 (BODMAS): findings F1-F8 and the claim-to-evidence matrix
+  ROUND3_EMBER.md          run 3 (EMBER-2018): supersedes RESULTS.md where they differ
+  figures_numerical.tex    LaTeX emitted from run 2's results/, no number typed by hand
+  figures_numerical_ember.tex  the same, emitted from run 3 -- the figures the paper carries
 tests/                     unit tests
 ```
 
@@ -72,8 +82,8 @@ tests/                     unit tests
 ## Installation
 
 ```bash
-git clone https://github.com/<repository>.git txai
-cd txai
+git clone https://github.com/<repository>.git t-xai
+cd t-xai
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt          # pinned to the recorded environment
 ```
@@ -88,7 +98,7 @@ pip install -e ".[ablation,ember,test]"
 
 `lief` is needed only on the EMBER-2018 path, and only because the vendored upstream extractor
 imports it at module scope; no code path in this repository calls into it. See
-`src/txai/third_party/PROVENANCE.md`.
+`src/txai_exp/third_party/PROVENANCE.md`.
 
 ---
 
@@ -118,7 +128,7 @@ $TXAI_DATA_DIR/
   ember2018_matrix/          # written by build_ember_matrix.py (see below)
 ```
 
-Nothing silently assumes a layout. `txai.data.verify_feature_layout` re-derives the EMBER-v2
+Nothing silently assumes a layout. `txai_exp.data.verify_feature_layout` re-derives the EMBER-v2
 column order from an arithmetic invariant — columns 0:256 and 256:512 must each sum to exactly 1
 in every row, which no other 256-wide block does — and raises if the file is not the release this
 code assumes. A dataset or extractor-version mismatch fails loudly rather than producing plausible
@@ -141,6 +151,23 @@ python3 experiments/run_kernel_constant.py                      # ~2 s     -> E5
 python3 experiments/run_release_game.py                         # ~6 min   -> E8
 python3 experiments/make_figures.py                             # -> docs/figures_numerical.tex
 ```
+
+Run 3 re-measures the whole numerical section on EMBER-2018 and adds the four measurements a
+round-3 review asked for. It needs `TXAI_EMBER_MATRIX` pointed at a built matrix, and it is the
+run the manuscript now reports; `docs/ROUND3_EMBER.md` records what it found.
+
+```bash
+python3 experiments/run_numerical_instantiation.py --corpus ember   # ~15 min -> section7_ember.json
+python3 experiments/run_ember_ablations.py --stage all              # ~26 min -> ablations_ember.json
+python3 experiments/run_release_game_ember.py                       # ~17 min -> E8_release_game_ember.json
+python3 experiments/run_self_stability.py --corpus ember            # ~37 min -> E4b_self_stability_ember.json
+python3 experiments/run_kernel_constant.py --source section7_ember  # ~seconds
+python3 experiments/make_figures.py --source section7_ember \
+    --bridge E5b_kernel_constant_ember > docs/figures_numerical_ember.tex
+```
+
+`--corpus bodmas` runs the identical code on the run-2 substrate, which is what makes the two
+comparable.
 
 The EMBER-2018 replication is a two-step path, and the first step is the expensive one — it
 vectorises a million samples into a 8.9 GB memmap:
@@ -172,15 +199,22 @@ out a matrix with holes in it.
 
 ## Findings
 
-Condensed below. Full statements, evidence pointers, the claim-to-evidence matrix, and the
-scope these numbers are admissible for are in `docs/RESULTS.md` and `docs/EVIDENCE_GATE.md`.
+Condensed below, **as measured in run 2 on BODMAS**. Full statements, evidence pointers, the
+claim-to-evidence matrix, and the scope these numbers are admissible for are in
+`docs/RESULTS.md` and `docs/EVIDENCE_GATE.md`.
+
+> [!IMPORTANT]
+> **F3 and F4 do not survive run 3.** Re-measured on EMBER-2018 under nine instantiations of
+> the definitions, F3's margin is 2 grid points of 5,324 and its sign reverses in 7 of the 9;
+> and strict calibration rejects **every** map, TreeSHAP included, rather than only the
+> control. `docs/ROUND3_EMBER.md` gives both in full. The other six findings stand.
 
 | | Finding | Evidence |
 |---|---|---|
 | **F1** | The Theorem 1 bound holds in **138 / 138** measured configurations and is never tight — median LHS/RHS 0.029 for TreeSHAP, max 0.243. Verified and quantifiably loose; not sharp. | E5 |
 | **F2** | About half the slack is the constant, not the kernel: the kernel's Dobrushin coefficient in place of $L_\pi = 1$ tightens the median ratio to 0.064 (factor 2.19) with zero violations. | E5b |
-| **F3** | The numeric triple $\{F, B, D\}$ **does not separate an explanation from a constant vector**. At $(\tau_f, \tau_b, \tau_d) = (0.5, 0.8, 0.8)$ the constant control is admissible on 100 % of alerts against TreeSHAP's 94.4 %, and over a larger share of the threshold surface (28.1 % vs 22.5 %). | E7 |
-| **F4** | Equation (7)'s calibration condition **is** the filter the thresholds are not: the constant control violates it on 200 / 200 alerts at every $k$. It also bites on TreeSHAP — 62 / 200 strict violations at $k = 50$. | E3 |
+| **F3** ⚠️ | The numeric triple $\{F, B, D\}$ **does not separate an explanation from a constant vector**. At $(\tau_f, \tau_b, \tau_d) = (0.5, 0.8, 0.8)$ the constant control is admissible on 100 % of alerts against TreeSHAP's 94.4 %, and over a larger share of the threshold surface (28.1 % vs 22.5 %). | E7 |
+| **F4** ⚠️ | Equation (7)'s calibration condition **is** the filter the thresholds are not: the constant control violates it on 200 / 200 alerts at every $k$. It also bites on TreeSHAP — 62 / 200 strict violations at $k = 50$. | E3 |
 | **F5** | LIME violates Equation (6)'s stated precondition (views deterministic conditional on $x$): self-stability 0.590 with zero identical repeats, against 0.595 under a 1 % input perturbation. Sixteen times the neighbourhood samples does not fix it. | E4b |
 | **F6** | Equation (10)'s optional $[0,1]$ normalization destroys the role ordering it exists to make comparable — non-monotone on 382 / 600 role pairs, and flat — while raw $D$ is monotone in privilege with zero violations. | E6 |
 | **F7** | BODMAS separability is a collection artefact specific to that corpus. Eight of nine EMBER feature groups reach AUC ≥ 0.986 alone on BODMAS; on EMBER-2018, same detector, same training size (104,578), **none of the nine does** — best is `sections` at 0.931, against a full-feature AUC of 0.988. | E1, E9 |
@@ -191,15 +225,15 @@ scope these numbers are admissible for are in `docs/RESULTS.md` and `docs/EVIDEN
 ## Provenance and licence
 
 Code in this repository is MIT-licensed (`LICENSE`). One file is vendored from upstream —
-`src/txai/third_party/ember_features.py`, MIT, byte-identical, with its SHA-256 recorded so the
+`src/txai_exp/third_party/ember_features.py`, MIT, byte-identical, with its SHA-256 recorded so the
 claim is checkable:
 
 ```bash
-shasum -a 256 src/txai/third_party/ember_features.py
+shasum -a 256 src/txai_exp/third_party/ember_features.py
 # db0d93bb1e1d4b28558e373c77194a82c3cae09d7a1aeb44eea5dd68e84f3ffd
 ```
 
-`src/txai/third_party/PROVENANCE.md` records why it is vendored rather than installed, and why the
+`src/txai_exp/third_party/PROVENANCE.md` records why it is vendored rather than installed, and why the
 LIEF version warning it prints does not apply to the path this code uses. Dataset terms are the
 publishers'; see `THIRD_PARTY_LICENSES.md`.
 

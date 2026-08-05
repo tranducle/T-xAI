@@ -27,9 +27,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from run_scoring_layer import environment, save  # noqa: E402
-from txai import pipeline  # noqa: E402
-from txai.config import ExperimentConfig  # noqa: E402
-from txai.data import load_bodmas  # noqa: E402
+from txai_exp import pipeline  # noqa: E402
+from txai_exp.config import ExperimentConfig  # noqa: E402
+from txai_exp.data import load_bodmas  # noqa: E402
 
 logger = logging.getLogger("e3")
 

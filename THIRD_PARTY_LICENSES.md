@@ -2,7 +2,7 @@
 
 ## Vendored code
 
-### `src/txai/third_party/ember_features.py`
+### `src/txai_exp/third_party/ember_features.py`
 
 | Field | Value |
 |---|---|
@@ -14,11 +14,11 @@
 The upstream copyright notice and full licence text are in the `LICENSE` file of
 the upstream repository linked above; they are not reproduced here in order to
 avoid transcribing a notice this repository has not verified character by
-character. `src/txai/third_party/PROVENANCE.md` records why the file is vendored
+character. `src/txai_exp/third_party/PROVENANCE.md` records why the file is vendored
 rather than installed, and how to re-verify the hash:
 
 ```bash
-shasum -a 256 src/txai/third_party/ember_features.py
+shasum -a 256 src/txai_exp/third_party/ember_features.py
 ```
 
 ## Datasets — referenced, not redistributed

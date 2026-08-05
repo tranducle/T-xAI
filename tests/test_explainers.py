@@ -18,8 +18,8 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from txai.explainers import build_explainer  # noqa: E402
-from txai.metrics import attribution_distance, robustness_B  # noqa: E402
+from txai_exp.explainers import build_explainer  # noqa: E402
+from txai_exp.metrics import attribution_distance, robustness_B  # noqa: E402
 
 D = 64
 
@@ -82,7 +82,7 @@ def test_pipeline_explain_does_not_reset_a_stateful_explainer() -> None:
     """Reproduces the 2026-08-02 bug at the layer where it actually occurred."""
     from types import SimpleNamespace
 
-    from txai import pipeline
+    from txai_exp import pipeline
 
     sub = SimpleNamespace(model=None, background=None, score_fn=None, seed=42)
     cfg = SimpleNamespace(lime_samples=10)

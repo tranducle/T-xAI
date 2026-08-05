@@ -1,5 +1,11 @@
 # T-XAI experiment programme — costed on this machine, no GPU
 
+> [!NOTE]
+> **This is the run-2 programme.** Run 3 (2026-08-04) re-ran the numerical section on
+> EMBER-2018 and added four measurements; its costs and drivers are in `ROUND3_EMBER.md`.
+> The hardware conclusion below is unchanged — run 3 also used no GPU, at 94.2 min total.
+
+
 Date 2026-08-02. Gate verdict: `EVIDENCE_GATE.md` → **PASS WITH CLAIM NARROWING**.
 
 ## Hardware and the GPU question

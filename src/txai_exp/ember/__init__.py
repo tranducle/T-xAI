@@ -1,6 +1,6 @@
 """EMBER-2018 support: the extractor compatibility layer and the corpus loader.
 
-Kept apart from `txai.data` (which loads BODMAS) because the two corpora reach
+Kept apart from `txai_exp.data` (which loads BODMAS) because the two corpora reach
 the same 2,381-dimensional feature space by different routes. BODMAS ships as a
 vectorised archive; EMBER-2018 ships as raw JSONL and must be vectorised here,
 under the same hashing convention BODMAS was built with -- see `compat` for how

@@ -1,0 +1,1077 @@
+{
+  "n_actions": 4,
+  "n_groups": 9,
+  "kernels": {
+    "0.25": {
+      "kernel": "softmax_t0.25",
+      "L_pi_manuscript": 1.0,
+      "dobrushin_delta": 0.982269838465667,
+      "empirical_check": {
+        "max_observed_ratio": 0.9331960981680929,
+        "delta": 0.982269838465667,
+        "violations": 0,
+        "n_pairs": 2000
+      }
+    },
+    "1.0": {
+      "kernel": "softmax_t1",
+      "L_pi_manuscript": 1.0,
+      "dobrushin_delta": 0.6055009897325844,
+      "empirical_check": {
+        "max_observed_ratio": 0.5032547654155268,
+        "delta": 0.6055009897325844,
+        "violations": 0,
+        "n_pairs": 2000
+      }
+    },
+    "4.0": {
+      "kernel": "softmax_t4",
+      "L_pi_manuscript": 1.0,
+      "dobrushin_delta": 0.1927656473553346,
+      "empirical_check": {
+        "max_observed_ratio": 0.1557544923268457,
+        "delta": 0.1927656473553346,
+        "violations": 0,
+        "n_pairs": 2000
+      }
+    }
+  },
+  "by_explainer": {
+    "treeshap": {
+      "n_configurations": 36,
+      "violations_under_dobrushin": 0,
+      "tightness_median_manuscript": 0.026736278603823112,
+      "tightness_median_dobrushin": 0.06548025187286771,
+      "slack_factor_removed": 2.449116155735468,
+      "rows": [
+        {
+          "family": "append_bytes",
+          "strength": 0.001,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.010600241168807364,
+          "rhs_manuscript": 0.07464084403643537,
+          "rhs_dobrushin": 0.07331744981461041,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.001,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.004202143015042597,
+          "rhs_manuscript": 0.07464084403643537,
+          "rhs_dobrushin": 0.04519510493853708,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.001,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0011347313673808947,
+          "rhs_manuscript": 0.07464084403643537,
+          "rhs_dobrushin": 0.01438819061983203,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.005,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.015959694253280823,
+          "rhs_manuscript": 0.09865606285589615,
+          "rhs_dobrushin": 0.09690687492511979,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.005,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.007580122800192862,
+          "rhs_manuscript": 0.09865606285589615,
+          "rhs_dobrushin": 0.05973634370236517,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.005,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0021208833590292114,
+          "rhs_manuscript": 0.09865606285589615,
+          "rhs_dobrushin": 0.0190174998219454,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.021795510730420086,
+          "rhs_manuscript": 0.11579880165624994,
+          "rhs_dobrushin": 0.11374567019740243,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.010271332287281918,
+          "rhs_manuscript": 0.11579880165624994,
+          "rhs_dobrushin": 0.07011628901270657,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0029044677081185594,
+          "rhs_manuscript": 0.11579880165624994,
+          "rhs_dobrushin": 0.02232203096423901,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.05,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.036405579027351996,
+          "rhs_manuscript": 0.16651837723144416,
+          "rhs_dobrushin": 0.16356597950469565,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.05,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.017007625570817125,
+          "rhs_manuscript": 0.16651837723144416,
+          "rhs_dobrushin": 0.10082704222230328,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.05,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0048330583689876454,
+          "rhs_manuscript": 0.16651837723144416,
+          "rhs_dobrushin": 0.032099022783579144,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.001,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.001029141390357583,
+          "rhs_manuscript": 0.0162683721771961,
+          "rhs_dobrushin": 0.015979931310593765,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.001,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0005155467978050568,
+          "rhs_manuscript": 0.0162683721771961,
+          "rhs_dobrushin": 0.009850515454630279,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.001,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00013309901053803683,
+          "rhs_manuscript": 0.0162683721771961,
+          "rhs_dobrushin": 0.0031359832941547207,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.005,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0035303063068348375,
+          "rhs_manuscript": 0.04124169863825433,
+          "rhs_dobrushin": 0.0405104766594478,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.005,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0011708740334743185,
+          "rhs_manuscript": 0.04124169863825433,
+          "rhs_dobrushin": 0.024971889343715976,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.005,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0002883213339301728,
+          "rhs_manuscript": 0.04124169863825433,
+          "rhs_dobrushin": 0.007949982736036717,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.01,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.007173359747523063,
+          "rhs_manuscript": 0.057638704419580813,
+          "rhs_dobrushin": 0.05661676087959197,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.01,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0023229072045918937,
+          "rhs_manuscript": 0.057638704419580813,
+          "rhs_dobrushin": 0.03490029257296007,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.01,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0005774512815070743,
+          "rhs_manuscript": 0.057638704419580813,
+          "rhs_dobrushin": 0.01111076217016328,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.05,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.029586016694040703,
+          "rhs_manuscript": 0.12406124470835879,
+          "rhs_dobrushin": 0.12186161879952917,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.05,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.009734391311470896,
+          "rhs_manuscript": 0.12406124470835879,
+          "rhs_dobrushin": 0.07511920645836759,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.05,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.002469871955734752,
+          "rhs_manuscript": 0.12406124470835879,
+          "rhs_dobrushin": 0.02391474614791536,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.001,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0003007545864544981,
+          "rhs_manuscript": 0.01885912011051,
+          "rhs_dobrushin": 0.01852474486455527,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.001,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0001654961750442007,
+          "rhs_manuscript": 0.01885912011051,
+          "rhs_dobrushin": 0.011419215892399491,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.001,
+          "temperature": 4.0,
+          "lhs_adv_tv": 5.83293898463455e-05,
+          "rhs_manuscript": 0.01885912011051,
+          "rhs_dobrushin": 0.0036353904966544698,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.005,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0008427498575172276,
+          "rhs_manuscript": 0.04618115582840827,
+          "rhs_dobrushin": 0.04536235647572838,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.005,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0003158125421438814,
+          "rhs_manuscript": 0.04618115582840827,
+          "rhs_dobrushin": 0.027962735561095912,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.005,
+          "temperature": 4.0,
+          "lhs_adv_tv": 9.163601065255086e-05,
+          "rhs_manuscript": 0.04618115582840827,
+          "rhs_dobrushin": 0.008902140398880704,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.01,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.00141499879858944,
+          "rhs_manuscript": 0.06702696685868921,
+          "rhs_dobrushin": 0.06583856790912826,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.01,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0005965611426405571,
+          "rhs_manuscript": 0.06702696685868921,
+          "rhs_dobrushin": 0.04058489477170945,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.01,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00018254035342363077,
+          "rhs_manuscript": 0.06702696685868921,
+          "rhs_dobrushin": 0.012920496656779783,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.05,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.005395045927544259,
+          "rhs_manuscript": 0.14118120576008789,
+          "rhs_dobrushin": 0.1386780401763496,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.05,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0029743541096935843,
+          "rhs_manuscript": 0.14118120576008789,
+          "rhs_dobrushin": 0.08548535981937286,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.05,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0009703777341027852,
+          "rhs_manuscript": 0.14118120576008789,
+          "rhs_dobrushin": 0.027214886522750035,
+          "holds_under_dobrushin": true
+        }
+      ]
+    },
+    "random": {
+      "n_configurations": 36,
+      "violations_under_dobrushin": 0,
+      "tightness_median_manuscript": 0.0010462604776438817,
+      "tightness_median_dobrushin": 0.001777261819937303,
+      "slack_factor_removed": 1.6986800685997374,
+      "rows": [
+        {
+          "family": "append_bytes",
+          "strength": 0.001,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0010597515258942603,
+          "rhs_manuscript": 0.4250415319387002,
+          "rhs_dobrushin": 0.41750547691862666,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.001,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.00046003371119177506,
+          "rhs_manuscript": 0.4250415319387002,
+          "rhs_dobrushin": 0.25736306826633687,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.001,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00012682794707862856,
+          "rhs_manuscript": 0.4250415319387002,
+          "rhs_dobrushin": 0.08193340605706667,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.005,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0012228018688068927,
+          "rhs_manuscript": 0.42482292996303933,
+          "rhs_dobrushin": 0.417290750791306,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.005,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0004822251995530557,
+          "rhs_manuscript": 0.42482292996303933,
+          "rhs_dobrushin": 0.25723070455371666,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.005,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00012489964378441243,
+          "rhs_manuscript": 0.42482292996303933,
+          "rhs_dobrushin": 0.08189126710571525,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0011914678538809034,
+          "rhs_manuscript": 0.42456688340390375,
+          "rhs_dobrushin": 0.4170392439790242,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.00043415354742188956,
+          "rhs_manuscript": 0.42456688340390375,
+          "rhs_dobrushin": 0.2570756681087425,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00011738369732426993,
+          "rhs_manuscript": 0.42456688340390375,
+          "rhs_dobrushin": 0.08184191012499037,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.05,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0013051273395418618,
+          "rhs_manuscript": 0.42479329899315577,
+          "rhs_dobrushin": 0.4172616451833049,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.05,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0004292462963689306,
+          "rhs_manuscript": 0.42479329899315577,
+          "rhs_dobrushin": 0.2572127629721255,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.05,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00011436734005383295,
+          "rhs_manuscript": 0.42479329899315577,
+          "rhs_dobrushin": 0.08188555527262388,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.001,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.001105659715804867,
+          "rhs_manuscript": 0.4245448946820253,
+          "rhs_dobrushin": 0.4170176451207366,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.001,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.00045995390592773813,
+          "rhs_manuscript": 0.4245448946820253,
+          "rhs_dobrushin": 0.2570623539158821,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.001,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00012363018168580486,
+          "rhs_manuscript": 0.4245448946820253,
+          "rhs_dobrushin": 0.08183767145478295,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.005,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0011128299673722488,
+          "rhs_manuscript": 0.4248301732529417,
+          "rhs_dobrushin": 0.41729786565650834,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.005,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.00045454325764945035,
+          "rhs_manuscript": 0.4248301732529417,
+          "rhs_dobrushin": 0.25723509037292147,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.005,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00012215009752997164,
+          "rhs_manuscript": 0.4248301732529417,
+          "rhs_dobrushin": 0.08189266336318227,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.01,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.001376042795932933,
+          "rhs_manuscript": 0.4248680234733491,
+          "rhs_dobrushin": 0.4173350447863938,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.01,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0005069695657524062,
+          "rhs_manuscript": 0.4248680234733491,
+          "rhs_dobrushin": 0.2572580087188398,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.01,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00015405184387180283,
+          "rhs_manuscript": 0.4248680234733491,
+          "rhs_dobrushin": 0.08189995958542164,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.05,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0011107658288723233,
+          "rhs_manuscript": 0.4248223818951121,
+          "rhs_dobrushin": 0.4172902124407117,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.05,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0004212142472601139,
+          "rhs_manuscript": 0.4248223818951121,
+          "rhs_dobrushin": 0.25723037269804433,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.05,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00012585797965946645,
+          "rhs_manuscript": 0.4248223818951121,
+          "rhs_dobrushin": 0.08189116145704647,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.001,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0010606652413236877,
+          "rhs_manuscript": 0.4246127923316718,
+          "rhs_dobrushin": 0.4170843389340871,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.001,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.00038758832003652627,
+          "rhs_manuscript": 0.4246127923316718,
+          "rhs_dobrushin": 0.2571034660099436,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.001,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00010225508869574768,
+          "rhs_manuscript": 0.4246127923316718,
+          "rhs_dobrushin": 0.08185075978917097,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.005,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0010160034770911232,
+          "rhs_manuscript": 0.4249286494228699,
+          "rhs_dobrushin": 0.41739459582803645,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.005,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0004212008935674883,
+          "rhs_manuscript": 0.4249286494228699,
+          "rhs_dobrushin": 0.2572947177912781,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.005,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00012291890863825455,
+          "rhs_manuscript": 0.4249286494228699,
+          "rhs_dobrushin": 0.08191164618582755,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.01,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0009656828137402738,
+          "rhs_manuscript": 0.4248486836502283,
+          "rhs_dobrushin": 0.41731604786146104,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.01,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.00035967193065463733,
+          "rhs_manuscript": 0.4248486836502283,
+          "rhs_dobrushin": 0.25724629843679886,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.01,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0001034055027301986,
+          "rhs_manuscript": 0.4248486836502283,
+          "rhs_dobrushin": 0.08189623153189803,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.05,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0014556597224193828,
+          "rhs_manuscript": 0.4248335837115752,
+          "rhs_dobrushin": 0.4173012156471594,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.05,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0005239774887336466,
+          "rhs_manuscript": 0.4248335837115752,
+          "rhs_dobrushin": 0.2572371554089995,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.05,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.00014186128392005247,
+          "rhs_manuscript": 0.4248335837115752,
+          "rhs_dobrushin": 0.08189332078244853,
+          "holds_under_dobrushin": true
+        }
+      ]
+    },
+    "constant": {
+      "n_configurations": 36,
+      "violations_under_dobrushin": 0,
+      "tightness_median_manuscript": null,
+      "tightness_median_dobrushin": null,
+      "slack_factor_removed": null,
+      "rows": [
+        {
+          "family": "append_bytes",
+          "strength": 0.001,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.001,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.001,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.005,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.005,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.005,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.05,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.05,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.05,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.001,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.001,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.001,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.005,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.005,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.005,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.01,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.01,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.01,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.05,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.05,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "add_imports",
+          "strength": 0.05,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.001,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.001,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.001,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.005,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.005,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.005,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.01,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.01,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.01,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.05,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.05,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "generic",
+          "strength": 0.05,
+          "temperature": 4.0,
+          "lhs_adv_tv": 0.0,
+          "rhs_manuscript": 0.0,
+          "rhs_dobrushin": 0.0,
+          "holds_under_dobrushin": true
+        }
+      ]
+    },
+    "lime": {
+      "n_configurations": 3,
+      "violations_under_dobrushin": 0,
+      "tightness_median_manuscript": 0.0007699324855634963,
+      "tightness_median_dobrushin": 0.0012715627201592718,
+      "slack_factor_removed": 1.6515249635539713,
+      "rows": [
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 0.25,
+          "lhs_adv_tv": 0.0009473623040443216,
+          "rhs_manuscript": 0.4022173030712091,
+          "rhs_dobrushin": 0.3950859253158528,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 1.0,
+          "lhs_adv_tv": 0.00030968016789026213,
+          "rhs_manuscript": 0.4022173030712091,
+          "rhs_dobrushin": 0.24354297509718797,
+          "holds_under_dobrushin": true
+        },
+        {
+          "family": "append_bytes",
+          "strength": 0.01,
+          "temperature": 4.0,
+          "lhs_adv_tv": 8.756936220183191e-05,
+          "rhs_manuscript": 0.4022173030712091,
+          "rhs_dobrushin": 0.07753367880403844,
+          "holds_under_dobrushin": true
+        }
+      ]
+    }
+  },
+  "source": "section7_ember"
+}

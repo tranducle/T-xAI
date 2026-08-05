@@ -27,10 +27,10 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from txai import pipeline  # noqa: E402
-from txai.config import ExperimentConfig  # noqa: E402
-from txai.data import load_bodmas  # noqa: E402
-from txai.metrics import faithfulness_F  # noqa: E402
+from txai_exp import pipeline  # noqa: E402
+from txai_exp.config import ExperimentConfig  # noqa: E402
+from txai_exp.data import load_bodmas  # noqa: E402
+from txai_exp.metrics import faithfulness_F  # noqa: E402
 
 RESULTS_DIR = Path(__file__).resolve().parents[1] / "results"
 logger = logging.getLogger("run")
@@ -83,7 +83,14 @@ def environment() -> dict:
 
 def run_explainer_block(data, cfg, sub, explainer_name, *, families, budgets,
                         n_perturb, n_explain, n_robust, note) -> dict:
-    """Everything that depends on one (detector, explainer) pair."""
+    """Everything that depends on one (detector, explainer) pair.
+
+    Returns `(block, phi_explain, arrays)`. The third element carries the
+    per-alert quantities -- attributions, F, B, and the perturbed-attribution
+    cache -- that the Section VII add-ons need. They are returned rather than
+    folded into `block` because `block` is serialised to JSON, and a few hundred
+    arrays of 2,381 floats would make the results file unreadable.
+    """
     t0 = time.perf_counter()
     X_explain = sub.X_alerts[:n_explain]
     X_robust = sub.X_alerts[:n_robust]
@@ -98,7 +105,7 @@ def run_explainer_block(data, cfg, sub, explainer_name, *, families, budgets,
 
     F_robust = faithfulness_F(sub.score_fn, X_robust, phi_robust,
                               sub.reference, steps=cfg.deletion_steps)
-    from txai.metrics import robustness_B
+    from txai_exp.metrics import robustness_B
     B_default = robustness_B(
         phi_robust, cache[(families[0], cfg.perturb_strength)]
         if (families[0], cfg.perturb_strength) in cache
@@ -118,7 +125,9 @@ def run_explainer_block(data, cfg, sub, explainer_name, *, families, budgets,
             sub, cfg, explainer_name, F_robust, B_default, phi_robust),
         "seconds": round(time.perf_counter() - t0, 1),
     }
-    return block, phi_explain
+    arrays = {"phi_explain": phi_explain, "phi_robust": phi_robust,
+              "F_robust": F_robust, "B_default": B_default, "cache": cache}
+    return block, phi_explain, arrays
 
 
 def run_main(data, cfg, use_lime: bool) -> dict:
@@ -134,7 +143,7 @@ def run_main(data, cfg, use_lime: bool) -> dict:
     blocks = {}
 
     for name in ("treeshap", "random", "constant"):
-        block, phi = run_explainer_block(
+        block, phi, _ = run_explainer_block(
             data, cfg, sub, name,
             families=cfg.perturbations, budgets=cfg.perturb_budget_grid,
             n_perturb=cfg.n_perturb, n_explain=cfg.n_explain,
@@ -145,7 +154,7 @@ def run_main(data, cfg, use_lime: bool) -> dict:
         save(f"block_{name}", block)
 
     if use_lime:
-        block, phi = run_explainer_block(
+        block, phi, _ = run_explainer_block(
             data, cfg, sub, "lime",
             families=("append_bytes",), budgets=(cfg.perturb_strength,),
             n_perturb=5, n_explain=cfg.n_explain_lime,
@@ -186,7 +195,7 @@ def run_detector_ablation(data, cfg) -> dict:
             logger.error("detector %s unavailable: %s", detector, exc)
             rows[detector] = {"error": str(exc)}
             continue
-        block, _ = run_explainer_block(
+        block, _, _ = run_explainer_block(
             data, reduced, sub, "treeshap",
             families=("append_bytes", "generic"),
             budgets=(reduced.perturb_strength,), n_perturb=5,
@@ -205,7 +214,7 @@ def run_seed_ablation(data, cfg) -> dict:
     for seed in range(cfg.seed, cfg.seed + cfg.n_seeds):
         sub = pipeline.build_substrate(data, reduced, "histgb", seed,
                                        reduced.n_robust)
-        block, _ = run_explainer_block(
+        block, _, _ = run_explainer_block(
             data, reduced, sub, "treeshap",
             families=("append_bytes",), budgets=(reduced.perturb_strength,),
             n_perturb=10, n_explain=reduced.n_robust,

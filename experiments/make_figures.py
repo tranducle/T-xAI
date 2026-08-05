@@ -22,7 +22,9 @@ Usage: python3 make_figures.py > figures_numerical.tex
 
 from __future__ import annotations
 
+import argparse
 import json
+import math
 import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Sequence, Tuple
@@ -60,8 +62,42 @@ FAMILY_STYLE: Dict[str, Tuple[str, str, str]] = {
 }
 
 
+#: Set by `--source` to a nested result file written by `run_numerical_instantiation.py`.
+#: `load` then serves the stage names out of it instead of reading the flat
+#: per-stage files, so one figure set cannot mix two corpora: with a source
+#: selected, a stage the source does not carry is an error rather than a
+#: silent fallback to whatever the last BODMAS run left on disk.
+_SOURCE: Dict[str, Any] = {}
+_SOURCE_NAME = ""
+
+#: The sharpening file `fig_bridge` reads; overridden by `--bridge`.
+BRIDGE_FILE = "E5b_kernel_constant"
+
+
+def use_source(name: str) -> None:
+    """Serve subsequent `load` calls out of one nested result file."""
+    global _SOURCE, _SOURCE_NAME
+    path = RESULTS / f"{name}.json"
+    if not path.exists():
+        raise SystemExit(f"missing result file: {path}")
+    with path.open(encoding="utf-8") as handle:
+        nested = json.load(handle)
+    _SOURCE = dict(nested)
+    _SOURCE.update({f"block_{k}": v for k, v in nested["blocks"].items()})
+    _SOURCE_NAME = name
+
+
 def load(name: str) -> Dict[str, Any]:
     """Read one result file, failing loudly if the experiment never ran."""
+    if _SOURCE:
+        if name in _SOURCE:
+            return _SOURCE[name]
+        # Not in the nested file: only the sharpening, which is computed
+        # afterwards, legitimately lives beside it. Anything else would be a
+        # stage from another corpus.
+        if not name.startswith("E5b_kernel_constant"):
+            raise SystemExit(f"{name!r} is not in {_SOURCE_NAME}.json; "
+                             "refusing to fall back to a file from another run")
     path = RESULTS / f"{name}.json"
     try:
         with path.open(encoding="utf-8") as handle:
@@ -75,10 +111,35 @@ def coords(points: Iterable[Sequence[float]], digits: int = 6) -> str:
     return " ".join(f"({x:.{digits}g},{y:.{digits}g})" for x, y in points)
 
 
+def _first_crossing(curve: Dict[str, Any]) -> str:
+    """The first grid point at which the mean confidence falls below $0.5$.
+
+    Read off the grid rather than interpolated: the curve is a mean over alerts
+    at the $k$ values actually measured, and a crossing quoted between two of
+    them would be a number no experiment produced.
+    """
+    for k, conf in zip(curve["k_values"], curve["mean_confidence_by_k"]):
+        if conf < 0.5:
+            return f"$k={k}$"
+    return "no measured $k$"
+
+
 def fig_deletion() -> str:
     """E2: mean detector confidence against the number of deleted features."""
     by_map = load("E2_faithfulness")["by_explainer"]
     baseline = by_map["treeshap"]["deletion_curve"]["baseline_confidence"]
+    n_alerts = by_map["treeshap"]["deletion_curve"].get(
+        "n", by_map["treeshap"]["n"])
+    crossing = {name: _first_crossing(by_map[name]["deletion_curve"])
+                for name in by_map}
+    # The caption speaks of "the two controls" in one breath, which is only
+    # honest while they cross together; if a re-run separates them, say so
+    # rather than quoting one of the two under a plural.
+    if crossing["constant"] == crossing["random"]:
+        controls_clause = f"neither control before {crossing['constant']}"
+    else:
+        controls_clause = (f"the constant control at {crossing['constant']} and "
+                           f"the random control at {crossing['random']}")
     plots: List[str] = []
     for name in ("treeshap", "lime", "constant", "random"):
         curve = by_map[name]["deletion_curve"]
@@ -109,15 +170,16 @@ def fig_deletion() -> str:
 {chr(10).join(plots)}
 \end{{axis}}
 \end{{tikzpicture}}
-\caption{{Deletion behaviour of the four explanation maps on the $200$ alerts of
-the single-corpus instantiation of Section~\ref{{sec:numsetup}}: mean confidence
+\caption{{Deletion behavior of the four explanation maps on the ${n_alerts}$
+alerts of the instantiation of Section~\ref{{sec:numsetup}}: mean confidence
 of the \textsf{{histgb}} detector after deleting the $k$ highest-attributed
-features. The two grey guides mark the undeleted mean confidence
+features. The two gray guides mark the undeleted mean confidence
 (${baseline:.4f}$) and the decision boundary. Read the
-curves for their \emph{{ordering and shape}}, not for a per-alert guarantee: only
-TreeSHAP drives the detector below the boundary within the first ten features,
-while the constant control tracks the undeleted level through $k=200$ because its
-fixed ordering is uninformative rather than adversarial. LIME's curve is
+curves for their \emph{{ordering and shape}}, not for a per-alert guarantee:
+TreeSHAP crosses the boundary at {crossing['treeshap']}, LIME at
+{crossing['lime']}, and {controls_clause}, by which point almost the entire
+feature vector has been deleted and the crossing says nothing about the ordering
+that produced it. LIME's curve is
 measured on the reduced grid its cost forced (Section~\ref{{sec:numlimits}}) and
 is not directly comparable to the others. Single corpus, single detector, single
 seed; the ordering is not asserted beyond this instantiation.}}
@@ -128,13 +190,23 @@ seed; the ordering is not asserted beyond this instantiation.}}
 def fig_robustness() -> str:
     """E4: robustness score against the adversary's perturbation budget.
 
-    Drawn on a broken vertical axis. The random control is flat near $0.575$
-    while everything else lives above $0.85$, so a single axis spanning both
-    spends five sixths of its height on the empty band between them and leaves
-    the three TreeSHAP curves -- the only series in the figure that *moves*, and
-    the reason the figure exists -- squeezed into the remaining sliver.
+    Two panels with independent vertical ranges, not one broken axis. The random
+    control sits far below everything else, so a single continuous scale spends
+    most of its height on the empty band between them and squeezes the three
+    TreeSHAP curves -- the only series that moves, and the reason the figure
+    exists -- into a sliver. The earlier draft drew that as one axis with break
+    marks, which invites the reader to compare vertical distances across the
+    break; nothing in the figure supports such a comparison, and the round-3
+    review objected. Separate panels make the two ranges separate claims.
     """
     treeshap = load("block_treeshap")["E4_robustness"]["by_family_and_budget"]
+    # The sampling budget goes in the caption rather than being typed there: it
+    # is what makes every plotted value an upper estimate of the supremum in
+    # (5), so a caption that named the wrong one would misstate the direction of
+    # the error.
+    cfg = _SOURCE.get("config", {}) if _SOURCE else {}
+    n_perturb = cfg.get("n_perturb", 20)
+    n_robust = cfg.get("n_robust", 500)
 
     def control(name: str) -> List[Tuple[float, float]]:
         cells = load(f"block_{name}")["E4_robustness"]["by_family_and_budget"]["append_bytes"]
@@ -158,23 +230,29 @@ def fig_robustness() -> str:
     colour, mark = MAP_STYLE["random"]
     lower = (f"\\addplot[color={colour},mark={mark},dashed] coordinates "
              f"{{{coords(lower_pts)}}};")
+
+    # The lower panel gets a range wide enough to show whether the control moves
+    # at all. A range fitted tightly to a nearly flat series magnifies sampling
+    # noise into an apparent trend, which is the mirror image of the mistake the
+    # broken axis made; 0.02 is the smallest span at which the three TreeSHAP
+    # movements in the upper panel are still visible, so the two panels resolve
+    # motion at comparable scales even though their absolute ranges differ.
     lo = min(y for _, y in lower_pts)
     hi = max(y for _, y in lower_pts)
-    # The break marks are drawn at the four corners where the two panels face
-    # each other, so the discontinuity is stated on the axis and not only in the
-    # caption. ``[shift=...]`` keeps this free of the calc library.
-    breaks = "\n".join(
-        f"\\draw[black,line width=0.4pt] "
-        f"([shift={{(-2.2pt,-1.6pt)}}]group c1r{row}.{corner}) -- "
-        f"([shift={{(2.2pt,1.6pt)}}]group c1r{row}.{corner});"
-        for row, corner in ((1, "south west"), (1, "south east"),
-                            (2, "north west"), (2, "north east"))
-    )
+    mid = 0.5 * (lo + hi)
+    span = max(hi - lo, 0.02)
+    ticks = [mid - 0.5 * span, mid, mid + 0.5 * span]
+    ytick = ",".join(f"{t:.4f}" for t in ticks)
+    yticklabels = ",".join(f"${t:.3f}$" for t in ticks)
+
     return rf"""\begin{{figure}}[t]
 \centering
 \begin{{tikzpicture}}
 \begin{{groupplot}}[txaiaxis,
-  group style={{group size=1 by 2, vertical sep=5pt,
+  % Two panels, not one axis with a break: the ranges are disjoint and nothing
+  % here licenses reading a vertical distance across them. ``vertical sep`` is
+  % wide enough that the pair does not read as a single interrupted scale.
+  group style={{group size=1 by 2, vertical sep=17pt,
                 x descriptions at=edge bottom}},
   % ``scale only axis'' so that the two heights below size the plotting boxes
   % themselves: without it pgfplots subtracts the shared x labels from the short
@@ -186,32 +264,39 @@ def fig_robustness() -> str:
   xtick={{0.001,0.005,0.01,0.05}},
   xticklabels={{$0.1\%$,$0.5\%$,$1\%$,$5\%$}},
   x tick label style={{/pgf/number format/assume math mode=true}},
+  y tick label style={{/pgf/number format/assume math mode=true}},
   xmin=0.0008, xmax=0.065]
-\nextgroupplot[height=0.42\columnwidth, ymin=0.835, ymax=1.025,
+\nextgroupplot[height=0.40\columnwidth, ymin=0.835, ymax=1.025,
   ytick={{0.85,0.9,0.95,1}},
-  ylabel={{Robustness score $B_{{\Gamma,r}}$}},
+  ylabel={{$B_{{\Gamma,r}}$: maps under audit}},
   legend style={{at={{(0.03,0.05)}},anchor=south west}}]
 {chr(10).join(upper)}
-\nextgroupplot[height=0.09\columnwidth, ymin={lo - 0.003:.4g}, ymax={hi + 0.014:.4g},
-  ytick={{0.575}}, yticklabels={{$0.575$}},
+\nextgroupplot[height=0.16\columnwidth,
+  ymin={mid - 0.75 * span:.4f}, ymax={mid + 0.75 * span:.4f},
+  ytick={{{ytick}}}, yticklabels={{{yticklabels}}},
+  ylabel={{$B_{{\Gamma,r}}$: random}},
   xlabel={{Perturbation budget $r$ (fraction of the input)}}]
 {lower}
-\node[anchor=north west,font=\scriptsize,inner sep=1.5pt]
-  at (rel axis cs:0.02,0.98) {{random control}};
 \end{{groupplot}}
-{breaks}
 \end{{tikzpicture}}
 \caption{{Robustness score \eqref{{eq:robustness}} against the adversary's budget,
-each point a mean over $500$ alerts $\times$ $20$ sampled transformations. The
-three solid curves are TreeSHAP under the three admitted transformation
-families; the two dashed lines are the controls, both measured under
-\textsf{{append\_bytes}}. The vertical axis is broken at the marked corners
-because the random control lies far below everything else, and on one continuous
-scale it flattens the three curves that actually move into the top seventh of
-the panel. Section~\ref{{sec:numrobust}} reads the three movements and says what
-the flat lines do and do not license. LIME is absent: its cost admitted only the
-single $1\%$ point, reported in the text. Single corpus, single detector, single
-seed.}}
+each point a mean over ${n_robust}$ alerts $\times$ ${n_perturb}$ sampled transformations. Both
+panels plot the same quantity on the same horizontal axis, on \emph{{separate}}
+vertical ranges: the random control lies far below every other map, and on one
+continuous scale it flattens the three curves that actually move into the top
+seventh of the panel. The panels are drawn apart rather than as one axis with a
+break because no comparison of vertical distances across them is intended or
+supported; read each panel's movement against its own scale, and the two
+absolute levels from the tick labels. \emph{{Upper}}: TreeSHAP under the three
+admitted transformation families (solid) and the constant control (dashed), the
+controls measured under \textsf{{append\_bytes}}. \emph{{Lower}}: the random
+control, on a range ${1.5 * span:.3g}$ wide, so a flat line here is flat and not a range
+fitted to noise. Section~\ref{{sec:numrobust}} reads the three movements and says
+what the flat lines do and do not license; every value is computed from a maximum
+over ${n_perturb}$ sampled members of $\Delta_z$ rather than the supremum over all of it,
+and so over-estimates $B_{{\Gamma,r}}$. LIME
+is absent: its cost admitted only the single $1\%$ point, reported in the text.
+Single corpus, single detector, single seed.}}
 \label{{fig:robustness}}
 \end{{figure}}"""
 
@@ -238,15 +323,54 @@ def fig_admissible() -> str:
         )
     # The one comparison the figure exists to make, annotated in-plot rather than
     # left for the caption: the threshold at which the degenerate control is
-    # admissible everywhere, and what the Shapley attribution reads there. Both
-    # come from the data, so a re-run cannot leave a stale annotation behind.
-    tau_star = next(t for t, rate in series["constant"] if rate >= 1.0)
-    shap_at_tau_star = dict(series["treeshap"])[tau_star]
-    # The caption says "under a third" rather than repeating the annotated
-    # number. Fail loudly if a re-run ever makes that wording false.
-    if not shap_at_tau_star < 1 / 3:
-        raise SystemExit(f"caption wording assumes TreeSHAP < 1/3 at tau_d="
-                         f"{tau_star}, measured {shap_at_tau_star}")
+    # accepted on the largest excess of alerts over the Shapley attribution, and
+    # what each reads there. Both come from the data, so a re-run cannot leave a
+    # stale annotation behind.
+    #
+    # The earlier draft looked instead for the first threshold at which the
+    # control is admissible on *every* alert. That threshold exists on BODMAS and
+    # does not exist on EMBER-2018, where the control's own faithfulness score
+    # fails at a third of the alerts, so the search raised StopIteration. The
+    # quantity the argument needs is the excess, which is defined either way.
+    const, shap = dict(series["constant"]), dict(series["treeshap"])
+    taus = sorted(const)
+    tau_star = max(taus, key=lambda t: const[t] - shap[t])
+    const_at, shap_at = const[tau_star], shap[tau_star]
+    excess = const_at - shap_at
+    # Where the ordering reverses, if it does. On a corpus where the control
+    # dominates throughout there is no such threshold, and the caption must not
+    # invent one.
+    reversal = next((t for t in taus if t > tau_star and shap[t] > const[t]), None)
+    if excess > 0:
+        reading = (
+            rf"the marked span is the whole of it. At $\tau_d={tau_star:g}$ the "
+            rf"constant control is admissible on ${const_at:.3f}$ of the alerts "
+            rf"against the Shapley attribution's ${shap_at:.3f}$---a map that "
+            rf"explains nothing accepted on ${const_at / shap_at:.1f}$ times as "
+            rf"many alerts as one that does")
+    else:
+        reading = (
+            rf"on this slice the control never overtakes the Shapley "
+            rf"attribution; its largest excess, at $\tau_d={tau_star:g}$, is "
+            rf"${excess:.3f}$")
+    # How far the comparison the figure draws depends on the two functions the
+    # figure holds fixed. Only a run that carries the sensitivity sweep can say,
+    # so the sentence is omitted rather than guessed when the sweep is absent.
+    sweep_clause = ""
+    if _SOURCE and "addons" in _SOURCE:
+        pairs = _SOURCE["addons"]["sensitivity"]["constant_vs_treeshap"]
+        wider = sum(1 for p in pairs if p["constant_wider"])
+        sweep_clause = (
+            rf", and it is a property of \emph{{this}} $F$ and \emph{{this}} $D$: "
+            rf"Section~\ref{{sec:controls}} re-measures the comparison under "
+            rf"three instantiations of each and finds the control ahead in "
+            rf"{wider} of the {len(pairs)} combinations")
+    if reversal is not None:
+        reading += (
+            rf". The ordering reverses at $\tau_d={reversal:g}$ (${shap[reversal]:.3f}$ "
+            rf"against ${const[reversal]:.3f}$), so the acceptance of the "
+            rf"degenerate map is confined to a band of the disclosure threshold "
+            rf"rather than holding across it")
     return rf"""\begin{{figure}}[t]
 \centering
 \begin{{tikzpicture}}
@@ -258,26 +382,24 @@ def fig_admissible() -> str:
   legend style={{at={{(0.03,0.70)}},anchor=west}}]
 {chr(10).join(plots)}
 \draw[<->,black!55,line width=0.5pt]
-  (axis cs:{tau_star:g},{shap_at_tau_star + 0.04:.3g}) --
-  (axis cs:{tau_star:g},0.96);
+  (axis cs:{tau_star:g},{min(const_at, shap_at) + 0.04:.3g}) --
+  (axis cs:{tau_star:g},{max(const_at, shap_at) - 0.04:.3g});
 \node[anchor=south,font=\scriptsize,text=black!70,inner sep=2pt]
-  at (axis cs:{tau_star:g},1.02)
-  {{$\tau_d={tau_star:g}$: ${1.0:.2f}$ vs ${shap_at_tau_star:.2f}$}};
+  at (axis cs:{tau_star:g},{max(const_at, shap_at) + 0.02:.3g})
+  {{$\tau_d={tau_star:g}$: ${const_at:.2f}$ vs ${shap_at:.2f}$}};
 \end{{axis}}
 \end{{tikzpicture}}
 \caption{{The four numeric conditions of Definition~\ref{{def:admissible}}, applied
-to $200$ alerts as the disclosure threshold is relaxed with the other two
-thresholds held at the values used throughout Section~\ref{{sec:numerical}} (the
-analyst role; the other three roles coincide with it on this slice). This is the
-measurement behind the calibration argument, and the marked span is the whole of
-it: the constant control becomes admissible on \emph{{every}} alert at a
-disclosure threshold where TreeSHAP is still admissible on under a
-third, so on this slice the inequalities alone accept a vector that
-explains nothing over a strictly wider region than they accept a Shapley
-attribution. The gap is a property of this instantiation, not a theorem; what
-generalises is that the numeric conditions cannot by themselves exclude the
-degenerate map, which is what \eqref{{eq:calibration}} is for. Single corpus,
-single detector, single seed.}}
+to the alerts of Section~\ref{{sec:numsetup}} as the disclosure threshold is
+relaxed with the other two thresholds held at the values used throughout
+Section~\ref{{sec:numerical}} (the analyst role; the other three roles coincide
+with it to within a percentage point on this slice). This is the measurement
+behind the calibration argument: {reading}. The band is a property of this
+instantiation, not a theorem{sweep_clause}. What generalizes is therefore not
+that the numeric conditions cannot exclude the degenerate map, but that whether
+they exclude it is decided by how $F$ and $D$ are instantiated---which is why
+\eqref{{eq:calibration}} and the contract must pin that choice down rather than
+leave it to the deployment. Single corpus, single detector, single seed.}}
 \label{{fig:admissible}}
 \end{{figure}}"""
 
@@ -288,7 +410,10 @@ def fig_bridge() -> str:
     dobrushin: List[Tuple[float, float]] = []
     dropped = 0
     for name in ("treeshap", "lime", "random", "constant"):
-        for row in load("E5b_kernel_constant")["by_explainer"][name]["rows"]:
+        block = load(BRIDGE_FILE)["by_explainer"]
+        if name not in block:
+            continue
+        for row in block[name]["rows"]:
             lhs = row["lhs_adv_tv"]
             if lhs <= 0.0:            # exactly zero on both sides: no log position
                 dropped += 1
@@ -343,21 +468,52 @@ def table_e8() -> str:
     rhos = sorted({row["rho"] for row in data["sensitivity"]})
     cell = {(row["rho"], row["eta"]): row for row in data["sensitivity"]}
 
+    def width_at(rho: float, eta: float) -> int:
+        return int(cell[(rho, eta)]["pure_defender_strategy"]
+                   .split(",")[0].split("=")[1])
+
+    # The caption makes three claims about the shape of this table. They held on
+    # the corpus the table was first written for; on a re-run they are claims
+    # about numbers nobody has looked at, so they are checked here rather than
+    # trusted.
+    for rho in rhos:
+        widths = [width_at(rho, e) for e in etas]
+        if widths != sorted(widths):
+            raise SystemExit(f"caption claims the release width is nondecreasing "
+                             f"in eta; at rho={rho:g} it reads {widths}")
+    for eta in etas:
+        widths = [width_at(r, eta) for r in rhos]
+        if widths != sorted(widths, reverse=True):
+            raise SystemExit(f"caption claims the release width is nonincreasing "
+                             f"in rho; at eta={eta:g} it reads {widths}")
+    smallest = min(width_at(r, e) for r in rhos for e in etas)
+    if any(width_at(r, etas[0]) != smallest for r in rhos):
+        raise SystemExit("caption claims the least release width at the smallest "
+                         "eta for every rho; the sweep disagrees")
+    attacker = {row["attacker_strategy"].split("|")[0] for row in
+                data["sensitivity"]}
+    if attacker != {"M4_observe"}:
+        raise SystemExit(f"caption claims pure observation at every setting; "
+                         f"the sweep plays {sorted(attacker)}")
+
     lines: List[str] = []
     for rho in rhos:
         parts = [f"${rho:g}$"]
         for eta in etas:
             row = cell[(rho, eta)]
-            width = row["pure_defender_strategy"].split(",")[0].split("=")[1]
-            parts.append(f"${width}$")
+            parts.append(f"${width_at(rho, eta)}$")
             parts.append(f"${row['defender_utility']:.3f}$")
         lines.append(" & ".join(parts) + r"\\")
     body = "\n".join(lines)
 
     n_d, n_a = len(data["defender_strategies"]), len(data["attacker_strategies"])
     worst = max(abs(row["randomisation_gain"]) for row in data["sensitivity"])
-    mant, expo = f"{worst:.0e}".split("e")
-    gap = rf"{mant}\times10^{{{int(expo)}}}"
+    # Round the mantissa *up*, not to nearest: the caption states this figure as
+    # a bound the gain does not exceed, and `.0e` turned 1.110e-16 into
+    # "1e-16" -- a bound the measurement it summarises violates.
+    expo = math.floor(math.log10(worst))
+    mant = math.ceil(worst / 10 ** expo * 10) / 10
+    gap = rf"{mant:.1f}\times10^{{{expo}}}"
     header = " & ".join(rf"\multicolumn{{2}}{{c}}{{$\eta={e:g}$}}" for e in etas)
     sub = " & ".join(r"$k^\star$ & $U_D$" for _ in etas)
     return rf"""\begin{{table}}[t]
@@ -387,6 +543,19 @@ $\rho$ & {sub}\\
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--source", default=None,
+                        help="nested result file from run_numerical_instantiation.py, without "
+                             "the .json suffix; default reads the per-stage "
+                             "files run_scoring_layer.py writes")
+    parser.add_argument("--bridge", default="E5b_kernel_constant",
+                        help="the sharpening file matching --source")
+    args = parser.parse_args()
+    if args.source:
+        use_source(args.source)
+    global BRIDGE_FILE
+    BRIDGE_FILE = args.bridge
+
     blocks = (fig_deletion(), fig_robustness(), fig_admissible(), fig_bridge(),
               table_e8())
     sys.stdout.write("\n\n".join(blocks) + "\n")

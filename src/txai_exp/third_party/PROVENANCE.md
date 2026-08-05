@@ -33,7 +33,7 @@ only path used is `process_raw_features(raw_obj)` — pure `numpy` plus
 `sklearn.feature_extraction.FeatureHasher`, with no LIEF call anywhere beneath it.
 LIEF is imported at module scope and otherwise unused on this path.
 
-Independent of this argument, `txai.data.verify_feature_layout` re-checks the
+Independent of this argument, `txai_exp.data.verify_feature_layout` re-checks the
 resulting matrix by an arithmetic invariant (columns 0:256 and 256:512 each sum to
 exactly 1 per row) and raises if the layout is not the one BODMAS uses, so a silent
 version mismatch cannot reach the results.

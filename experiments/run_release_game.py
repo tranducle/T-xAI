@@ -34,13 +34,13 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from run_scoring_layer import environment, save  # noqa: E402
-from txai import pipeline  # noqa: E402
-from txai.config import ExperimentConfig  # noqa: E402
-from txai.data import load_bodmas  # noqa: E402
-from txai.game import (GameInstance, build_payoffs, solve_sse_milp,  # noqa: E402
+from txai_exp import pipeline  # noqa: E402
+from txai_exp.config import ExperimentConfig  # noqa: E402
+from txai_exp.data import load_bodmas  # noqa: E402
+from txai_exp.game import (GameInstance, build_payoffs, solve_sse_milp,  # noqa: E402
                            solve_sse_multiple_lp, solve_sse_pure)
-from txai.perturbations import apply_perturbation  # noqa: E402
-from txai.release import sharp_kernel  # noqa: E402
+from txai_exp.perturbations import apply_perturbation  # noqa: E402
+from txai_exp.release import sharp_kernel  # noqa: E402
 
 logger = logging.getLogger("e8")
 
@@ -107,14 +107,15 @@ def solve_and_check(tables) -> dict:
                                   - pure["defender_utility"]}
 
 
-def main() -> int:
-    logging.basicConfig(level=logging.INFO, stream=sys.stdout,
-                        format="%(asctime)s %(levelname)s %(name)s %(message)s")
-    t0 = time.perf_counter()
-    data = load_bodmas()
-    cfg = ExperimentConfig()
-    sub = pipeline.build_substrate(data, cfg, "histgb", cfg.seed, N_ALERTS)
+def run_e8(sub, cfg: ExperimentConfig) -> dict:
+    """The whole of E8 on an already-built substrate.
 
+    Split out from `main` so the EMBER-2018 rerun can drive the same game code
+    from a different corpus. Nothing below the substrate is corpus-specific --
+    which is the point, since a game solved by a second code path would not be
+    comparable to the first.
+    """
+    t0 = time.perf_counter()
     moves, X_by_move = build_attacker_moves(sub, cfg)
     kernels = [sharp_kernel(seed=cfg.seed, temperature=t)
                for t in KERNEL_TEMPERATURES]
@@ -156,7 +157,7 @@ def main() -> int:
 
     out = {
         "environment": environment(),
-        "detector": "histgb", "seed": cfg.seed, "explainer": EXPLAINER,
+        "detector": sub.detector_name, "seed": cfg.seed, "explainer": EXPLAINER,
         "n_alerts": N_ALERTS,
         "purpose": ("M-8: compute the equilibrium for one finite instance "
                     "rather than only certifying that one exists."),
@@ -179,9 +180,22 @@ def main() -> int:
         "equilibrium": equilibrium,
         "sensitivity": sweep,
         "release_levels_chosen_across_sweep": released,
+        "world_mass": {
+            "benign": float((sub.y_alerts[:N_ALERTS] == 0).mean()),
+            "malware": float((sub.y_alerts[:N_ALERTS] == 1).mean()),
+        },
         "seconds": round(time.perf_counter() - t0, 1),
     }
-    save("E8_release_game", out)
+    return out
+
+
+def main() -> int:
+    logging.basicConfig(level=logging.INFO, stream=sys.stdout,
+                        format="%(asctime)s %(levelname)s %(name)s %(message)s")
+    data = load_bodmas()
+    cfg = ExperimentConfig()
+    sub = pipeline.build_substrate(data, cfg, "histgb", cfg.seed, N_ALERTS)
+    save("E8_release_game", run_e8(sub, cfg))
     return 0
 
 

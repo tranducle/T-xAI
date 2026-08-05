@@ -1,0 +1,158 @@
+{
+  "environment": {
+    "python": "3.14.5",
+    "platform": "macOS-26.6-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "numpy": "2.4.6",
+    "sklearn": "1.8.0",
+    "shap": "0.51.0",
+    "lime": "0.2.0.1",
+    "xgboost": "3.2.0"
+  },
+  "detector": "histgb",
+  "seed": 42,
+  "corpus": "ember",
+  "provenance": {
+    "corpus": "EMBER-2018 feature version 2",
+    "corpus_dir": "data_ember2018",
+    "split": "EMBER's released temporal split (train 2018-01..10, test 2018-11..12), used as shipped",
+    "train_size": 104578,
+    "train_subsampled": true,
+    "train_subsample_reason": "matched to E1's BODMAS training size so the corpus is the only variable between the two runs",
+    "test_size": 50000,
+    "test_size_full": 200000,
+    "test_subsampled": true,
+    "test_subsample_reason": "stratified, to bound resident memory; preserves the benign/malware ratio and therefore the alert population",
+    "train_malware_fraction": 0.5,
+    "test_malware_fraction": 0.5,
+    "auc": 0.9884341487999999,
+    "alert_rate": 0.50958,
+    "n_alerts": 100,
+    "alert_malware_fraction": 0.96,
+    "alert_benign_count": 4
+  },
+  "purpose": "Eq. (6) is stated for views deterministic conditional on x. This measures whether that holds, per explainer.",
+  "by_explainer": {
+    "treeshap": {
+      "explainer": "treeshap",
+      "n_alerts": 100,
+      "n_repeat": 5,
+      "bitwise_identical_repeats": 5,
+      "deterministic": true,
+      "B_self": {
+        "B_mean": 1.0,
+        "B_std": 0.0,
+        "B_min": 1.0,
+        "B_p25": 1.0,
+        "B_median": 1.0,
+        "B_p75": 1.0,
+        "B_max": 1.0
+      },
+      "seconds": 3.9
+    },
+    "constant": {
+      "explainer": "constant",
+      "n_alerts": 100,
+      "n_repeat": 5,
+      "bitwise_identical_repeats": 5,
+      "deterministic": true,
+      "B_self": {
+        "B_mean": 1.0,
+        "B_std": 0.0,
+        "B_min": 1.0,
+        "B_p25": 1.0,
+        "B_median": 1.0,
+        "B_p75": 1.0,
+        "B_max": 1.0
+      },
+      "seconds": 0.0
+    },
+    "random": {
+      "explainer": "random",
+      "n_alerts": 100,
+      "n_repeat": 5,
+      "bitwise_identical_repeats": 0,
+      "deterministic": false,
+      "B_self": {
+        "B_mean": 0.5797140863583689,
+        "B_std": 0.004266599990771794,
+        "B_min": 0.5684298439747486,
+        "B_p25": 0.5768642813921168,
+        "B_median": 0.5797626251958448,
+        "B_p75": 0.5824931868943848,
+        "B_max": 0.5913638252967427
+      },
+      "seconds": 0.0
+    },
+    "lime": {
+      "explainer": "lime",
+      "n_alerts": 100,
+      "n_repeat": 5,
+      "bitwise_identical_repeats": 0,
+      "deterministic": false,
+      "B_self": {
+        "B_mean": 0.6068085811389153,
+        "B_std": 0.090359239986339,
+        "B_min": 0.5721137680336491,
+        "B_p25": 0.5823958815748281,
+        "B_median": 0.5865836335513902,
+        "B_p75": 0.5903105774637103,
+        "B_max": 1.0
+      },
+      "seconds": 660.7
+    }
+  },
+  "lime_sample_sweep": {
+    "500": {
+      "explainer": "lime",
+      "n_alerts": 100,
+      "n_repeat": 3,
+      "bitwise_identical_repeats": 0,
+      "deterministic": false,
+      "B_self": {
+        "B_mean": 0.6087733771210516,
+        "B_std": 0.08986159819581466,
+        "B_min": 0.577432297011444,
+        "B_p25": 0.5847704904232439,
+        "B_median": 0.5888302128924789,
+        "B_p75": 0.5922621887929228,
+        "B_max": 1.0
+      },
+      "seconds": 36.5
+    },
+    "2000": {
+      "explainer": "lime",
+      "n_alerts": 100,
+      "n_repeat": 3,
+      "bitwise_identical_repeats": 0,
+      "deterministic": false,
+      "B_self": {
+        "B_mean": 0.608886253189141,
+        "B_std": 0.08992147992908366,
+        "B_min": 0.5724544702066309,
+        "B_p25": 0.5847728788230686,
+        "B_median": 0.588349122466743,
+        "B_p75": 0.5933758437130235,
+        "B_max": 1.0
+      },
+      "seconds": 268.4
+    },
+    "8000": {
+      "explainer": "lime",
+      "n_alerts": 100,
+      "n_repeat": 3,
+      "bitwise_identical_repeats": 0,
+      "deterministic": false,
+      "B_self": {
+        "B_mean": 0.653443979983106,
+        "B_std": 0.07959680426883337,
+        "B_min": 0.6258031593477875,
+        "B_p25": 0.6331354667031617,
+        "B_median": 0.6354985878995617,
+        "B_p75": 0.6384467919345123,
+        "B_max": 1.0
+      },
+      "seconds": 1233.1
+    }
+  }
+}

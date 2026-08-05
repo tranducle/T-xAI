@@ -14,7 +14,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from txai.game import (PayoffTables, attacker_visible_content,  # noqa: E402
+from txai_exp.game import (PayoffTables, attacker_visible_content,  # noqa: E402
                            restrict_view, solve_sse_milp,
                            solve_sse_multiple_lp, solve_sse_pure)
 

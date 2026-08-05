@@ -17,9 +17,9 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from txai import metrics, release  # noqa: E402
-from txai.config import ACTIONS, EMBER_GROUPS, GROUP_NAMES, ROLE_SENSITIVITY  # noqa: E402
-from txai.perturbations import apply_perturbation, check_invariants  # noqa: E402
+from txai_exp import metrics, release  # noqa: E402
+from txai_exp.config import ACTIONS, EMBER_GROUPS, GROUP_NAMES, ROLE_SENSITIVITY  # noqa: E402
+from txai_exp.perturbations import apply_perturbation, check_invariants  # noqa: E402
 
 
 # --------------------------------------------------------------------------
@@ -422,7 +422,7 @@ def test_a_reference_of_the_wrong_width_is_rejected() -> None:
 
 def test_the_reference_bank_refuses_donors_the_detector_calls_malware() -> None:
     """The guard that would have caught the median-reference fault up front."""
-    from txai.pipeline import build_reference_bank
+    from txai_exp.pipeline import build_reference_bank
 
     X = np.arange(40, dtype=np.float64).reshape(20, 2)
     y = np.zeros(20, dtype=int)

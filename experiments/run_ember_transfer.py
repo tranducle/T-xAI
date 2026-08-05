@@ -68,8 +68,8 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[0] / "src"))
 
-from txai.config import EMBER_GROUPS  # noqa: E402
-from txai.ember.loader import load_ember2018  # noqa: E402
+from txai_exp.config import EMBER_GROUPS  # noqa: E402
+from txai_exp.ember.loader import load_ember2018  # noqa: E402
 
 logger = logging.getLogger("e9")
 

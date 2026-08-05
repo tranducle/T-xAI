@@ -20,9 +20,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "experiments"))
 
-from txai.config import N_FEATURES  # noqa: E402
-from txai.ember.compat import ENTRY_NAME_CONVENTIONS, build_extractor  # noqa: E402
-from txai.ember.loader import load_ember2018  # noqa: E402
+from txai_exp.config import N_FEATURES  # noqa: E402
+from txai_exp.ember.compat import ENTRY_NAME_CONVENTIONS, build_extractor  # noqa: E402
+from txai_exp.ember.loader import load_ember2018  # noqa: E402
 
 import build_ember_matrix as ve  # noqa: E402
 

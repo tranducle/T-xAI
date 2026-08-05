@@ -51,7 +51,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from txai.config import N_FEATURES  # noqa: E402
+from txai_exp.config import N_FEATURES  # noqa: E402
 
 logger = logging.getLogger("build_ember_matrix")
 
@@ -185,15 +185,15 @@ _CONVENTION = None
 def _get_extractor(convention: str):
     """Build the extractor once per worker process.
 
-    The extractor is built through `txai.ember.compat`, which restores the
+    The extractor is built through `txai_exp.ember.compat`, which restores the
     hashing semantics the published EMBER vectors were computed under; see that
     module for why the upstream file is not simply corrected. The LIEF version
     warning printed by `PEFeatureExtractor.__init__` does not apply on this code
-    path — see `txai/third_party/PROVENANCE.md` — and is suppressed there.
+    path — see `txai_exp/third_party/PROVENANCE.md` — and is suppressed there.
     """
     global _EXTRACTOR, _CONVENTION
     if _EXTRACTOR is None or _CONVENTION != convention:
-        from txai.ember.compat import build_extractor
+        from txai_exp.ember.compat import build_extractor
         _EXTRACTOR = build_extractor(convention)
         _CONVENTION = convention
     return _EXTRACTOR
@@ -414,7 +414,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--convention", default="chars",
                         choices=("chars", "token"),
                         help="how to hash the entry section name; see "
-                             "txai/ember/compat.py")
+                             "txai_exp/ember/compat.py")
     parser.add_argument("--log", type=Path, default=None)
     args = parser.parse_args(argv)
 

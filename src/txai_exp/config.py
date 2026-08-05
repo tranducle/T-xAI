@@ -109,6 +109,11 @@ class ExperimentConfig:
     tau_f: float = 0.5
     tau_b: float = 0.8
     tau_d: float = 0.5
+    # A_Gamma's threshold. Kept out of `threshold_grid`'s sweep on purpose: the
+    # actionability proxy rests on an illustrative playbook, so sweeping it
+    # alongside the three measured conditions would give a speculative
+    # quantity the same standing as the measured ones.
+    tau_a: float = 0.5
 
     detectors: Tuple[str, ...] = ("histgb", "xgboost", "randomforest")
     explainers: Tuple[str, ...] = ("treeshap", "lime", "random", "constant")

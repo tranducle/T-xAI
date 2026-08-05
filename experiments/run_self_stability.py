@@ -22,11 +22,19 @@ statement about the sampling budget as much as about robustness.
 The LIME sweep over `num_samples` then answers the reviewer's question -- is
 LIME unstable, or was it merely under-sampled here?
 
-Usage: python3 run_self_stability.py
+Runs on either corpus. Section VII now reports EMBER-2018, and the determinism
+precondition is a property of the explanation map rather than of the corpus --
+but the numbers beside which it is quoted are EMBER's, so measuring it on BODMAS
+would put two substrates in one paragraph.
+
+Usage:
+    python3 run_self_stability.py --corpus ember
+    python3 run_self_stability.py --corpus bodmas
 """
 
 from __future__ import annotations
 
+import argparse
 import logging
 import sys
 import time
@@ -38,10 +46,10 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from run_scoring_layer import environment, save  # noqa: E402
-from txai import pipeline  # noqa: E402
-from txai.config import ExperimentConfig  # noqa: E402
-from txai.data import load_bodmas  # noqa: E402
-from txai.metrics import robustness_B, summarise  # noqa: E402
+from txai_exp import pipeline  # noqa: E402
+from txai_exp.config import ExperimentConfig  # noqa: E402
+from txai_exp.data import load_bodmas  # noqa: E402
+from txai_exp.metrics import robustness_B, summarise  # noqa: E402
 
 logger = logging.getLogger("selfstab")
 
@@ -67,15 +75,30 @@ def self_stability(sub, cfg, explainer_name: str, X: np.ndarray,
             "seconds": round(time.perf_counter() - t0, 1)}
 
 
+def build(corpus: str, cfg: ExperimentConfig):
+    """(substrate, provenance) for the requested corpus."""
+    if corpus == "bodmas":
+        sub = pipeline.build_substrate(load_bodmas(), cfg, "histgb", cfg.seed,
+                                       N_ALERTS)
+        return sub, {"corpus": "BODMAS"}
+    from txai_exp.ember.substrate import build_ember_substrate
+    return build_ember_substrate(cfg, "histgb", cfg.seed, N_ALERTS)
+
+
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--corpus", default="ember",
+                        choices=["ember", "bodmas"])
+    args = parser.parse_args()
+
     logging.basicConfig(level=logging.INFO, stream=sys.stdout,
                         format="%(asctime)s %(levelname)s %(name)s %(message)s")
-    data = load_bodmas()
     cfg = ExperimentConfig()
-    sub = pipeline.build_substrate(data, cfg, "histgb", cfg.seed, N_ALERTS)
+    sub, provenance = build(args.corpus, cfg)
     X = sub.X_alerts[:N_ALERTS]
 
     out = {"environment": environment(), "detector": "histgb", "seed": cfg.seed,
+           "corpus": args.corpus, "provenance": provenance,
            "purpose": ("Eq. (6) is stated for views deterministic conditional "
                        "on x. This measures whether that holds, per explainer."),
            "by_explainer": {}, "lime_sample_sweep": {}}
@@ -93,7 +116,7 @@ def main() -> int:
         logger.info("lime %d samples: B_self mean=%.4f (%.0fs)", n_samples,
                     row["B_self"]["B_mean"], row["seconds"])
 
-    save("E4b_self_stability", out)
+    save(f"E4b_self_stability_{args.corpus}", out)
     return 0
 
 

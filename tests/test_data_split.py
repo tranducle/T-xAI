@@ -16,8 +16,8 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from txai.config import EMBER_GROUPS, N_FEATURES  # noqa: E402
-from txai.data import Dataset, temporal_split, verify_feature_layout  # noqa: E402
+from txai_exp.config import EMBER_GROUPS, N_FEATURES  # noqa: E402
+from txai_exp.data import Dataset, temporal_split, verify_feature_layout  # noqa: E402
 
 
 def _dataset(n: int = 100, n_bad: int = 0) -> Dataset:

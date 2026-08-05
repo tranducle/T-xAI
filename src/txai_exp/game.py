@@ -235,6 +235,16 @@ def build_payoffs(instance: GameInstance,
                 decision_loss = float((q * loss_matrix).sum())
                 q_target = float(q[:, target].sum())
 
+                # What the marginal formula would have returned. Proposition
+                # `marginal` says the action marginal cannot replace the joint
+                # law over (world, action); the two agree exactly when the world
+                # is degenerate, which is why the BODMAS instance could not
+                # exhibit the distinction. Scoring the action marginal against
+                # the malware row -- the reading a collapsed loss column forces
+                # -- makes the gap a measured number rather than an argument.
+                q_action = q.sum(axis=0)
+                decision_loss_marginal = float((q_action * loss_matrix[1]).sum())
+
                 d_cost = float(
                     disclosure_D(z_a, instance.role_attacker, top_k=k_a,
                                  group_index=gidx, normalise=True).mean())
@@ -252,6 +262,9 @@ def build_payoffs(instance: GameInstance,
                     "sigma": sigma_labels[-1], "move": label, "capability": cap,
                     "release_width": k, "public_width": k_a,
                     "decision_loss": decision_loss, "q_target": q_target,
+                    "decision_loss_marginal": decision_loss_marginal,
+                    "marginal_gap": decision_loss_marginal - decision_loss,
+                    "action_marginal": q_action.tolist(),
                     "disclosure_D": d_cost, "attacker_gain": gain,
                     "evidence_failure": fail,
                     "U_D": u_d, "U_A": u_a,

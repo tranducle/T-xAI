@@ -1,7 +1,14 @@
 # T-XAI experiment results — run 2, 2026-08-02
 
+> [!IMPORTANT]
+> **Superseded in part by `ROUND3_EMBER.md` (run 3, 2026-08-04).** The manuscript's
+> numerical section was re-measured on EMBER-2018 after a round-3 review. Findings **F3**
+> and **F4** below do not survive that re-measurement; the rest stand. This file is kept
+> as the dated record of run 2 and has not been rewritten.
+
+
 Programme: `PROTOCOL.md`. Gate and claim matrix: `EVIDENCE_GATE.md` (verdict **PASS WITH CLAIM
-NARROWING**). Raw outputs: `results/*.json`. Code: `src/txai/`, drivers `run_scoring_layer.py`,
+NARROWING**). Raw outputs: `results/*.json`. Code: `src/txai_exp/`, drivers `run_scoring_layer.py`,
 `run_self_stability.py`, `run_kernel_constant.py`, `run_release_game.py`. Unit tests: `tests/` — **67
 passed** (53 + 14 for E8).
 
@@ -182,7 +189,7 @@ explainer explaining the same input differently each time.
 ### E5 · Theorem 1 bridge — `results/block_*.json` → `E5_bridge`
 
 $L_\pi=1$ **exactly**, by the $\ell_1$ non-expansiveness of a column-stochastic kernel — proved in
-`src/txai/release.py` and verified numerically on 200 random pairs in `tests/test_metrics.py`, so
+`src/txai_exp/release.py` and verified numerically on 200 random pairs in `tests/test_metrics.py`, so
 the measured slack is not an artefact of estimating a constant.
 
 **138 configurations, 0 violations** (4 explainers × families × budgets × 3 kernel temperatures,
@@ -273,7 +280,7 @@ gets $\lfloor k/4 \rfloor$ of the analyst width.
 (Eq. 10), attacker-visible content (fraction of the 9 EMBER groups revealed), and evidence-obligation
 failure (donor sufficiency $\Phi$ on the delivered analyst view).
 **Stipulated and swept:** $\ell$, $\kappa$, $\beta$, $\eta$, $\rho$. Declared in
-`src/txai/game.py::GameInstance`; $\eta,\rho$ swept over $3\times6$ settings.
+`src/txai_exp/game.py::GameInstance`; $\eta,\rho$ swept over $3\times6$ settings.
 
 | finding | number |
 |---|---|
@@ -363,7 +370,7 @@ explanation-layer findings hold on a harder substrate is untested and must not b
 Cost and provenance: vectorisation 2.0 min (202 chunks, 7 workers, 0 failed, 0 unparsable);
 E9 itself one attempt, no retry, fit 207 s, peak RSS 2.82 GB. Feature extractor vendored
 byte-identical from upstream EMBER (`vendor/PROVENANCE.md`, sha256 recorded) with legacy
-`FeatureHasher` semantics restored in `txai/ember/compat.py` so the vectors land in the same
+`FeatureHasher` semantics restored in `txai_exp/ember/compat.py` so the vectors land in the same
 feature space as BODMAS — settled by measurement against BODMAS's entry-name block, not by
 preference. Tests: `tests/test_ember.py`, 17 cases.
 
