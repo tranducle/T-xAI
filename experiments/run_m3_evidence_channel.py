@@ -14,7 +14,9 @@ import copy
 import hashlib
 import hmac
 import json
+import platform
 import statistics
+import subprocess
 import sys
 import tempfile
 import time
@@ -320,7 +322,12 @@ def main()->int:
         'next_allowed_step':'bounded_C3_manuscript_claim_update' if not failed else 'repair_M3_experiment',
         'fail_interpretation':'The evidence-integrity mechanism either rejects clean records, fails to detect channel corruption, or does not expose the authenticity boundary.'
     }
-    payload={'experiment':'E11_m3_evidence_channel','status':'smoke' if args.tag else 'official','purpose':'controlled M3 corruption test for claim-evidence provenance integrity','provenance':provenance,'config':{'seed':cfg.seed,'n_alerts':args.n_alerts,'train_size':args.train_size,'test_size':args.test_size,'top_k':cfg.top_k,'authenticator':'HMAC-SHA256 controlled stand-in'},'attack_rows':rows,'boundary_control':{'compromised_key_bypass_rate':compromised_bypass_rate},'channel_integrity':channel,'gate':gate,'elapsed_seconds':round(time.perf_counter()-t0,3)}
+    try:
+        git_revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+        git_dirty=bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip())
+    except Exception:
+        git_revision='unknown'; git_dirty=True
+    payload={'experiment':'E11_m3_evidence_channel','status':'smoke' if args.tag else 'official','purpose':'controlled M3 corruption test for claim-evidence provenance integrity','provenance':provenance,'config':{'seed':cfg.seed,'n_alerts':args.n_alerts,'train_size':args.train_size,'test_size':args.test_size,'top_k':cfg.top_k,'authenticator':'HMAC-SHA256 controlled stand-in'},'attack_rows':rows,'boundary_control':{'compromised_key_bypass_rate':compromised_bypass_rate},'channel_integrity':channel,'reproducibility':{'git_revision':git_revision,'working_tree_dirty':git_dirty,'python':sys.version.split()[0],'platform':platform.platform(),'numpy':np.__version__},'gate':gate,'elapsed_seconds':round(time.perf_counter()-t0,3)}
     suffix=f'_{args.tag}' if args.tag else ''
     out=RESULTS/f'E11_m3_evidence_channel{suffix}.json'; out.write_text(json.dumps(payload,indent=2,sort_keys=True)+'\n')
     print(json.dumps({'output':str(out),'gate':gate,'elapsed_seconds':payload['elapsed_seconds']},indent=2))
