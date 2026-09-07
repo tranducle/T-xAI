@@ -91,3 +91,44 @@ def test_m3_channel_exposes_key_compromise_boundary(tmp_path):
     attack_path = tmp_path / 'retagged.jsonl'
     mod.rewrite_entries(attack_path, retagged)
     assert mod.verify_channel(attack_path, key, attacker_anchor) == (True, 'ok')
+
+
+def test_external_linear_attribution_is_deterministic_and_featurewise():
+    mod = load_script('run_external_replication.py')
+    X = np.array([[1.0, 2.0, -3.0], [4.0, -5.0, 6.0]])
+    coef = np.array([0.5, -2.0, 3.0])
+    phi1 = mod.linear_attribution(X, coef)
+    phi2 = mod.linear_attribution(X, coef)
+    expected = X * coef[None, :]
+    assert np.array_equal(phi1, phi2)
+    assert np.array_equal(phi1, expected)
+
+
+def test_external_stratified_indices_are_deterministic_and_keep_both_classes():
+    mod = load_script('run_external_replication.py')
+    y = np.array([0] * 80 + [1] * 20)
+    a = mod.stratified_indices(y, 30, seed=42)
+    b = mod.stratified_indices(y, 30, seed=42)
+    assert np.array_equal(a, b)
+    assert len(a) == 30
+    assert len(np.unique(a)) == 30
+    assert set(y[a]) == {0, 1}
+    assert int((y[a] == 1).sum()) == 6
+
+
+def test_external_m3_summary_preserves_authenticated_detection_boundary():
+    mod = load_script('run_external_replication.py')
+    e11 = load_script('run_m3_evidence_channel.py')
+    rng = np.random.default_rng(9)
+    X = rng.normal(size=(6, 2381))
+    scores = np.linspace(0.6, 0.95, 6)
+    phi = rng.normal(size=(6, 2381))
+    key = hashlib.sha256(b'external-test-key').digest()
+    bundles = [e11.evidence_bundle(i, X, scores, phi, key, 20) for i in range(6)]
+    out = mod.evaluate_m3(bundles, key)
+    assert out['minimum_authenticated_detection_rate'] == 1.0
+    assert out['mean_structural_detection_rate_well_formed_attacks'] == 0.0
+    assert out['clean_false_reject_rate'] == 0.0
+    assert out['channel_integrity']['malicious_detection_rate'] == 1.0
+    assert out['channel_integrity']['benign_acceptance_rate'] == 1.0
+    assert out['channel_integrity']['key_compromise_bypass'] is True
