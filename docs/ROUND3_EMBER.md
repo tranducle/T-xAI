@@ -1,9 +1,9 @@
 # T-XAI experiment results — run 3, 2026-08-04: Section VII on EMBER-2018
 
-This run answers a round-3 review of the manuscript. It re-measures the whole of the
-manuscript's numerical section on **EMBER-2018** instead of BODMAS, and adds four
-measurements the review asked for. It **supersedes `RESULTS.md`** wherever the two
-disagree; `RESULTS.md` is kept as the dated record of run 2 and has not been rewritten.
+This run re-measures the manuscript's numerical section on **EMBER-2018** instead of
+BODMAS and adds four follow-up measurements. It is the primary numerical record for the
+current manuscript. `RESULTS.md` is retained as the dated BODMAS record. Current claim
+mapping and theorem-scope rules are summarized in `MANUSCRIPT_ALIGNMENT.md`.
 
 Raw outputs: `results/*_ember.json`. Every number below is transcribed from those files.
 
@@ -102,12 +102,14 @@ tested, so each is now given a defect it should notice:
 | Cross-role cost ordering | analyst and auditor weight columns transposed | **yes**, 500 / 500 |
 | Faithfulness separates an ordering from its reverse | attribution order reversed | **yes**, F 0.9956 → 0.0533 |
 | Kernel column-stochasticity | column sums set to 1.5 | **yes**, caught |
-| Theorem 1 bridge | *falsification margin* rather than a defect | see below |
+| Bridge diagnostic | *falsification margin* rather than a defect | see below |
 
-The bridge check cannot be broken by a small perturbation, so it is reported as a margin
-instead: measured instability would have to inflate by a factor of **11.27** at the default
-configuration, and **4.19** at the configuration where the bound is tightest, before the
-inequality is violated. Closed form and grid scan agree.
+For the recorded `M1` bridge diagnostic, measured instability would have to inflate by a
+factor of **11.27** at the default configuration, and **4.19** at the configuration where
+the diagnostic inequality is tightest, before that numerical inequality is violated. Closed
+form and grid scan agree. These rows alter detector inputs and therefore lie outside the
+formal theorem's explanation-side transformation scope. They are implementation and response-
+sensitivity diagnostics, not an empirical theorem test.
 
 **The lattice control found the manuscript wrong, not the code.** Run under the
 manuscript's original Equation (31) ordering (`public ≺ auditor ≺ analyst ≺ designer`), the
@@ -165,7 +167,7 @@ checked against an estimate rather than verified. A guaranteed upper bound is op
 
 | | Status after run 3 |
 |---|---|
-| **F1** Theorem 1 holds, never tight | Stands; now carries a falsification margin (§4) |
+| **F1** Bridge diagnostic remains below its right-side expression | Stands numerically; scope corrected. It is an `M1` diagnostic, not theorem validation (§4) |
 | **F2** Dobrushin coefficient tightens the constant | Stands; re-measured on EMBER in `E5b_kernel_constant_ember.json` |
 | **F3** `{F, B, D}` does not separate a constant map | **Superseded — see §2.** True of one (F, D) pair, reversed in 7 of 9 |
 | **F4** Calibration is the filter the thresholds are not | **Superseded — see §3.** Strict calibration rejects every map, TreeSHAP included |

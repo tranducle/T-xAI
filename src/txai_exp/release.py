@@ -1,4 +1,4 @@
-"""Release layer: the response kernel, Adv^TV, and the Theorem 1 bridge check.
+"""Release layer: response kernels, Adv^TV, and bridge-related diagnostics.
 
 The response kernel is built so that its Lipschitz constant is **exact, not
 estimated**. Theorem 1's hypothesis (Eq. `lipschitz`) asks for
@@ -13,9 +13,9 @@ are column-stochastic, and a column-stochastic matrix is an l1 non-expansion:
              <= sum_a sum_j W_aj |v_j|
               = sum_j |v_j| * (sum_a W_aj) = ||v||_1.
 
-Hence L_pi = 1 exactly. That matters: an estimated L_pi would make the measured
-slack in the bound partly an artefact of the estimate, and the tightness number
-would mean nothing.
+Hence L_pi = 1 exactly. That matters for the bridge calculation because an estimated L_pi would mix
+kernel-estimation error into the reported diagnostic slack. Whether a caller is
+inside the theorem's formal transformation scope is a separate question.
 """
 
 from __future__ import annotations
@@ -62,7 +62,7 @@ class ResponseKernel:
         if not np.allclose(col_sums, 1.0, atol=1e-9):
             raise ValueError(
                 "G must be column-stochastic; L_pi = 1 is what makes the "
-                f"Theorem 1 comparison exact. Column sums: {col_sums}")
+                f"bridge calculation use L_pi = 1. Column sums: {col_sums}")
         if (self.G < 0).any():
             raise ValueError("G must be non-negative")
 
@@ -87,8 +87,8 @@ def sharp_kernel(seed: int = 0, temperature: float = 1.0) -> ResponseKernel:
 
     `temperature` interpolates between one-hot columns (0 -> sharp) and uniform
     columns (large -> diffuse). Used for the kernel ablation: a diffuse kernel
-    contracts harder, so the Theorem 1 bound should get looser, and if the
-    measurement does not show that, the implementation is wrong.
+    contracts harder, so the bridge right-side expression should change in the
+    expected direction. This is an implementation diagnostic, not theorem validation.
     """
     rng = np.random.default_rng(seed)
     logits = rng.normal(size=(len(ACTIONS), len(GROUP_NAMES)))
@@ -104,8 +104,8 @@ def sharp_kernel(seed: int = 0, temperature: float = 1.0) -> ResponseKernel:
 def joint_action_law(pi: np.ndarray, y: np.ndarray) -> np.ndarray:
     """q[i, a] = P(world = i) * E[ pi(a | z) | world = i ], shape (2, n_actions).
 
-    This is the joint law over (latent world, defender action) that
-    Proposition `advbound` and Theorem 1 are stated in terms of.
+    This is the joint law over (latent world, defender action) used by the
+    downstream response analysis and the formal bridge result.
     """
     q = np.zeros((2, pi.shape[1]), dtype=np.float64)
     n = len(y)
@@ -142,14 +142,17 @@ def bridge_check(phi_clean: np.ndarray,
                  phi_perturbed: Sequence[np.ndarray],
                  y: np.ndarray,
                  kernel: ResponseKernel) -> dict:
-    """Measure both sides of Theorem 1 and report the slack.
+    """Compute the two bridge-related quantities and report diagnostic slack.
 
-    LHS: Adv^TV over the same perturbation set.
+    LHS: Adv^TV over the supplied perturbation set.
     RHS: min{1, L_pi * E_x[1 - B^z(x)]}.
 
-    The theorem is proved, so a violation here means this code is wrong, not
-    that the theorem is. `holds` is therefore an assertion about the
-    implementation and is checked on every run.
+    This function does not establish that the supplied perturbations satisfy the
+    formal theorem's explanation-side transformation assumptions. In the current
+    manuscript the main calls use M1 input perturbations, so the returned values
+    are diagnostics outside theorem scope. The legacy `holds` key means only that
+    the computed numerical inequality was not violated for the supplied arrays;
+    it is retained for backward compatibility and is not a theorem-validation flag.
     """
     gidx = feature_group_index()
     pi_clean_dist = kernel.apply(phi_clean, gidx)
@@ -165,8 +168,8 @@ def bridge_check(phi_clean: np.ndarray,
 
     holds = lhs["adv_tv"] <= rhs + 1e-9
     if not holds:
-        logger.error("Theorem 1 appears violated (LHS=%.6f > RHS=%.6f). The "
-                     "theorem is proved, so this is an implementation fault.",
+        logger.error("Bridge diagnostic inequality violated (LHS=%.6f > RHS=%.6f). "
+                     "Check implementation assumptions and transformation scope.",
                      lhs["adv_tv"], rhs)
 
     return {

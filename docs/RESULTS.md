@@ -1,5 +1,13 @@
 # T-XAI experiment results — run 2, 2026-08-02
 
+> [!CAUTION]
+> This is a historical BODMAS record. Its original manuscript numbering (`C1`-`C5`,
+> numbered equations, and `Theorem 1`) predates the current manuscript. Use
+> `MANUSCRIPT_ALIGNMENT.md` for the current four-contribution mapping. In particular,
+> the recorded bridge rows use `M1` input perturbations and are diagnostics outside the
+> formal theorem's explanation-side transformation scope. Numerical values are retained;
+> they must not be described as empirical theorem validation.
+
 > [!IMPORTANT]
 > **Restated in part by `ROUND3_EMBER.md` (run 3, 2026-08-04).** The manuscript's numerical
 > section was re-measured on EMBER-2018 after a round-3 review. **F3** below is narrowed to
@@ -38,7 +46,7 @@ game 6.1 min.
 
 | # | Finding | Evidence | Consequence for the manuscript |
 |---|---|---|---|
-| **F1** | Theorem 1 holds in **138 / 138** configurations and is **never** tight: median LHS/RHS = **0.029** for TreeSHAP (~34× slack), max 0.243. | E5 | Report the bound as verified and quantifiably loose. Do not describe it as sharp. |
+| **F1** | In **138 / 138** recorded `M1` bridge-diagnostic configurations, the computed left-side quantity does not exceed the corresponding right-side expression; median LHS/RHS = **0.029** for TreeSHAP (~34x slack), max 0.243. | E5 | Report as an out-of-scope `M1` bridge diagnostic with quantified slack, not as empirical theorem verification. |
 | **F2** | Roughly half of the temperature-attributable slack is the *constant*, not the kernel: replacing $L_\pi=1$ with the kernel's Dobrushin coefficient tightens the median ratio to **0.064** (factor **2.19**) with **0** violations. | E5b | A tighter constant is available constructively. Either adopt it or say why not. |
 | **F3** | Definition 3's numeric triple $\{F,B,D\}$ **does not separate an explanation from a constant vector**: at $(\tau_f,\tau_b,\tau_d)=(0.5,0.8,0.8)$ the constant control is admissible on **100 %** of alerts vs TreeSHAP's **94.4 %**, and it is admissible over a *larger* share of the threshold surface (28.1 % vs 22.5 %). | E7 | The thresholds alone are not a filter. This is an argument *for* the framework's structure, not against it — see F4. |
 | **F4** | Eq. (7) calibration **is** that filter: the constant control violates it on **200 / 200** alerts at every $k$, under either reading of $\Phi$. **No** explainer satisfies it strictly ($\Phi=1$ under every donor) on all alerts at any $k$ tested; TreeSHAP comes closest at $k=50$ — **62 / 200** strict violations, **1 / 200** total failures. | E3 | The manuscript's own words at `paper.tex:524` call such an instantiation *defective*. Eq. (7) is a real, falsifiable constraint that rejects the degenerate case the thresholds accept — and it also bites on TreeSHAP. |
@@ -60,7 +68,7 @@ Each row states what was measured, and — per SEOS — the strongest wording th
 | **C2** Eq. (7) calibration is operative | non-vacuity | 200 alerts × 4 explainers × 4 values of $k$, both readings of $\Phi$. Violated by every explainer at every $k$ under the strict reading; TreeSHAP's total failures fall to 1/200 at $k=50$. | **Supported (F4)** | "the calibration condition rejects instantiations that the thresholds admit, and is not satisfied outright by any explainer measured here" |
 | **C3** threat class $M_1$ | non-vacuity | 3 perturbation families × 4 budgets × 20 perturbations, 500 alerts. $B$ falls monotonically with budget (0.980 → 0.901 append-bytes) and with $\lvert\Delta_z\rvert$ (0.957 → 0.947). | **Supported for $M_1$ only** | "exercises the input-only adversary; the observing adversary $M_4$ is exercised in E8; $M_2$ and $M_3$ are not exercisable on BODMAS" |
 | **C4** release game, existence of SSE | tractability on a case | E8: a $15\times13$ instance with four payoff terms measured and five stipulated; SSE solved by two independent methods agreeing to $4\times10^{-16}$, over 18 $(\eta,\rho)$ settings. | **Supported for one finite instance (F8)** | "an equilibrium is computed for a finite instance built from measured quantities; the proposition remains non-constructive in general, and the instance is solved by enumeration" |
-| **C5** Theorem 1 non-vacuous, slack quantified | tightness | 138 configurations, 0 violations, median ratio 0.029 (0.064 under the Dobrushin constant). | **Supported (F1, F2)** | "the bound holds on every measured configuration and is loose by a median factor of ~34 (~16 under a kernel-specific constant)" |
+| **Legacy C5** bridge diagnostic, slack quantified | diagnostic tightness | 138 `M1` configurations, 0 numerical inequality violations, median ratio 0.029 (0.064 under the Dobrushin constant). | **Numerically recorded; theorem-scope claim withdrawn** | "the `M1` bridge diagnostic remains below its right-side expression and is numerically loose; these rows do not test the theorem" |
 | **C5** Prop. `lp` dominance | instantiability | Raw $D$: 0 violations, all explainers. Normalised $D$: 382–600 violations. View monotonicity in $k$: 0 violations. | **Supported for the raw witness (F6)** | "the dominance holds for the disclosure witness as defined in Eq. (10); the optional normalization is not order-preserving across roles" |
 | Props `mono`, `suff`, `local`, `cover`, `marginal` | — | Definitional or negative results; nothing to measure. | **Proved, not tested** | say so plainly |
 | Prop. `sse` | tractability on a case | See C4 / E8. | **Proved; instantiated once** | say so plainly |

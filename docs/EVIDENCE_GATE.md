@@ -1,5 +1,13 @@
 # SCIE Q1 Evidence Coverage Gate — T-XAI experiment programme
 
+> [!CAUTION]
+> This is a dated pre-current-manuscript evidence-gate record. Contribution and equation
+> numbering in this file may reflect an earlier draft. Use
+> `MANUSCRIPT_ALIGNMENT.md` for the current C1-C4 mapping and bridge-scope rule.
+> Recorded `M1` bridge rows are diagnostics and do not empirically validate the
+> robustness-to-decision theorem.
+
+
 Run 2026-08-02, before any experiment was batched, as the project's evidence protocol
 requires: no claim enters the manuscript that the planned experiments cannot support.
 Inputs: the manuscript's contributions C1–C5, a measured feasibility record, and two CPU

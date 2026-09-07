@@ -11,7 +11,7 @@ which is a 37x headroom; agreement at that slack carries little information.
 A check that has never failed has not been tested. Each function here breaks one
 assumption in a known way and asserts that the check notices. What that buys:
 
-* the bridge check gets a *falsification margin* -- the factor by which a
+* the bridge diagnostic gets a *falsification margin* -- the factor by which a
   robustness estimate must be overstated before the bound breaks. This turns
   "the bound is loose" from a complaint into a measured quantity;
 * the view-monotonicity check gets a weight table with one negative entry, which
@@ -119,7 +119,7 @@ def reversed_attribution(phi: np.ndarray) -> np.ndarray:
 
 
 # ---------------------------------------------------------------------------
-# Control 1: the Theorem 1 bridge
+# Control 1: bridge diagnostic
 # ---------------------------------------------------------------------------
 
 def bridge_falsification_margin(bridge: Mapping[str, float],
@@ -149,7 +149,7 @@ def bridge_falsification_margin(bridge: Mapping[str, float],
     if lhs <= 0.0:
         return {"margin_closed_form": None,
                 "reason": "LHS is zero, so no inflation of B can break the "
-                          "bound; this configuration cannot falsify Theorem 1",
+                          "diagnostic inequality; this configuration has no finite falsification margin",
                 "fires_at": None, "scan": []}
 
     closed_form = instability / lhs
@@ -193,9 +193,9 @@ def bridge_falsification_margin(bridge: Mapping[str, float],
 def invalid_kernel_control() -> Dict[str, object]:
     """A kernel that is not column-stochastic must be rejected, not measured.
 
-    L_pi = 1 in Theorem 1 because a column-stochastic matrix is an l1
+    L_pi = 1 for the bridge calculation because a column-stochastic matrix is an l1
     non-expansion. A matrix whose columns sum to more than 1 amplifies, so the
-    bound with L_pi = 1 no longer applies -- and `ResponseKernel` must refuse it
+    calculation with L_pi = 1 is unsound -- and `ResponseKernel` must refuse it
     rather than silently reporting a Lipschitz constant of 1.
     """
     from .config import ACTIONS

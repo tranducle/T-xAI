@@ -1,5 +1,13 @@
 # T-XAI experiment programme — costed on this machine, no GPU
 
+> [!CAUTION]
+> This is a dated pre-current-manuscript protocol record. Contribution and equation
+> numbering in this file may reflect an earlier draft. Use
+> `MANUSCRIPT_ALIGNMENT.md` for the current C1-C4 mapping and bridge-scope rule.
+> Recorded `M1` bridge rows are diagnostics and do not empirically validate the
+> robustness-to-decision theorem.
+
+
 > [!NOTE]
 > **This is the run-2 programme.** Run 3 (2026-08-04) re-ran the numerical section on
 > EMBER-2018 and added four measurements; its costs and drivers are in `ROUND3_EMBER.md`.

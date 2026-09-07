@@ -1,11 +1,10 @@
 cff-version: 1.2.0
 title: >-
   T-XAI: A Threat-Model-Aware Contract for XAI Explanation Release
-  in Cybersecurity — research artifact
+  in Cybersecurity - research artifact
 message: >-
-  The accompanying manuscript is under peer review and its authorship is withheld
-  for that reason. Please cite this artifact anonymously; this file will be
-  updated with author and publication metadata once review concludes.
+  The accompanying manuscript is under double-anonymous peer review. Please cite
+  this artifact anonymously until review concludes.
 type: software
 version: 1.0.0
 date-released: '2026-08-03'
@@ -13,15 +12,17 @@ license: MIT
 authors:
   - name: Anonymous Author(s)
 abstract: >-
-  Measurement code and recorded results for a threat-model-aware explanation
-  contract for XAI in cybersecurity. Computes the faithfulness, robustness and
-  disclosure scores, the calibration condition, both sides of the theorem bridge
-  between explanation robustness and action distributions, and the equilibrium of
-  a Stackelberg release game, instantiated on public static-malware corpora. The
-  governance layer of the contract — provenance, claim-evidence graph, and
-  actionability — is specified in the manuscript but not exercised here, because
-  the public corpora carry no telemetry provenance, analyst roles, or response
-  playbook.
+  Reproducibility and measurement artifacts for a threat-model-aware explanation
+  release contract in cybersecurity. The current numerical manuscript evidence is
+  reported on EMBER-2018, with an earlier BODMAS run retained for provenance and
+  cross-corpus diagnostics. The repository measures explanation scores, strict
+  calibration, sampled M1 robustness, disclosure checks, deliberately defective
+  controls, detector and seed ablations, and one finite Stackelberg release-game
+  instance. Bridge-related quantities are also recorded under M1 input
+  perturbations, but those experiments are outside the theorem's explanation-side
+  transformation scope and are not an empirical theorem validation. The
+  claim-evidence graph, M3 evidence-channel manipulation, full audit protocol, and
+  operationally validated actionability remain outside the measured scope.
 keywords:
   - explainable artificial intelligence
   - cybersecurity
@@ -31,12 +32,10 @@ keywords:
   - information disclosure
 references:
   - type: data
-    title: 'BODMAS: an open dataset for learning based temporal analysis of PE malware'
-    url: 'https://whyisyoung.github.io/BODMAS/'
-    notes: Primary corpus. Not redistributed with this artifact.
-  - type: data
     title: 'EMBER: an open dataset for training static PE malware machine learning models'
     url: 'https://github.com/elastic/ember'
-    notes: >-
-      Second-corpus replication, and the source of the vendored feature
-      extractor. Not redistributed with this artifact.
+    notes: Primary numerical substrate reported in the current manuscript. Not redistributed.
+  - type: data
+    title: 'BODMAS: an open dataset for learning based temporal analysis of PE malware'
+    url: 'https://whyisyoung.github.io/BODMAS/'
+    notes: Earlier diagnostic run retained for provenance and comparison. Not redistributed.
