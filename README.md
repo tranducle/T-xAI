@@ -19,6 +19,7 @@ The current manuscript separates the formal framework from what is empirically e
 - sampled `M1` input perturbations and explanation robustness diagnostics;
 - a 500-alert, 18-transformation explanation-only `Delta_z` follow-up that instantiates the formal bridge scope;
 - a controlled `M3` claim-evidence channel experiment with authenticated records and a chained producer/verifier log;
+- an E12 BODMAS replication of the `Delta_z` and controlled-`M3` mechanisms using a different detector family and explanation mechanism;
 - disclosure monotonicity and deliberately defective controls;
 - detector and random-seed ablations;
 - one finite Stackelberg release-game instance under `M1` and `M4`.
@@ -30,9 +31,9 @@ The current manuscript separates the formal framework from what is empirically e
 - operationally validated actionability in a deployed response workflow;
 - organization-calibrated release-game loss, capability-cost, and information-value terms;
 - human analyst benefit;
-- cross-corpus or cross-domain generality.
+- cross-domain, cross-modality, or deployment generality.
 
-The bridge evidence has two distinct scopes. The original `M1` experiments change detector inputs and remain diagnostics outside the formal theorem. The E10 follow-up instead holds inputs, detector outputs, and labels exactly fixed while transforming only delivered explanations. E10 is therefore a numerical instantiation inside the theorem's declared `Delta_z` scope, not an additional proof or a claim of general empirical validation.
+The bridge evidence has two distinct scopes. The original `M1` experiments change detector inputs and remain diagnostics outside the formal theorem. E10 instead holds inputs, detector outputs, and labels exactly fixed while transforming only delivered explanations. E12 repeats that mechanism on BODMAS with a different detector and deterministic linear-contribution explainer. E10 and E12 are therefore numerical instantiations inside the theorem's declared `Delta_z` scope, not additional proof or a claim of general empirical validation.
 
 See `docs/MANUSCRIPT_ALIGNMENT.md` for the current claim-to-artifact map.
 
@@ -40,13 +41,12 @@ See `docs/MANUSCRIPT_ALIGNMENT.md` for the current claim-to-artifact map.
 
 The manuscript now reports EMBER-2018 as its primary numerical substrate because it provides a
 non-degenerate alert population for the joint world/action quantities used by the release model.
-The earlier BODMAS measurements are retained as a dated diagnostic record and remain useful for
-cross-corpus comparison, but they are not the headline manuscript evidence.
+BODMAS serves two roles: the earlier full-program run is retained as a dated diagnostic record, and E12 uses a temporally held-out subset for an external replication of the `Delta_z` and controlled-`M3` mechanisms with a different detector and explanation mechanism. The headline scoring, calibration, disclosure, and release-game evidence remains EMBER-2018.
 
 | Corpus | Role in the current artifact | Obtain from |
 |---|---|---|
 | **EMBER-2018** | Primary numerical instantiation reported in the manuscript | <https://github.com/elastic/ember> |
-| **BODMAS** | Earlier diagnostic run and cross-corpus comparison | <https://whyisyoung.github.io/BODMAS/> |
+| **BODMAS** | Earlier full-program diagnostic plus E12 external mechanism replication | <https://whyisyoung.github.io/BODMAS/> |
 
 Neither corpus is redistributed here.
 
@@ -62,7 +62,7 @@ docs/
   RESULTS.md               earlier BODMAS record, retained for provenance
   PROTOCOL.md              experiment protocol record
   EVIDENCE_GATE.md         evidence gate and claim-narrowing record
-  ACCEPTANCE_VALIDATION.md E10/E11 follow-up evidence and claim-permission summary
+  ACCEPTANCE_VALIDATION.md E10/E11/E12 follow-up evidence and claim-permission summary
   figures_numerical_ember.tex
                            generated numerical figure/table source for the current run
 tests/                     unit tests
@@ -125,10 +125,11 @@ The acceptance-validation follow-ups are reproduced separately so their scope is
 python3 experiments/run_acceptance_gates.py
 python3 experiments/run_delta_z_bridge.py
 python3 experiments/run_m3_evidence_channel.py
+python3 experiments/run_external_replication.py
 python3 experiments/run_acceptance_result_gates.py
 ```
 
-E10 and E11 record the Git revision and require a clean working tree for the official evidence package. The committed official records were generated from revision `a43c96c192b3f0b475d887adcb494a75a9017359`.
+E10 and E11 record Git revision `a43c96c192b3f0b475d887adcb494a75a9017359`; E12 records revision `55545e9d5b144492251702e0e8550c8baf411f51`. All official records require `working_tree_dirty=false`.
 
 The expensive preprocessing step is resumable:
 
@@ -147,11 +148,12 @@ The current manuscript uses the following bounded interpretations.
 2. **Score-map choice matters.** The constant-control comparison reverses across alternative faithfulness and disclosure instantiations, so score definitions are part of the auditable policy rather than neutral implementation details.
 3. **Sampled `M1` robustness remains diagnostic.** TreeSHAP robustness changes with perturbation budget and sampling depth, and stochastic explainers carry self-noise. The associated bridge rows remain outside the theorem because they change detector inputs.
 4. **E10 instantiates the theorem inside its declared `Delta_z` scope.** On 500 alerts, 18 deterministic explanation-only transformations leave inputs, detector scores, and labels exactly unchanged. All 12 family/kernel rows satisfy the implemented generic and Dobrushin inequalities; the largest generic LHS/RHS ratio is 0.613. This is an executable within-scope instantiation, not proof or general validation.
-5. **E11 exercises controlled `M3` integrity.** Authenticated provenance rejects all seven tested bundle corruptions with zero observed clean false rejection, while schema/coverage checks miss all six well-formed edits. A chained producer/verifier channel detects edit, insertion, truncation, replay, reorder, rollback, and tag corruption, while accepting canonical reserialization and legitimate append. Full retagging succeeds when the authenticator key and terminal anchor are compromised, which explicitly preserves the authenticity boundary.
-6. **The release game is solvable for one finite instance.** Its equilibrium is an instance result because several utility terms remain stipulated rather than organization-calibrated.
-7. **Ablations preserve qualitative patterns, not one universal admissible fraction.** Detector and seed changes leave several observations intact while changing the quantitative admissibility surface.
+5. **E11 exercises controlled `M3` integrity.** Authenticated provenance rejects all seven tested bundle corruptions with zero observed clean false rejection, while structural checks miss all six well-formed edits. A chained producer/verifier channel detects edit, insertion, truncation, replay, reorder, rollback, and tag corruption, while accepting canonical reserialization and legitimate append. Full retagging succeeds when the authenticator key and terminal anchor are compromised, which explicitly preserves the authenticity boundary.
+6. **E12 reproduces both targeted mechanisms under a different stack.** On a temporal BODMAS holdout, an SGD-logistic detector and deterministic linear-contribution explainer reproduce all 12 within-scope bridge rows and the controlled authenticated-channel behavior. This reduces dependence on one corpus/detector/explainer stack, but both corpora remain static PE malware.
+7. **The release game is solvable for one finite instance.** Its equilibrium is an instance result because several utility terms remain stipulated rather than organization-calibrated.
+8. **Ablations preserve qualitative patterns, not one universal admissible fraction.** Detector and seed changes leave several observations intact while changing the quantitative admissibility surface.
 
-Exact E10/E11 numbers and claim boundaries are recorded in `docs/ACCEPTANCE_VALIDATION.md`, `results/E10_delta_z_bridge.json`, `results/E11_m3_evidence_channel.json`, and `results/gates/`.
+Exact E10/E11/E12 numbers and claim boundaries are recorded in `docs/ACCEPTANCE_VALIDATION.md`, `results/E10_delta_z_bridge.json`, `results/E11_m3_evidence_channel.json`, `results/E12_external_replication.json`, and `results/gates/`.
 
 ## Tests
 

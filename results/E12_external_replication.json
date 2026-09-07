@@ -1,0 +1,747 @@
+{
+  "corpus": {
+    "eval_class_counts": {
+      "0": 245,
+      "1": 255
+    },
+    "feature_layout": "EMBER-v2 2381-dimensional static PE feature space",
+    "name": "BODMAS",
+    "split": "temporal holdout from published acquisition timestamps",
+    "test_all": 26145,
+    "test_class_counts": {
+      "0": 9795,
+      "1": 10205
+    },
+    "test_timestamp_range": {
+      "max": "2020-09-30T03:05:27.000000000",
+      "min": "2020-07-01T23:00:31.000000000"
+    },
+    "test_used": 20000,
+    "train_all": 104578,
+    "train_class_counts": {
+      "0": 28986,
+      "1": 21014
+    },
+    "train_timestamp_range": {
+      "max": "2020-07-01T23:00:30.000000000",
+      "min": "2007-01-01T08:46:39.000000000"
+    },
+    "train_used": 50000
+  },
+  "delta_z": {
+    "deterministic_exact": true,
+    "max_ratio_L1": 0.48622838702309784,
+    "n_eval": 500,
+    "n_rows": 12,
+    "n_unique_transforms": 18,
+    "nonzero_response_rows": 12,
+    "rows": [
+      {
+        "dobrushin": 0.998861475750898,
+        "expected_instability": 0.8799756598448759,
+        "family": "topk_redaction",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.16263837778033102,
+        "max_worst_distance": 0.9594228065537173,
+        "mean_Bz": 0.12002434015512409,
+        "median_worst_distance": 0.8918837957239287,
+        "n_transforms": 5,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.16263837778033102,
+          0.12223886777922666,
+          0.09556843168185392,
+          0.08586404010079779,
+          0.05988499314286434
+        ],
+        "ratio_L1": 0.18482145041261855,
+        "ratio_dobrushin": 0.185032113961226,
+        "rhs_L1": 0.8799756598448759,
+        "rhs_dobrushin": 0.878973786217523,
+        "temperature": 0.25,
+        "transform_labels": [
+          "topk_5",
+          "topk_10",
+          "topk_20",
+          "topk_50",
+          "topk_100"
+        ]
+      },
+      {
+        "dobrushin": 0.7646918847233839,
+        "expected_instability": 0.8799756598448759,
+        "family": "topk_redaction",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.0915728931534347,
+        "max_worst_distance": 0.9594228065537173,
+        "mean_Bz": 0.12002434015512409,
+        "median_worst_distance": 0.8918837957239287,
+        "n_transforms": 5,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.0915728931534347,
+          0.062320543273506696,
+          0.04803929448720254,
+          0.030850423453041925,
+          0.01866356512059275
+        ],
+        "ratio_L1": 0.10406298416205895,
+        "ratio_dobrushin": 0.13608485488204472,
+        "rhs_L1": 0.8799756598448759,
+        "rhs_dobrushin": 0.6729102458374815,
+        "temperature": 1.0,
+        "transform_labels": [
+          "topk_5",
+          "topk_10",
+          "topk_20",
+          "topk_50",
+          "topk_100"
+        ]
+      },
+      {
+        "dobrushin": 0.2539021617901432,
+        "expected_instability": 0.8799756598448759,
+        "family": "topk_redaction",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.033283234712237084,
+        "max_worst_distance": 0.9594228065537173,
+        "mean_Bz": 0.12002434015512409,
+        "median_worst_distance": 0.8918837957239287,
+        "n_transforms": 5,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.033283234712237084,
+          0.021179664526404123,
+          0.01743257501067471,
+          0.011199237789968494,
+          0.006439064305845184
+        ],
+        "ratio_L1": 0.0378229037813436,
+        "ratio_dobrushin": 0.14896645036289696,
+        "rhs_L1": 0.8799756598448759,
+        "rhs_dobrushin": 0.2234277223573217,
+        "temperature": 4.0,
+        "transform_labels": [
+          "topk_5",
+          "topk_10",
+          "topk_20",
+          "topk_50",
+          "topk_100"
+        ]
+      },
+      {
+        "dobrushin": 0.998861475750898,
+        "expected_instability": 0.4056149978858022,
+        "family": "group_omission",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.19722152617439084,
+        "max_worst_distance": 0.7730173103726028,
+        "mean_Bz": 0.5943850021141979,
+        "median_worst_distance": 0.39102257820677033,
+        "n_transforms": 9,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.19076726851497192,
+          0.054186446185900086,
+          0.058392818759616896,
+          0.025334388344755213,
+          0.03911855240110254,
+          0.0664603243202963,
+          0.19722152617439084,
+          0.0033935134371259786,
+          0.004848127562850895
+        ],
+        "ratio_L1": 0.48622838702309784,
+        "ratio_dobrushin": 0.48678260081817026,
+        "rhs_L1": 0.4056149978858022,
+        "rhs_dobrushin": 0.40515319537490974,
+        "temperature": 0.25,
+        "transform_labels": [
+          "omit_byte_histogram",
+          "omit_byte_entropy",
+          "omit_strings",
+          "omit_general_info",
+          "omit_header",
+          "omit_sections",
+          "omit_imports",
+          "omit_exports",
+          "omit_data_directories"
+        ]
+      },
+      {
+        "dobrushin": 0.7646918847233839,
+        "expected_instability": 0.4056149978858022,
+        "family": "group_omission",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.06828617182386654,
+        "max_worst_distance": 0.7730173103726028,
+        "mean_Bz": 0.5943850021141979,
+        "median_worst_distance": 0.39102257820677033,
+        "n_transforms": 9,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.06828617182386654,
+          0.025704904933565614,
+          0.030402226876338333,
+          0.012842979933734469,
+          0.03627091954207963,
+          0.025097181507724886,
+          0.06416453417493488,
+          0.00131930277002245,
+          0.001652172835543593
+        ],
+        "ratio_L1": 0.16835218662967683,
+        "ratio_dobrushin": 0.2201568893209528,
+        "rhs_L1": 0.4056149978858022,
+        "rhs_dobrushin": 0.31017049720536544,
+        "temperature": 1.0,
+        "transform_labels": [
+          "omit_byte_histogram",
+          "omit_byte_entropy",
+          "omit_strings",
+          "omit_general_info",
+          "omit_header",
+          "omit_sections",
+          "omit_imports",
+          "omit_exports",
+          "omit_data_directories"
+        ]
+      },
+      {
+        "dobrushin": 0.2539021617901432,
+        "expected_instability": 0.4056149978858022,
+        "family": "group_omission",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.022090775976839234,
+        "max_worst_distance": 0.7730173103726028,
+        "mean_Bz": 0.5943850021141979,
+        "median_worst_distance": 0.39102257820677033,
+        "n_transforms": 9,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.022090775976839234,
+          0.007117976410626593,
+          0.009350372962550368,
+          0.003598311271493293,
+          0.013286357617881953,
+          0.006222689383524861,
+          0.01643770695586403,
+          0.000330009808497074,
+          0.0004140906235985606
+        ],
+        "ratio_L1": 0.05446242395370875,
+        "ratio_dobrushin": 0.2145016157787714,
+        "rhs_L1": 0.4056149978858022,
+        "rhs_dobrushin": 0.10298652481770953,
+        "temperature": 4.0,
+        "transform_labels": [
+          "omit_byte_histogram",
+          "omit_byte_entropy",
+          "omit_strings",
+          "omit_general_info",
+          "omit_header",
+          "omit_sections",
+          "omit_imports",
+          "omit_exports",
+          "omit_data_directories"
+        ]
+      },
+      {
+        "dobrushin": 0.998861475750898,
+        "expected_instability": 0.4971430016858405,
+        "family": "mass_retention",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.07457409150114892,
+        "max_worst_distance": 0.4999870699791785,
+        "mean_Bz": 0.5028569983141595,
+        "median_worst_distance": 0.4977357243119128,
+        "n_transforms": 4,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.07457409150114892,
+          0.04616359508351263,
+          0.014633228301438136,
+          0.0071102384575740495
+        ],
+        "ratio_L1": 0.15000531285417654,
+        "ratio_dobrushin": 0.15017629220449158,
+        "rhs_L1": 0.4971430016858405,
+        "rhs_dobrushin": 0.49657699232314984,
+        "temperature": 0.25,
+        "transform_labels": [
+          "mass_0.50",
+          "mass_0.70",
+          "mass_0.90",
+          "mass_0.95"
+        ]
+      },
+      {
+        "dobrushin": 0.7646918847233839,
+        "expected_instability": 0.4971430016858405,
+        "family": "mass_retention",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.02801548988597368,
+        "max_worst_distance": 0.4999870699791785,
+        "mean_Bz": 0.5028569983141595,
+        "median_worst_distance": 0.4977357243119128,
+        "n_transforms": 4,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.02801548988597368,
+          0.01524693679745065,
+          0.004662557267605623,
+          0.002196433232633653
+        ],
+        "ratio_L1": 0.056352980512592035,
+        "ratio_dobrushin": 0.07369370806514693,
+        "rhs_L1": 0.4971430016858405,
+        "rhs_dobrushin": 0.3801612189361858,
+        "temperature": 1.0,
+        "transform_labels": [
+          "mass_0.50",
+          "mass_0.70",
+          "mass_0.90",
+          "mass_0.95"
+        ]
+      },
+      {
+        "dobrushin": 0.2539021617901432,
+        "expected_instability": 0.4971430016858405,
+        "family": "mass_retention",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.01023135794871207,
+        "max_worst_distance": 0.4999870699791785,
+        "mean_Bz": 0.5028569983141595,
+        "median_worst_distance": 0.4977357243119128,
+        "n_transforms": 4,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.01023135794871207,
+          0.005237620043578188,
+          0.0014206711771894906,
+          0.0006776389987935283
+        ],
+        "ratio_L1": 0.020580311729254855,
+        "ratio_dobrushin": 0.08105607129987741,
+        "rhs_L1": 0.4971430016858405,
+        "rhs_dobrushin": 0.12622568284687571,
+        "temperature": 4.0,
+        "transform_labels": [
+          "mass_0.50",
+          "mass_0.70",
+          "mass_0.90",
+          "mass_0.95"
+        ]
+      },
+      {
+        "dobrushin": 0.998861475750898,
+        "expected_instability": 0.8802752093916525,
+        "family": "combined",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.19722152617439084,
+        "max_worst_distance": 0.9594228065537173,
+        "mean_Bz": 0.11972479060834751,
+        "median_worst_distance": 0.8918837957239287,
+        "n_transforms": 18,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.16263837778033102,
+          0.12223886777922666,
+          0.09556843168185392,
+          0.08586404010079779,
+          0.05988499314286434,
+          0.19076726851497192,
+          0.054186446185900086,
+          0.058392818759616896,
+          0.025334388344755213,
+          0.03911855240110254,
+          0.0664603243202963,
+          0.19722152617439084,
+          0.0033935134371259786,
+          0.004848127562850895,
+          0.07457409150114892,
+          0.04616359508351263,
+          0.014633228301438136,
+          0.0071102384575740495
+        ],
+        "ratio_L1": 0.22404530318499852,
+        "ratio_dobrushin": 0.22430067494251052,
+        "rhs_L1": 0.8802752093916525,
+        "rhs_dobrushin": 0.8792729947198767,
+        "temperature": 0.25,
+        "transform_labels": [
+          "topk_5",
+          "topk_10",
+          "topk_20",
+          "topk_50",
+          "topk_100",
+          "omit_byte_histogram",
+          "omit_byte_entropy",
+          "omit_strings",
+          "omit_general_info",
+          "omit_header",
+          "omit_sections",
+          "omit_imports",
+          "omit_exports",
+          "omit_data_directories",
+          "mass_0.50",
+          "mass_0.70",
+          "mass_0.90",
+          "mass_0.95"
+        ]
+      },
+      {
+        "dobrushin": 0.7646918847233839,
+        "expected_instability": 0.8802752093916525,
+        "family": "combined",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.0915728931534347,
+        "max_worst_distance": 0.9594228065537173,
+        "mean_Bz": 0.11972479060834751,
+        "median_worst_distance": 0.8918837957239287,
+        "n_transforms": 18,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.0915728931534347,
+          0.062320543273506696,
+          0.04803929448720254,
+          0.030850423453041925,
+          0.01866356512059275,
+          0.06828617182386654,
+          0.025704904933565614,
+          0.030402226876338333,
+          0.012842979933734469,
+          0.03627091954207963,
+          0.025097181507724886,
+          0.06416453417493488,
+          0.00131930277002245,
+          0.001652172835543593,
+          0.02801548988597368,
+          0.01524693679745065,
+          0.004662557267605623,
+          0.002196433232633653
+        ],
+        "ratio_L1": 0.10402757248692669,
+        "ratio_dobrushin": 0.13603854645921493,
+        "rhs_L1": 0.8802752093916525,
+        "rhs_dobrushin": 0.6731393089449742,
+        "temperature": 1.0,
+        "transform_labels": [
+          "topk_5",
+          "topk_10",
+          "topk_20",
+          "topk_50",
+          "topk_100",
+          "omit_byte_histogram",
+          "omit_byte_entropy",
+          "omit_strings",
+          "omit_general_info",
+          "omit_header",
+          "omit_sections",
+          "omit_imports",
+          "omit_exports",
+          "omit_data_directories",
+          "mass_0.50",
+          "mass_0.70",
+          "mass_0.90",
+          "mass_0.95"
+        ]
+      },
+      {
+        "dobrushin": 0.2539021617901432,
+        "expected_instability": 0.8802752093916525,
+        "family": "combined",
+        "holds_L1": true,
+        "holds_dobrushin": true,
+        "lhs_adv_tv": 0.033283234712237084,
+        "max_worst_distance": 0.9594228065537173,
+        "mean_Bz": 0.11972479060834751,
+        "median_worst_distance": 0.8918837957239287,
+        "n_transforms": 18,
+        "nonzero_distance_rate": 1.0,
+        "per_transform_tv": [
+          0.033283234712237084,
+          0.021179664526404123,
+          0.01743257501067471,
+          0.011199237789968494,
+          0.006439064305845184,
+          0.022090775976839234,
+          0.007117976410626593,
+          0.009350372962550368,
+          0.003598311271493293,
+          0.013286357617881953,
+          0.006222689383524861,
+          0.01643770695586403,
+          0.000330009808497074,
+          0.0004140906235985606,
+          0.01023135794871207,
+          0.005237620043578188,
+          0.0014206711771894906,
+          0.0006776389987935283
+        ],
+        "ratio_L1": 0.037810032995520486,
+        "ratio_dobrushin": 0.14891575845175933,
+        "rhs_L1": 0.8802752093916525,
+        "rhs_dobrushin": 0.22350377863481152,
+        "temperature": 4.0,
+        "transform_labels": [
+          "topk_5",
+          "topk_10",
+          "topk_20",
+          "topk_50",
+          "topk_100",
+          "omit_byte_histogram",
+          "omit_byte_entropy",
+          "omit_strings",
+          "omit_general_info",
+          "omit_header",
+          "omit_sections",
+          "omit_imports",
+          "omit_exports",
+          "omit_data_directories",
+          "mass_0.50",
+          "mass_0.70",
+          "mass_0.90",
+          "mass_0.95"
+        ]
+      }
+    ],
+    "scope_postconditions": {
+      "detector_score_max_abs_diff": 0.0,
+      "detector_score_sha256_after": "6602b6c13167b3cb4de1ed2421bf4f27663c4ad6a6d6ed9e2341c266abce90d7",
+      "detector_score_sha256_before": "6602b6c13167b3cb4de1ed2421bf4f27663c4ad6a6d6ed9e2341c266abce90d7",
+      "input_max_abs_diff": 0.0,
+      "input_sha256_after": "5d9fa73487aad5df066624732b5bda8232400a3e1f06361469358ab6d1343369",
+      "input_sha256_before": "5d9fa73487aad5df066624732b5bda8232400a3e1f06361469358ab6d1343369",
+      "labels_equal": true,
+      "labels_sha256_after": "fe8303563a3ee1b17750cd4835ff4ee0223a08c910fc63acf53403fdeafb3995",
+      "labels_sha256_before": "fe8303563a3ee1b17750cd4835ff4ee0223a08c910fc63acf53403fdeafb3995"
+    }
+  },
+  "detector": {
+    "alpha": 0.0001,
+    "average": true,
+    "coef_sha256": "7d888a14e4f2008cec8bee8ec76f779e11c7958aaef2b7983fa2b9d013d3b2f6",
+    "family": "SGDClassifier logistic regression",
+    "loss": "log_loss",
+    "max_iter": 1500,
+    "random_state": 42,
+    "scale_sha256": "0704eafbd883bfc10a82ee37047e575d3955f0569c5b1b64ccff1a4670ea5883",
+    "scaler": "StandardScaler(with_mean=False)",
+    "test_auc": 0.9928240543088233,
+    "tol": 0.0001
+  },
+  "elapsed_seconds": 36.07,
+  "experiment": "E12_external_replication",
+  "explainer": {
+    "clean_explanation_sha256": "bfd5117b2bfda81535e88bc10b433f6eca30ce0116a42278100bedb3f57255a7",
+    "definition": "phi_j = x_scaled_j * coefficient_j",
+    "name": "deterministic linear contribution"
+  },
+  "gate": {
+    "fail_interpretation": "The second-corpus/detector/explainer replication is degenerate, out of scope, or inconsistent with E10/E11 mechanisms.",
+    "failed_criteria": [],
+    "gate_id": "G4_external_replication",
+    "metrics": {
+      "delta_z_all_hold": true,
+      "delta_z_max_ratio_L1": 0.48622838702309784,
+      "delta_z_nonzero_response_rows": 12,
+      "delta_z_rows": 12,
+      "eval_benign": 245,
+      "eval_malware": 255,
+      "m3_channel_benign_acceptance": 1.0,
+      "m3_channel_malicious_detection": 1.0,
+      "m3_clean_false_reject": 0.0,
+      "m3_key_compromise_bypass": true,
+      "m3_min_authenticated_detection": 1.0,
+      "n_eval": 500,
+      "test_auc": 0.9928240543088233
+    },
+    "next_allowed_step": "external_replication_claim_update",
+    "pass_criteria": {
+      "class_diversity": "both classes in train, held-out test, and 500-sample evaluation",
+      "delta_z_inequalities": "all 12 generic and Dobrushin rows",
+      "delta_z_nontrivial": ">=3 nonzero response rows and max ratio >0.01",
+      "delta_z_postconditions": "input, detector probabilities, and labels exactly unchanged",
+      "detector_auc": ">=0.70",
+      "deterministic_explanation_transform": true,
+      "evaluation_size": 500,
+      "m3_bundle_detection": ">=0.99 for every bundle attack",
+      "m3_channel_benign": ">=0.99",
+      "m3_channel_detection": ">=0.99",
+      "m3_clean_acceptance": "false reject <=0.01",
+      "m3_key_boundary": "full retag bypass under compromised authenticator"
+    },
+    "stage": "external_replication",
+    "verdict": "PASS_WITH_WARNINGS",
+    "warnings": [
+      "The linear contribution explanation is exact for the scaled linear logit up to the intercept, but it is a different explanation mechanism rather than a human-grounded explanation study."
+    ]
+  },
+  "m3": {
+    "attack_rows": [
+      {
+        "attack": "score_edit",
+        "authenticated_detection_rate": 1.0,
+        "n": 500,
+        "structural_detection_rate": 0.0
+      },
+      {
+        "attack": "explanation_substitution",
+        "authenticated_detection_rate": 1.0,
+        "n": 500,
+        "structural_detection_rate": 0.0
+      },
+      {
+        "attack": "receiver_role_edit",
+        "authenticated_detection_rate": 1.0,
+        "n": 500,
+        "structural_detection_rate": 0.0
+      },
+      {
+        "attack": "sample_rebinding",
+        "authenticated_detection_rate": 1.0,
+        "n": 500,
+        "structural_detection_rate": 0.0
+      },
+      {
+        "attack": "claim_text_edit",
+        "authenticated_detection_rate": 1.0,
+        "n": 500,
+        "structural_detection_rate": 0.0
+      },
+      {
+        "attack": "edge_rebinding",
+        "authenticated_detection_rate": 1.0,
+        "n": 500,
+        "structural_detection_rate": 0.0
+      },
+      {
+        "attack": "evidence_deletion",
+        "authenticated_detection_rate": 1.0,
+        "n": 500,
+        "structural_detection_rate": 1.0
+      }
+    ],
+    "channel_integrity": {
+      "benign_acceptance_rate": 1.0,
+      "clean_channel_accepted": true,
+      "clean_reason": "ok",
+      "external_anchor_used": true,
+      "key_compromise_bypass": true,
+      "key_file_mode": "0600",
+      "key_outside_channel": true,
+      "malicious_detection_rate": 1.0,
+      "tests": [
+        {
+          "accepted": false,
+          "correct": true,
+          "detected": true,
+          "expected_accept": false,
+          "reason": "chain_tag",
+          "test": "content_edit"
+        },
+        {
+          "accepted": false,
+          "correct": true,
+          "detected": true,
+          "expected_accept": false,
+          "reason": "count_or_truncation",
+          "test": "insertion"
+        },
+        {
+          "accepted": false,
+          "correct": true,
+          "detected": true,
+          "expected_accept": false,
+          "reason": "count_or_truncation",
+          "test": "truncation"
+        },
+        {
+          "accepted": false,
+          "correct": true,
+          "detected": true,
+          "expected_accept": false,
+          "reason": "count_or_truncation",
+          "test": "replay"
+        },
+        {
+          "accepted": false,
+          "correct": true,
+          "detected": true,
+          "expected_accept": false,
+          "reason": "sequence",
+          "test": "reorder"
+        },
+        {
+          "accepted": false,
+          "correct": true,
+          "detected": true,
+          "expected_accept": false,
+          "reason": "count_or_truncation",
+          "test": "rollback_prefix"
+        },
+        {
+          "accepted": false,
+          "correct": true,
+          "detected": true,
+          "expected_accept": false,
+          "reason": "chain_tag",
+          "test": "tag_corruption"
+        },
+        {
+          "accepted": true,
+          "correct": true,
+          "detected": false,
+          "expected_accept": true,
+          "reason": "ok",
+          "test": "canonical_rewrite"
+        },
+        {
+          "accepted": true,
+          "correct": true,
+          "detected": false,
+          "expected_accept": true,
+          "reason": "ok",
+          "test": "legitimate_append"
+        },
+        {
+          "accepted": true,
+          "boundary_control": true,
+          "correct": true,
+          "detected": false,
+          "expected_accept": true,
+          "reason": "ok",
+          "test": "key_compromise_full_retag"
+        }
+      ]
+    },
+    "clean_false_reject_rate": 0.0,
+    "compromised_key_bypass_rate": 1.0,
+    "mean_authenticated_detection_rate_well_formed_attacks": 1.0,
+    "mean_structural_detection_rate_well_formed_attacks": 0.0,
+    "minimum_authenticated_detection_rate": 1.0,
+    "structural_clean_false_reject_rate": 0.0
+  },
+  "purpose": "external replication across corpus, detector, and explanation mechanism for Delta_z and controlled M3 evidence",
+  "reproducibility": {
+    "git_revision": "55545e9d5b144492251702e0e8550c8baf411f51",
+    "numpy": "2.4.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "python": "3.14.5",
+    "scikit_learn": "1.8.0",
+    "working_tree_dirty": false
+  },
+  "status": "official"
+}

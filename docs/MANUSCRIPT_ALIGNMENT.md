@@ -8,18 +8,18 @@ This reviewer-facing file joins the current manuscript to the repository while p
 |---|---|---|
 | **C1: Contract** | The computable score, release, transformation, response, and evidence-record slots are instantiated on the numerical substrate. | The repository does not validate every organization-specific governance choice. |
 | **C2: Risk and admissibility** | Faithfulness, robustness, disclosure, an illustrative actionability proxy, strict calibration, threshold surfaces, monotonicity, and negative controls are measured. | Strict calibration causes certificate abstention for all four tested maps. Actionability is not an operationally validated workflow metric. |
-| **C3: Threat and audit model** | `M1` input manipulation is measured, `M4` observation appears in the finite game, and E11 exercises controlled `M3` evidence-channel corruption against structural and authenticated verification. | `M2` remains uninstantiated. E11 is not a live-SOC compromise and assumes an uncompromised authenticator/trust anchor; its key-compromise control deliberately bypasses verification. |
-| **C4: Release game and transfer** | One finite release-game instance is solved; M1 bridge quantities are recorded as out-of-scope diagnostics; E10 separately instantiates the formal `Delta_z` bridge scope with explanation-only transformations. | Several game payoff terms remain stipulated. E10 uses one corpus, TreeSHAP, a finite deterministic transformation set, and constructed response kernels. |
+| **C3: Threat and audit model** | `M1` input manipulation is measured, `M4` observation appears in the finite game, and E11 exercises controlled `M3` evidence-channel corruption against structural and authenticated verification. E12 repeats the controlled M3 mechanism on BODMAS with a different detector and explanation mechanism. | `M2` remains uninstantiated. E11/E12 are not live-SOC compromises and assume an uncompromised authenticator/trust anchor; the key-compromise controls deliberately bypass verification. |
+| **C4: Release game and transfer** | One finite release-game instance is solved; M1 bridge quantities are recorded as out-of-scope diagnostics; E10 separately instantiates the formal `Delta_z` bridge scope with explanation-only transformations, and E12 repeats that mechanism on BODMAS with a different detector and explanation mechanism. | Several game payoff terms remain stipulated. E10/E12 use finite deterministic transformation sets and constructed response kernels; both corpora are static PE malware. |
 
 ## Bridge-scope rule
 
-Two experiment families must not be conflated. Legacy/main `M1` rows alter detector inputs, so their bridge quantities are diagnostics outside the theorem. E10 holds the input, detector outputs, and labels exactly fixed and changes only delivered explanations. Its 18 deterministic transformations therefore instantiate the declared `Delta_z` scope. All 12 family/kernel rows satisfy the implemented generic and Dobrushin inequalities, with maximum generic LHS/RHS 0.613. This is a numerical instantiation under the theorem assumptions, not proof or general empirical validation.
+Two experiment families must not be conflated. Legacy/main `M1` rows alter detector inputs, so their bridge quantities are diagnostics outside the theorem. E10 holds the input, detector outputs, and labels exactly fixed and changes only delivered explanations. Its 18 deterministic transformations therefore instantiate the declared `Delta_z` scope. All 12 family/kernel rows satisfy the implemented generic and Dobrushin inequalities, with maximum generic LHS/RHS 0.613. E12 repeats the same 18 transformations on BODMAS using an SGD-logistic detector and deterministic linear-contribution explainer; all 12 rows again satisfy the implemented inequalities, with maximum generic LHS/RHS 0.486 and exact unchanged-input/score/label postconditions. These are numerical instantiations under the theorem assumptions, not proof or general empirical validation.
 
 The legacy JSON key `holds` means only that the implemented numerical inequality is not violated for the supplied arrays. It is not a theorem-validation flag.
 
 ## Controlled M3 rule
 
-E11 constructs claim-evidence records from 500 EMBER-derived alerts per attack type. Authenticated provenance rejects all seven tested corruptions with no observed clean false rejection; schema/coverage checks alone miss the six well-formed edit classes. The persistent channel control detects content edit, insertion, truncation, replay, reorder, rollback, and tag corruption and accepts canonical reserialization and a legitimate append. If the attacker possesses the authenticator key and can replace the terminal anchor, a fully retagged corrupted channel verifies. Therefore the supported claim is controlled evidence-channel integrity under an uncompromised trust anchor, not arbitrary M3 or deployed-SOC security.
+E11 constructs claim-evidence records from 500 EMBER-derived alerts per attack type. Authenticated provenance rejects all seven tested corruptions with no observed clean false rejection; structural checks alone miss the six well-formed edit classes. The persistent channel control detects content edit, insertion, truncation, replay, reorder, rollback, and tag corruption and accepts canonical reserialization and a legitimate append. E12 repeats the bundle and channel checks on 500 temporally held-out BODMAS samples with a different detector and explanation mechanism and reproduces the same detection, benign-acceptance, and key-compromise boundary. If the attacker possesses the authenticator key and can replace the terminal anchor, a fully retagged corrupted channel verifies. Therefore the supported claim is controlled evidence-channel integrity under an uncompromised trust anchor, not arbitrary M3 or deployed-SOC security.
 
 ## Strict-certificate rule
 
@@ -27,12 +27,13 @@ If map-level calibration has an audited counterexample at a threshold, that map 
 
 ## Evidence still missing for stronger empirical support
 
-1. External validation across another non-degenerate corpus/domain, detector family, and explanation method.
+1. Cross-domain or cross-modality validation beyond two static PE-malware corpora, including broader replication of calibration, disclosure, and release-game behavior.
 2. End-to-end M3 evaluation with independently managed keys, rotation/revocation, concurrent writers, persistent audit storage, endpoint failure, and red-team testing.
 3. Broader/adaptive/stochastic `Delta_z` transformations or a certified supremum over the declared explanation-side family.
 4. Operational validation of actionability against a real or expert-grounded response workflow.
 5. Organization-specific calibration of release-game losses, capability costs, information values, and utility weights.
-6. Human workflow evaluation if analyst-benefit, trust, or usability claims are desired.
+6. Human workflow evaluation only if analyst-benefit, trust, or usability claims are desired.
+7. A nontrivial deployment setting in which the strict certificate issues rather than abstains, if certified-usefulness claims are desired.
 
 These are evidence gaps, not permission to strengthen wording without new data.
 
@@ -40,10 +41,11 @@ These are evidence gaps, not permission to strengthen wording without new data.
 
 - `results/E10_delta_z_bridge.json`: official within-scope explanation-side bridge instantiation.
 - `results/E11_m3_evidence_channel.json`: official controlled M3 evidence-channel integrity experiment.
+- `results/E12_external_replication.json`: BODMAS replication of the Delta_z and controlled-M3 mechanisms using a different detector and explanation mechanism.
 - `results/gates/G0_data_provenance.json`: corpus provenance gate.
 - `results/gates/G1_preprocessing_integrity.json`: split/leakage gate.
 - `results/gates/G2_baseline_sanity.json`: baseline non-degeneracy gate.
-- `results/gates/G6_acceptance_result_integrity.json`: E10/E11 result-integrity gate.
+- `results/gates/G6_acceptance_result_integrity.json`: E10/E11/E12 result-integrity gate.
 - `results/gates/G8_acceptance_claim_permission.json`: allowed and forbidden claim register.
 - `docs/ROUND3_EMBER.md`: main EMBER-2018 numerical record.
 - `results/section7_ember.json`: main numerical output.

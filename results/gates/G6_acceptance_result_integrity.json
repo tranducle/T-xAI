@@ -1,10 +1,11 @@
 {
-  "fail_interpretation": "E10/E11 outputs are incomplete, degenerate, numerically invalid, or inconsistent with their declared mechanism.",
+  "fail_interpretation": "E10/E11/E12 outputs are incomplete, degenerate, non-reproducible, or inconsistent with their declared mechanisms.",
   "failed_criteria": [],
   "gate_id": "G6_acceptance_result_integrity",
   "input_artifacts": [
     "results/E10_delta_z_bridge.json",
-    "results/E11_m3_evidence_channel.json"
+    "results/E11_m3_evidence_channel.json",
+    "results/E12_external_replication.json"
   ],
   "metrics": {
     "E10_all_L1_hold": true,
@@ -16,37 +17,38 @@
     "E10_working_tree_dirty": false,
     "E11_attack_types": 7,
     "E11_channel_benign_acceptance_rate": 1.0,
-    "E11_channel_clean": true,
     "E11_channel_key_compromise_bypass": true,
     "E11_channel_malicious_detection_rate": 1.0,
     "E11_clean_false_reject_rate": 0.0,
-    "E11_compromised_key_bypass_rate": 1.0,
     "E11_git_revision": "a43c96c192b3f0b475d887adcb494a75a9017359",
     "E11_min_authenticated_detection_rate": 1.0,
     "E11_working_tree_dirty": false,
+    "E12_channel_benign_acceptance": 1.0,
+    "E12_channel_malicious_detection": 1.0,
+    "E12_corpus": "BODMAS",
+    "E12_delta_z_all_hold": true,
+    "E12_detector": "SGDClassifier logistic regression",
+    "E12_eval_benign": 245,
+    "E12_eval_malware": 255,
+    "E12_explainer": "deterministic linear contribution",
+    "E12_git_revision": "55545e9d5b144492251702e0e8550c8baf411f51",
+    "E12_m3_min_authenticated_detection": 1.0,
+    "E12_max_ratio_L1": 0.48622838702309784,
+    "E12_test_auc": 0.9928240543088233,
+    "E12_working_tree_dirty": false,
     "all_selected_metrics_finite": true
   },
   "next_allowed_step": "manuscript_claim_update",
   "pass_criteria": {
-    "E10_actual_postconditions": "input, scores, and labels exactly unchanged",
-    "E10_bound_rows": "all 12 rows satisfy generic and Dobrushin inequalities",
-    "E10_clean_revision": "working tree clean at experiment start",
-    "E10_nontrivial_tightness": "0.1 < max LHS/RHS < 1",
-    "E10_official_sample": 500,
-    "E11_boundary_control": ">=0.99 bypass under authenticator compromise",
-    "E11_channel_benign": ">=0.99 for canonical rewrite and legitimate append",
-    "E11_channel_boundary": "key compromise bypasses as declared",
-    "E11_channel_clean": "clean persistent channel accepted",
-    "E11_channel_malicious": ">=0.99 for replay/rollback/insertion/truncation/reorder/edit/tag corruption",
-    "E11_clean_acceptance": "false reject <=0.01",
-    "E11_clean_revision": "working tree clean at experiment start",
-    "E11_detection": ">=0.99 for all tested bundle attacks",
-    "E11_official_sample": 500
+    "E10": "500 alerts, exact postconditions, 12 generic/Dobrushin rows, clean code revision",
+    "E11": "500 alerts, all bundle/channel attacks detected, benign channel updates accepted, key-compromise boundary preserved, clean code revision",
+    "E12": "different corpus, detector, and explainer; 500 class-diverse temporal holdout samples; AUC >=0.70; E10/E11 mechanisms replicate; clean code revision"
   },
   "stage": "acceptance_upgrade_results",
   "verdict": "PASS_WITH_WARNINGS",
   "warnings": [
     "This is a controlled producer/verifier channel experiment on static-malware artifacts, not a live SOC compromise.",
-    "HMAC models authenticated provenance with verifier secret outside the attacked channel; key compromise is explicitly outside the protection boundary."
+    "HMAC models authenticated provenance with verifier secret outside the attacked channel; key compromise is explicitly outside the protection boundary.",
+    "The linear contribution explanation is exact for the scaled linear logit up to the intercept, but it is a different explanation mechanism rather than a human-grounded explanation study."
   ]
 }
