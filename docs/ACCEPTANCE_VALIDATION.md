@@ -35,7 +35,7 @@ The persistent channel tests content edit, insertion, truncation, replay, reorde
 
 Interpretation: E11 supports a controlled M3 claim-evidence integrity claim under an uncompromised trust anchor. It does not establish arbitrary M3 resistance or live-SOC security.
 
-## E12: external mechanism replication
+## E12: second-corpus mechanism replication
 
 - Corpus: BODMAS temporal holdout
 - Detector: SGDClassifier logistic regression
@@ -61,7 +61,7 @@ Interpretation: E12 reproduces the E10/E11 mechanism-level observations while ch
 - G2 baseline sanity: PASS
 - G3 E10 mechanism: PASS
 - G3 E11 mechanism: PASS_WITH_WARNINGS
-- G4 E12 external replication: PASS_WITH_WARNINGS
+- G4 E12 second-corpus replication: PASS_WITH_WARNINGS
 - G6 result integrity: PASS_WITH_WARNINGS
 - G8 claim permission: PASS_WITH_WARNINGS
 

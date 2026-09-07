@@ -41,12 +41,12 @@ See `docs/MANUSCRIPT_ALIGNMENT.md` for the current claim-to-artifact map.
 
 The manuscript now reports EMBER-2018 as its primary numerical substrate because it provides a
 non-degenerate alert population for the joint world/action quantities used by the release model.
-BODMAS serves two roles: the earlier full-program run is retained as a dated diagnostic record, and E12 uses a temporally held-out subset for an external replication of the `Delta_z` and controlled-`M3` mechanisms with a different detector and explanation mechanism. The headline scoring, calibration, disclosure, and release-game evidence remains EMBER-2018.
+BODMAS serves two roles: the earlier full-program run is retained as a dated diagnostic record, and E12 uses a temporally held-out subset for a second-corpus replication of the `Delta_z` and controlled-`M3` mechanisms with a different detector and explanation mechanism. The headline scoring, calibration, disclosure, and release-game evidence remains EMBER-2018.
 
 | Corpus | Role in the current artifact | Obtain from |
 |---|---|---|
 | **EMBER-2018** | Primary numerical instantiation reported in the manuscript | <https://github.com/elastic/ember> |
-| **BODMAS** | Earlier full-program diagnostic plus E12 external mechanism replication | <https://whyisyoung.github.io/BODMAS/> |
+| **BODMAS** | Earlier full-program diagnostic plus E12 second-corpus mechanism replication | <https://whyisyoung.github.io/BODMAS/> |
 
 Neither corpus is redistributed here.
 
@@ -148,7 +148,7 @@ The current manuscript uses the following bounded interpretations.
 2. **Score-map choice matters.** The constant-control comparison reverses across alternative faithfulness and disclosure instantiations, so score definitions are part of the auditable policy rather than neutral implementation details.
 3. **Sampled `M1` robustness remains diagnostic.** TreeSHAP robustness changes with perturbation budget and sampling depth, and stochastic explainers carry self-noise. The associated bridge rows remain outside the theorem because they change detector inputs.
 4. **E10 instantiates the theorem inside its declared `Delta_z` scope.** On 500 alerts, 18 deterministic explanation-only transformations leave inputs, detector scores, and labels exactly unchanged. All 12 family/kernel rows satisfy the implemented generic and Dobrushin inequalities; the largest generic LHS/RHS ratio is 0.613. This is an executable within-scope instantiation, not proof or general validation.
-5. **E11 exercises controlled `M3` integrity.** Authenticated provenance rejects all seven tested bundle corruptions with zero observed clean false rejection, while structural checks miss all six well-formed edits. A chained producer/verifier channel detects edit, insertion, truncation, replay, reorder, rollback, and tag corruption, while accepting canonical reserialization and legitimate append. Full retagging succeeds when the authenticator key and terminal anchor are compromised, which explicitly preserves the authenticity boundary.
+5. **E11 exercises controlled `M3` integrity.** Authenticated provenance rejects all seven tested bundle corruptions with zero observed clean false rejection, while structural checks miss all six well-formed edits. A chained producer/verifier channel detects seven malicious scenarios (edit, insertion, truncation, replay, reorder, rollback, and tag corruption) and accepts two benign scenarios (canonical reserialization and legitimate append); these are scenario-level controls, not 500 repeated channel trials. Full retagging succeeds when the authenticator key and terminal anchor are compromised, which explicitly preserves the authenticity boundary.
 6. **E12 reproduces both targeted mechanisms under a different stack.** On a temporal BODMAS holdout, an SGD-logistic detector and deterministic linear-contribution explainer reproduce all 12 within-scope bridge rows and the controlled authenticated-channel behavior. This reduces dependence on one corpus/detector/explainer stack, but both corpora remain static PE malware.
 7. **The release game is solvable for one finite instance.** Its equilibrium is an instance result because several utility terms remain stipulated rather than organization-calibrated.
 8. **Ablations preserve qualitative patterns, not one universal admissible fraction.** Detector and seed changes leave several observations intact while changing the quantitative admissibility surface.
