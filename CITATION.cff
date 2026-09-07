@@ -14,15 +14,14 @@ authors:
 abstract: >-
   Reproducibility and measurement artifacts for a threat-model-aware explanation
   release contract in cybersecurity. The current numerical manuscript evidence is
-  reported on EMBER-2018, with an earlier BODMAS run retained for provenance and
-  cross-corpus diagnostics. The repository measures explanation scores, strict
-  calibration, sampled M1 robustness, disclosure checks, deliberately defective
-  controls, detector and seed ablations, and one finite Stackelberg release-game
-  instance. Bridge-related quantities are also recorded under M1 input
-  perturbations, but those experiments are outside the theorem's explanation-side
-  transformation scope and are not an empirical theorem validation. The
-  claim-evidence graph, M3 evidence-channel manipulation, full audit protocol, and
-  operationally validated actionability remain outside the measured scope.
+  reported on EMBER-2018. In addition to the main score, calibration, robustness,
+  disclosure, ablation, and finite-game experiments, E10 applies 18 deterministic
+  explanation-only transformations on 500 alerts to instantiate the formal Delta_z
+  bridge scope with non-explanation inputs held fixed. E11 exercises controlled M3
+  claim-evidence corruption with authenticated records and a chained producer/verifier
+  channel, including replay, rollback, truncation, legitimate-update, and key-compromise
+  controls. These artifacts support bounded within-scope and channel-integrity claims;
+  they do not establish live-SOC security, human benefit, or cross-domain generality.
 keywords:
   - explainable artificial intelligence
   - cybersecurity

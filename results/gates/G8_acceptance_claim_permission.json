@@ -1,0 +1,40 @@
+{
+  "allowed_claims": [
+    "On 500 EMBER-2018 alerts, 18 deterministic explanation-only transformations instantiate Delta_z while x, f(x), and labels remain fixed.",
+    "All 12 family/kernel rows satisfy the implemented generic L_pi=1 and Dobrushin inequalities; this numerically instantiates the theorem within its stated scope but does not prove or generally validate the theorem.",
+    "In a controlled M3 channel-integrity experiment, authenticated provenance detects all seven tested corruptions with no clean false rejections, whereas schema/coverage checks alone miss the well-formed edits.",
+    "Authenticator compromise bypasses the M3 integrity check by design, so evidence authenticity remains an external trust assumption."
+  ],
+  "fail_interpretation": "Manuscript wording would exceed the passed scientific evidence gates.",
+  "failed_criteria": [],
+  "forbidden_claims": [
+    "T-XAI prevents arbitrary M3 attacks or secures a deployed SOC evidence channel.",
+    "The experiments prove or empirically validate the theorem in general.",
+    "The actionability proxy demonstrates analyst benefit, trust, usability, or deployed response improvement.",
+    "The one-corpus experiments establish cross-domain generality."
+  ],
+  "gate_id": "G8_acceptance_claim_permission",
+  "input_artifacts": [
+    "results/gates/G0_data_provenance.json",
+    "results/gates/G1_preprocessing_integrity.json",
+    "results/gates/G2_baseline_sanity.json",
+    "results/E10_delta_z_bridge.json",
+    "results/E11_m3_evidence_channel.json",
+    "results/gates/G6_acceptance_result_integrity.json"
+  ],
+  "metrics": {
+    "allowed_claim_count": 4,
+    "forbidden_claim_count": 4,
+    "weakest_required_gate": "PASS_WITH_WARNINGS (controlled M3)"
+  },
+  "next_allowed_step": "bounded_manuscript_revision",
+  "pass_criteria": {
+    "wording": "claims remain within controlled, one-corpus, non-human-study boundaries"
+  },
+  "stage": "results_to_manuscript_claims",
+  "verdict": "PASS_WITH_WARNINGS",
+  "warnings": [
+    "M3 claim must remain controlled-channel rather than deployment-wide.",
+    "Delta_z result is an in-scope numerical instantiation, not additional proof."
+  ]
+}

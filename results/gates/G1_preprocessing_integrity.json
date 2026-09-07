@@ -1,0 +1,35 @@
+{
+  "fail_interpretation": "The released split leaks records, collapses a class, or violates temporal ordering.",
+  "failed_criteria": [],
+  "gate_id": "G1_preprocessing_integrity",
+  "input_artifacts": [
+    "external:EMBER-2018-vectorized/sha256.dat",
+    "external:EMBER-2018-vectorized/subset.dat",
+    "external:EMBER-2018-vectorized/y.dat",
+    "external:EMBER-2018-vectorized/month.dat"
+  ],
+  "metrics": {
+    "sha_overlap_count": 0,
+    "test_benign": 100000,
+    "test_malware": 100000,
+    "test_month_max": 587,
+    "test_month_min": 586,
+    "test_rows": 200000,
+    "train_benign": 300000,
+    "train_malware": 300000,
+    "train_month_max": 585,
+    "train_month_min": 443,
+    "train_rows": 600000,
+    "unknown_month_test": 0,
+    "unknown_month_train": 0
+  },
+  "next_allowed_step": "baseline_sanity",
+  "pass_criteria": {
+    "label_diversity": "both classes in train and test",
+    "minimum_split_size": ">=100000 labeled rows per split",
+    "sha_split_overlap": 0,
+    "temporal_order": "max(train month) < min(test month)"
+  },
+  "stage": "released_temporal_split",
+  "verdict": "PASS"
+}

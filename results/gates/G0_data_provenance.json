@@ -1,0 +1,71 @@
+{
+  "fail_interpretation": "The vectorized EMBER corpus is incomplete, malformed, or label-collapsed.",
+  "failed_criteria": [],
+  "gate_id": "G0_data_provenance",
+  "input_artifacts": [
+    "external:EMBER-2018-vectorized/manifest.json",
+    "external:EMBER-2018-vectorized/X.dat",
+    "external:EMBER-2018-vectorized/y.dat",
+    "external:EMBER-2018-vectorized/month.dat",
+    "external:EMBER-2018-vectorized/subset.dat",
+    "external:EMBER-2018-vectorized/sha256.dat",
+    "external:EMBER-2018-vectorized/avclass.dat",
+    "external:EMBER-2018-vectorized/STATUS.txt"
+  ],
+  "metrics": {
+    "bad_rows": 0,
+    "chunks_done": 202,
+    "files": {
+      "STATUS.txt": {
+        "exists": true,
+        "size_bytes": 83
+      },
+      "X.dat": {
+        "exists": true,
+        "size_bytes": 9524000000
+      },
+      "avclass.dat": {
+        "exists": true,
+        "size_bytes": 32000000
+      },
+      "manifest.json": {
+        "exists": true,
+        "size_bytes": 51620
+      },
+      "month.dat": {
+        "exists": true,
+        "size_bytes": 4000000
+      },
+      "sha256.dat": {
+        "exists": true,
+        "size_bytes": 64000000
+      },
+      "subset.dat": {
+        "exists": true,
+        "size_bytes": 1000000
+      },
+      "y.dat": {
+        "exists": true,
+        "size_bytes": 1000000
+      }
+    },
+    "label_counts": {
+      "-1": 200000,
+      "0": 400000,
+      "1": 400000
+    },
+    "n_chunks": 202,
+    "n_features": 2381,
+    "n_rows": 1000000
+  },
+  "next_allowed_step": "split_integrity",
+  "pass_criteria": {
+    "all_chunks_complete": true,
+    "label_diversity": "both benign and malware labels present",
+    "n_features": 2381,
+    "n_rows": 1000000,
+    "required_files": "all present and non-empty"
+  },
+  "stage": "dataset_acquisition",
+  "verdict": "PASS"
+}

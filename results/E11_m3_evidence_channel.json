@@ -1,0 +1,223 @@
+{
+  "attack_rows": [
+    {
+      "attack": "score_edit",
+      "authenticated_detection_rate": 1.0,
+      "n": 500,
+      "structural_detection_rate": 0.0
+    },
+    {
+      "attack": "explanation_substitution",
+      "authenticated_detection_rate": 1.0,
+      "n": 500,
+      "structural_detection_rate": 0.0
+    },
+    {
+      "attack": "receiver_role_edit",
+      "authenticated_detection_rate": 1.0,
+      "n": 500,
+      "structural_detection_rate": 0.0
+    },
+    {
+      "attack": "sample_rebinding",
+      "authenticated_detection_rate": 1.0,
+      "n": 500,
+      "structural_detection_rate": 0.0
+    },
+    {
+      "attack": "claim_text_edit",
+      "authenticated_detection_rate": 1.0,
+      "n": 500,
+      "structural_detection_rate": 0.0
+    },
+    {
+      "attack": "edge_rebinding",
+      "authenticated_detection_rate": 1.0,
+      "n": 500,
+      "structural_detection_rate": 0.0
+    },
+    {
+      "attack": "evidence_deletion",
+      "authenticated_detection_rate": 1.0,
+      "n": 500,
+      "structural_detection_rate": 1.0
+    }
+  ],
+  "boundary_control": {
+    "compromised_key_bypass_rate": 1.0
+  },
+  "channel_integrity": {
+    "benign_acceptance_rate": 1.0,
+    "clean_channel_accepted": true,
+    "clean_reason": "ok",
+    "external_anchor_used": true,
+    "key_compromise_bypass": true,
+    "key_file_mode": "0600",
+    "key_outside_channel": true,
+    "malicious_detection_rate": 1.0,
+    "tests": [
+      {
+        "accepted": false,
+        "correct": true,
+        "detected": true,
+        "expected_accept": false,
+        "reason": "chain_tag",
+        "test": "content_edit"
+      },
+      {
+        "accepted": false,
+        "correct": true,
+        "detected": true,
+        "expected_accept": false,
+        "reason": "count_or_truncation",
+        "test": "insertion"
+      },
+      {
+        "accepted": false,
+        "correct": true,
+        "detected": true,
+        "expected_accept": false,
+        "reason": "count_or_truncation",
+        "test": "truncation"
+      },
+      {
+        "accepted": false,
+        "correct": true,
+        "detected": true,
+        "expected_accept": false,
+        "reason": "count_or_truncation",
+        "test": "replay"
+      },
+      {
+        "accepted": false,
+        "correct": true,
+        "detected": true,
+        "expected_accept": false,
+        "reason": "sequence",
+        "test": "reorder"
+      },
+      {
+        "accepted": false,
+        "correct": true,
+        "detected": true,
+        "expected_accept": false,
+        "reason": "count_or_truncation",
+        "test": "rollback_prefix"
+      },
+      {
+        "accepted": false,
+        "correct": true,
+        "detected": true,
+        "expected_accept": false,
+        "reason": "chain_tag",
+        "test": "tag_corruption"
+      },
+      {
+        "accepted": true,
+        "correct": true,
+        "detected": false,
+        "expected_accept": true,
+        "reason": "ok",
+        "test": "canonical_rewrite"
+      },
+      {
+        "accepted": true,
+        "correct": true,
+        "detected": false,
+        "expected_accept": true,
+        "reason": "ok",
+        "test": "legitimate_append"
+      },
+      {
+        "accepted": true,
+        "boundary_control": true,
+        "correct": true,
+        "detected": false,
+        "expected_accept": true,
+        "reason": "ok",
+        "test": "key_compromise_full_retag"
+      }
+    ]
+  },
+  "config": {
+    "authenticator": "HMAC-SHA256 controlled stand-in",
+    "n_alerts": 500,
+    "seed": 42,
+    "test_size": 50000,
+    "top_k": 20,
+    "train_size": null
+  },
+  "elapsed_seconds": 192.495,
+  "experiment": "E11_m3_evidence_channel",
+  "gate": {
+    "fail_interpretation": "The evidence-integrity mechanism either rejects clean records, fails to detect channel corruption, or does not expose the authenticity boundary.",
+    "failed_criteria": [],
+    "gate_id": "G3_m3_integrity_mechanism",
+    "input_artifacts": [
+      "EMBER-2018 alert features",
+      "TreeSHAP explanations",
+      "controlled evidence bundles"
+    ],
+    "metrics": {
+      "attack_types": 7,
+      "channel_benign_acceptance_rate": 1.0,
+      "channel_clean_accepted": true,
+      "channel_key_compromise_bypass": true,
+      "channel_malicious_detection_rate": 1.0,
+      "clean_false_reject_rate": 0.0,
+      "compromised_key_bypass_rate": 1.0,
+      "mean_authenticated_detection_rate_well_formed_attacks": 1.0,
+      "mean_structural_detection_rate_well_formed_attacks": 0.0,
+      "median_auth_verify_ms": 0.010792,
+      "minimum_authenticated_detection_rate": 1.0,
+      "n_alerts": 500,
+      "p95_auth_verify_ms": 0.011333049999999999,
+      "structural_clean_false_reject_rate": 0.0
+    },
+    "next_allowed_step": "bounded_C3_manuscript_claim_update",
+    "pass_criteria": {
+      "authenticated_improves_over_structural": "mean authenticated detection > mean structural detection on well-formed edits",
+      "channel_benign_updates": ">=0.99 acceptance for canonical rewrite and legitimate append",
+      "channel_clean_acceptance": "clean authenticated log verifies",
+      "channel_key_compromise_boundary": "compromised authenticator can retag and bypass",
+      "channel_malicious_detection": ">=0.99 across edit/insertion/truncation/replay/reorder/rollback/tag attacks",
+      "clean_false_reject_rate": "<=0.01",
+      "key_compromise_boundary_control": ">=0.99 bypass when attacker can legitimately retag, documenting authenticity assumption",
+      "primary_attack_detection": ">=0.99 for every attack type"
+    },
+    "stage": "M3_evidence_channel_integrity",
+    "verdict": "PASS_WITH_WARNINGS",
+    "warnings": [
+      "This is a controlled producer/verifier channel experiment on static-malware artifacts, not a live SOC compromise.",
+      "HMAC models authenticated provenance with verifier secret outside the attacked channel; key compromise is explicitly outside the protection boundary."
+    ]
+  },
+  "provenance": {
+    "alert_benign_count": 41,
+    "alert_malware_fraction": 0.918,
+    "alert_rate": 0.50958,
+    "auc": 0.9884341487999999,
+    "corpus": "EMBER-2018 feature version 2",
+    "corpus_dir": "data_ember2018",
+    "n_alerts": 500,
+    "split": "EMBER's released temporal split (train 2018-01..10, test 2018-11..12), used as shipped",
+    "test_malware_fraction": 0.5,
+    "test_size": 50000,
+    "test_size_full": 200000,
+    "test_subsample_reason": "stratified, to bound resident memory; preserves the benign/malware ratio and therefore the alert population",
+    "test_subsampled": true,
+    "train_malware_fraction": 0.5,
+    "train_size": 104578,
+    "train_subsample_reason": "matched to E1's BODMAS training size so the corpus is the only variable between the two runs",
+    "train_subsampled": true
+  },
+  "purpose": "controlled M3 corruption test for claim-evidence provenance integrity",
+  "reproducibility": {
+    "git_revision": "a43c96c192b3f0b475d887adcb494a75a9017359",
+    "numpy": "2.4.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "python": "3.14.5",
+    "working_tree_dirty": false
+  },
+  "status": "official"
+}

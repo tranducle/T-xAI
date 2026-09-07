@@ -17,7 +17,8 @@ The current manuscript separates the formal framework from what is empirically e
 - explanation faithfulness, robustness, disclosure, and an illustrative actionability proxy;
 - strict calibration and certificate-abstention behavior;
 - sampled `M1` input perturbations and explanation robustness diagnostics;
-- response-kernel and bridge-related diagnostic quantities;
+- a 500-alert, 18-transformation explanation-only `Delta_z` follow-up that instantiates the formal bridge scope;
+- a controlled `M3` claim-evidence channel experiment with authenticated records and a chained producer/verifier log;
 - disclosure monotonicity and deliberately defective controls;
 - detector and random-seed ablations;
 - one finite Stackelberg release-game instance under `M1` and `M4`.
@@ -25,17 +26,13 @@ The current manuscript separates the formal framework from what is empirically e
 **Not empirically established here:**
 
 - `M2` detector or rule manipulation;
-- `M3` explanation-channel or evidence-record manipulation;
-- the full claim-evidence audit protocol or evidence-authenticity assumption;
+- arbitrary or live-SOC `M3` compromise, including compromised signers or key-management infrastructure;
 - operationally validated actionability in a deployed response workflow;
 - organization-calibrated release-game loss, capability-cost, and information-value terms;
 - human analyst benefit;
-- empirical validation of the robustness-to-decision theorem.
+- cross-corpus or cross-domain generality.
 
-The last point is important. The available experiments perturb detector inputs under `M1`. The
-formal theorem instead assumes explanation-side transformations that leave non-explanation inputs
-fixed. Therefore the repository computes useful bridge-related diagnostics, but those rows are not
-an empirical theorem test.
+The bridge evidence has two distinct scopes. The original `M1` experiments change detector inputs and remain diagnostics outside the formal theorem. The E10 follow-up instead holds inputs, detector outputs, and labels exactly fixed while transforming only delivered explanations. E10 is therefore a numerical instantiation inside the theorem's declared `Delta_z` scope, not an additional proof or a claim of general empirical validation.
 
 See `docs/MANUSCRIPT_ALIGNMENT.md` for the current claim-to-artifact map.
 
@@ -65,6 +62,7 @@ docs/
   RESULTS.md               earlier BODMAS record, retained for provenance
   PROTOCOL.md              experiment protocol record
   EVIDENCE_GATE.md         evidence gate and claim-narrowing record
+  ACCEPTANCE_VALIDATION.md E10/E11 follow-up evidence and claim-permission summary
   figures_numerical_ember.tex
                            generated numerical figure/table source for the current run
 tests/                     unit tests
@@ -121,6 +119,17 @@ python3 experiments/make_figures.py --source section7_ember \
     --bridge E5b_kernel_constant_ember > docs/figures_numerical_ember.tex
 ```
 
+The acceptance-validation follow-ups are reproduced separately so their scope is explicit:
+
+```bash
+python3 experiments/run_acceptance_gates.py
+python3 experiments/run_delta_z_bridge.py
+python3 experiments/run_m3_evidence_channel.py
+python3 experiments/run_acceptance_result_gates.py
+```
+
+E10 and E11 record the Git revision and require a clean working tree for the official evidence package. The committed official records were generated from revision `a43c96c192b3f0b475d887adcb494a75a9017359`.
+
 The expensive preprocessing step is resumable:
 
 ```bash
@@ -134,32 +143,15 @@ python3 experiments/build_ember_matrix.py \
 
 The current manuscript uses the following bounded interpretations.
 
-1. **Strict calibration binds.** None of the four tested explanation maps satisfies the strict
-   certificate profile over all audited alerts. Under this profile T-XAI abstains from issuing a
-   formal certificate. This is not a claim that every explanation from those maps is operationally
-   useless.
-2. **Score-map choice matters.** The constant-control comparison reverses across alternative
-   faithfulness and disclosure instantiations. The result supports publishing the score
-   instantiation with any admissibility verdict rather than treating one score formula as universal.
-3. **Sampled `M1` robustness is diagnostic.** TreeSHAP robustness changes with perturbation budget
-   and sample depth. LIME also carries explainer self-noise, so deterministic and stochastic maps
-   are not interpreted identically.
-4. **Bridge quantities remain numerically loose under `M1`.** Across the recorded diagnostic
-   configurations the computed left-side quantity remains below the corresponding right-side
-   expression. These rows are outside the theorem's explanation-side transformation scope and do
-   not empirically validate the theorem.
-5. **The validators can fail when they should.** Deliberately defective inputs trigger the relevant
-   checks, including disclosure monotonicity, role ordering, faithfulness ordering, and kernel
-   validity controls.
-6. **The release game is solvable for one finite instance.** The reference solution is a pure
-   equilibrium, but its utility model contains partly stipulated terms. The equilibrium width is
-   therefore an instance result, not a deployment recommendation.
-7. **Ablations preserve qualitative patterns, not one universal admissible fraction.** Detector and
-   seed changes leave several qualitative observations intact while changing the quantitative
-   admissibility surface.
+1. **Strict calibration binds.** None of the four tested explanation maps satisfies the strict certificate profile over all audited alerts. T-XAI therefore abstains from issuing that formal certificate; this is not a claim that every individual explanation is useless.
+2. **Score-map choice matters.** The constant-control comparison reverses across alternative faithfulness and disclosure instantiations, so score definitions are part of the auditable policy rather than neutral implementation details.
+3. **Sampled `M1` robustness remains diagnostic.** TreeSHAP robustness changes with perturbation budget and sampling depth, and stochastic explainers carry self-noise. The associated bridge rows remain outside the theorem because they change detector inputs.
+4. **E10 instantiates the theorem inside its declared `Delta_z` scope.** On 500 alerts, 18 deterministic explanation-only transformations leave inputs, detector scores, and labels exactly unchanged. All 12 family/kernel rows satisfy the implemented generic and Dobrushin inequalities; the largest generic LHS/RHS ratio is 0.613. This is an executable within-scope instantiation, not proof or general validation.
+5. **E11 exercises controlled `M3` integrity.** Authenticated provenance rejects all seven tested bundle corruptions with zero observed clean false rejection, while schema/coverage checks miss all six well-formed edits. A chained producer/verifier channel detects edit, insertion, truncation, replay, reorder, rollback, and tag corruption, while accepting canonical reserialization and legitimate append. Full retagging succeeds when the authenticator key and terminal anchor are compromised, which explicitly preserves the authenticity boundary.
+6. **The release game is solvable for one finite instance.** Its equilibrium is an instance result because several utility terms remain stipulated rather than organization-calibrated.
+7. **Ablations preserve qualitative patterns, not one universal admissible fraction.** Detector and seed changes leave several observations intact while changing the quantitative admissibility surface.
 
-For exact numbers, sample counts, and frozen output paths, see `docs/ROUND3_EMBER.md` and the JSON
-files in `results/`.
+Exact E10/E11 numbers and claim boundaries are recorded in `docs/ACCEPTANCE_VALIDATION.md`, `results/E10_delta_z_bridge.json`, `results/E11_m3_evidence_channel.json`, and `results/gates/`.
 
 ## Tests
 

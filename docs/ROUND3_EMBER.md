@@ -7,6 +7,12 @@ mapping and theorem-scope rules are summarized in `MANUSCRIPT_ALIGNMENT.md`.
 
 Raw outputs: `results/*_ember.json`. Every number below is transcribed from those files.
 
+> **Current follow-up.** The manuscript now also reports E10 (`results/E10_delta_z_bridge.json`)
+> and E11 (`results/E11_m3_evidence_channel.json`). E10 supplies the separate, within-scope
+> explanation-only `Delta_z` instantiation that the M1 rows below cannot provide. E11 supplies a
+> controlled authenticated M3 evidence-channel test. See `ACCEPTANCE_VALIDATION.md` and the
+> scientific-gate records under `results/gates/` for their bounded claim permissions.
+
 | | |
 |---|---|
 | Machine | 8-core arm64 laptop, 16 GB RAM, **no GPU** |

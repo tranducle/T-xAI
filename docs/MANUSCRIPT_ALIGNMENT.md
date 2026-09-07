@@ -1,66 +1,54 @@
 # Current manuscript alignment
 
-This file is the reviewer-facing join between the current manuscript and this repository. It is
-written to remain anonymous and avoids hard-coded manuscript equation or theorem numbers wherever
-possible, because those numbers can move during revision.
+This reviewer-facing file joins the current manuscript to the repository while preserving double-anonymous review. It avoids hard-coded equation numbers where revision can move them.
 
 ## Current contribution map
 
-The current manuscript uses four contributions.
-
-| Manuscript contribution | What the repository can support | Evidence boundary |
+| Manuscript contribution | What the repository now supports | Evidence boundary |
 |---|---|---|
-| **C1: Contract** | The computable score, release, transformation, and response slots are instantiated on the numerical substrate. | The repository does not by itself validate the governance semantics of every contract slot. |
-| **C2: Risk and admissibility** | Faithfulness, robustness, disclosure, an illustrative actionability proxy, strict calibration, threshold surfaces, monotonicity, and defective-input controls are measured. | Strict calibration causes certificate abstention for all four tested maps on the current instantiation. Actionability is not an operationally validated workflow metric. |
-| **C3: Threat and audit model** | `M1` input manipulation is measured; `M4` observation appears in the finite release game. | `M2`, `M3`, the full claim-evidence graph, and evidence-channel authenticity are not empirically exercised. C3 therefore remains primarily formal. |
-| **C4: Release game** | One finite release-game instance is solved and sensitivity to selected utility weights is recorded. Bridge-related response quantities are also computed under `M1`. | Several game payoff terms are stipulated rather than organization-calibrated. The `M1` bridge rows are diagnostics, not an empirical theorem test. |
-
-## Current numerical substrate
-
-EMBER-2018 is the primary substrate reported in the current manuscript. The earlier BODMAS run is
-retained because it documents how an unusually separable corpus can collapse the latent-world
-variation needed by the joint world/action analysis. BODMAS is therefore useful provenance and a
-cross-corpus diagnostic, but it is not the headline current evidence.
+| **C1: Contract** | The computable score, release, transformation, response, and evidence-record slots are instantiated on the numerical substrate. | The repository does not validate every organization-specific governance choice. |
+| **C2: Risk and admissibility** | Faithfulness, robustness, disclosure, an illustrative actionability proxy, strict calibration, threshold surfaces, monotonicity, and negative controls are measured. | Strict calibration causes certificate abstention for all four tested maps. Actionability is not an operationally validated workflow metric. |
+| **C3: Threat and audit model** | `M1` input manipulation is measured, `M4` observation appears in the finite game, and E11 exercises controlled `M3` evidence-channel corruption against structural and authenticated verification. | `M2` remains uninstantiated. E11 is not a live-SOC compromise and assumes an uncompromised authenticator/trust anchor; its key-compromise control deliberately bypasses verification. |
+| **C4: Release game and transfer** | One finite release-game instance is solved; M1 bridge quantities are recorded as out-of-scope diagnostics; E10 separately instantiates the formal `Delta_z` bridge scope with explanation-only transformations. | Several game payoff terms remain stipulated. E10 uses one corpus, TreeSHAP, a finite deterministic transformation set, and constructed response kernels. |
 
 ## Bridge-scope rule
 
-The formal robustness-to-decision result assumes explanation-side transformations that leave the
-defender's non-explanation inputs fixed. The available perturbation experiments instead alter the
-input under threat class `M1`. The repository may therefore report the measured left-side and
-right-side quantities, slack, kernel constants, and falsification margins as diagnostics. It must
-not describe those rows as verifying, validating, checking, confirming, or empirically proving the
-theorem.
+Two experiment families must not be conflated. Legacy/main `M1` rows alter detector inputs, so their bridge quantities are diagnostics outside the theorem. E10 holds the input, detector outputs, and labels exactly fixed and changes only delivered explanations. Its 18 deterministic transformations therefore instantiate the declared `Delta_z` scope. All 12 family/kernel rows satisfy the implemented generic and Dobrushin inequalities, with maximum generic LHS/RHS 0.613. This is a numerical instantiation under the theorem assumptions, not proof or general empirical validation.
 
-The internal result key `holds` in legacy JSON and code means only that the computed numerical
-inequality was not violated for that recorded diagnostic configuration. It is retained for backward
-compatibility and must not be read as a theorem-validation flag.
+The legacy JSON key `holds` means only that the implemented numerical inequality is not violated for the supplied arrays. It is not a theorem-validation flag.
+
+## Controlled M3 rule
+
+E11 constructs claim-evidence records from 500 EMBER-derived alerts per attack type. Authenticated provenance rejects all seven tested corruptions with no observed clean false rejection; schema/coverage checks alone miss the six well-formed edit classes. The persistent channel control detects content edit, insertion, truncation, replay, reorder, rollback, and tag corruption and accepts canonical reserialization and a legitimate append. If the attacker possesses the authenticator key and can replace the terminal anchor, a fully retagged corrupted channel verifies. Therefore the supported claim is controlled evidence-channel integrity under an uncompromised trust anchor, not arbitrary M3 or deployed-SOC security.
 
 ## Strict-certificate rule
 
-The current manuscript evaluates a strict certificate profile. If map-level calibration has an
-audited counterexample at a threshold, that map is not T-XAI-certified at that threshold. This is
-certificate abstention. It is not a claim that every explanation generated by the map is useless or
-that a different organizational policy could not use it.
+If map-level calibration has an audited counterexample at a threshold, that map is not T-XAI-certified at that threshold. This is certificate abstention, not a claim that every explanation generated by the map is useless.
 
 ## Evidence still missing for stronger empirical support
 
-1. A controlled `M3` evidence-channel manipulation experiment exercising the claim-evidence audit.
-2. A true explanation-side transformation experiment satisfying the theorem's stated scope.
-3. Operational validation of actionability against a real response workflow or expert-grounded
-   runbook.
-4. Organization-specific calibration of the finite release-game loss, capability-cost, content-value,
-   and utility-weight terms.
-5. Broader external validation beyond the single headline EMBER-2018 corpus and a human workflow
-   study if analyst-facing claims are desired.
+1. External validation across another non-degenerate corpus/domain, detector family, and explanation method.
+2. End-to-end M3 evaluation with independently managed keys, rotation/revocation, concurrent writers, persistent audit storage, endpoint failure, and red-team testing.
+3. Broader/adaptive/stochastic `Delta_z` transformations or a certified supremum over the declared explanation-side family.
+4. Operational validation of actionability against a real or expert-grounded response workflow.
+5. Organization-specific calibration of release-game losses, capability costs, information values, and utility weights.
+6. Human workflow evaluation if analyst-benefit, trust, or usability claims are desired.
 
 These are evidence gaps, not permission to strengthen wording without new data.
 
 ## Artifact records
 
-- `docs/ROUND3_EMBER.md`: current EMBER-2018 numerical record.
-- `results/section7_ember.json`: current main numerical output.
+- `results/E10_delta_z_bridge.json`: official within-scope explanation-side bridge instantiation.
+- `results/E11_m3_evidence_channel.json`: official controlled M3 evidence-channel integrity experiment.
+- `results/gates/G0_data_provenance.json`: corpus provenance gate.
+- `results/gates/G1_preprocessing_integrity.json`: split/leakage gate.
+- `results/gates/G2_baseline_sanity.json`: baseline non-degeneracy gate.
+- `results/gates/G6_acceptance_result_integrity.json`: E10/E11 result-integrity gate.
+- `results/gates/G8_acceptance_claim_permission.json`: allowed and forbidden claim register.
+- `docs/ROUND3_EMBER.md`: main EMBER-2018 numerical record.
+- `results/section7_ember.json`: main numerical output.
 - `results/ablations_ember.json`: detector and seed ablations.
 - `results/E8_release_game_ember.json`: finite release-game record.
 - `results/E4b_self_stability_ember.json`: stochastic-explainer self-stability record.
-- `results/E5b_kernel_constant_ember.json`: kernel-constant diagnostic record.
-- `docs/RESULTS.md`: earlier BODMAS record, retained for provenance.
+- `results/E5b_kernel_constant_ember.json`: M1 kernel/bridge diagnostic record.
+- `docs/RESULTS.md`: earlier BODMAS record retained for provenance.

@@ -1,0 +1,28 @@
+{
+  "fail_interpretation": "The baseline detector/result pipeline is degenerate or numerically invalid.",
+  "failed_criteria": [],
+  "gate_id": "G2_baseline_sanity",
+  "input_artifacts": [
+    "results/section7_ember.json"
+  ],
+  "metrics": {
+    "alert_benign": 63,
+    "alert_malware": 937,
+    "alert_rate": 0.50958,
+    "allowed_structural_nan_count": 36,
+    "allowed_structural_nan_reason": "constant-control bridge has LHS=RHS=0, so the ratio is 0/0 and intentionally undefined",
+    "auc": 0.9884341487999999,
+    "n_alerts": 1000,
+    "numeric_values_checked": 93136,
+    "unexpected_nonfinite": []
+  },
+  "next_allowed_step": "acceptance_upgrade_experiments",
+  "pass_criteria": {
+    "alert_label_diversity": "both benign and malware alerts present",
+    "finite_claim_metrics": "no non-finite values outside documented 0/0 constant-control tightness ratios",
+    "noncollapsed_alert_rate": "0.01 < rate < 0.99",
+    "nondegenerate_auc": "0.5 < AUC < 1.0"
+  },
+  "stage": "baseline_evaluation",
+  "verdict": "PASS"
+}
