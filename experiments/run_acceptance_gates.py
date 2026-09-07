@@ -45,7 +45,7 @@ def g0(corpus) -> dict:
         "gate_id": "G0_data_provenance",
         "stage": "dataset_acquisition",
         "verdict": "PASS" if not failed else "FAIL_REPAIR",
-        "input_artifacts": [str(MATRIX / x) for x in required],
+        "input_artifacts": [f"external:EMBER-2018-vectorized/{x}" for x in required],
         "metrics": {"n_rows": int(manifest["n_rows"]), "n_features": int(manifest["n_features"]), "chunks_done": chunks_done, "n_chunks": n_chunks, "label_counts": counts, "bad_rows": int(len(corpus.bad_rows)), "files": files},
         "pass_criteria": {"required_files": "all present and non-empty", "n_rows": 1_000_000, "n_features": 2381, "all_chunks_complete": True, "label_diversity": "both benign and malware labels present"},
         "failed_criteria": failed,
@@ -81,7 +81,7 @@ def g1(corpus) -> dict:
     return {
         "gate_id":"G1_preprocessing_integrity", "stage":"released_temporal_split",
         "verdict":"PASS" if not failed else "FAIL_REPAIR",
-        "input_artifacts":[str(MATRIX / "sha256.dat"), str(MATRIX / "subset.dat"), str(MATRIX / "y.dat"), str(MATRIX / "month.dat")],
+        "input_artifacts":["external:EMBER-2018-vectorized/sha256.dat", "external:EMBER-2018-vectorized/subset.dat", "external:EMBER-2018-vectorized/y.dat", "external:EMBER-2018-vectorized/month.dat"],
         "metrics":metrics,
         "pass_criteria":{"minimum_split_size":">=100000 labeled rows per split", "label_diversity":"both classes in train and test", "sha_split_overlap":0, "temporal_order":"max(train month) < min(test month)"},
         "failed_criteria":failed, "next_allowed_step":"baseline_sanity",
@@ -121,7 +121,7 @@ def g2() -> dict:
     if not finite: failed.append("finite_claim_metrics")
     return {
         "gate_id":"G2_baseline_sanity", "stage":"baseline_evaluation",
-        "verdict":"PASS" if not failed else "FAIL_REPAIR", "input_artifacts":[str(path)],
+        "verdict":"PASS" if not failed else "FAIL_REPAIR", "input_artifacts":["results/section7_ember.json"],
         "metrics":{"auc":auc,"alert_rate":alert,"n_alerts":n,"alert_benign":benign,"alert_malware":malware,"numeric_values_checked":len(vals),"unexpected_nonfinite":unexpected_nonfinite,"allowed_structural_nan_count":len(allowed_nonfinite),"allowed_structural_nan_reason":"constant-control bridge has LHS=RHS=0, so the ratio is 0/0 and intentionally undefined"},
         "pass_criteria":{"nondegenerate_auc":"0.5 < AUC < 1.0","noncollapsed_alert_rate":"0.01 < rate < 0.99","alert_label_diversity":"both benign and malware alerts present","finite_claim_metrics":"no non-finite values outside documented 0/0 constant-control tightness ratios"},
         "failed_criteria":failed,"next_allowed_step":"acceptance_upgrade_experiments",
